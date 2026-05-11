@@ -3,7 +3,10 @@
 
 <head>
 
-  <!-- 🌍 BASIC SETTINGS -->
+  <!-- =========================================
+       🌍 BASIC SETTINGS
+  ========================================== -->
+
   <meta charset="UTF-8" />
 
   <meta
@@ -11,10 +14,21 @@
     content="width=device-width, initial-scale=1.0"
   />
 
+  <!-- 🌟 SEO -->
+  <meta
+    name="description"
+    content="TaskFlow Pro - Beautiful advanced productivity and task management app."
+  />
+
+  <meta
+    name="theme-color"
+    content="#4f46e5"
+  />
+
   <!-- 🌟 WEBSITE TITLE -->
   <title>TaskFlow Pro | Advanced To-Do App</title>
 
-  <!-- 🎨 CSS FILE -->
+  <!-- 🎨 CSS -->
   <link
     rel="stylesheet"
     href="style.css"
@@ -37,62 +51,104 @@
     rel="stylesheet"
   />
 
+  <!-- 📱 PWA -->
+  <link
+    rel="manifest"
+    href="manifest.json"
+  />
+
 </head>
 
 <body>
 
-  <!-- 🌌 BACKGROUND BLUR CIRCLES -->
+  <!-- =========================================
+       🌌 BACKGROUND EFFECTS
+  ========================================== -->
+
   <div class="bg-circle bg-circle-1"></div>
+
   <div class="bg-circle bg-circle-2"></div>
 
-  <!-- 📦 MAIN APP -->
+  <div class="grid-overlay"></div>
+
+
+  <!-- =========================================
+       📦 MAIN APP
+  ========================================== -->
+
   <div class="container">
 
-    <!-- =========================
+    <!-- =========================================
          🚀 TOP HEADER
-    ========================== -->
+    ========================================== -->
 
-    <div class="top-bar">
+    <header class="top-bar">
 
-      <!-- 📝 TITLE -->
-      <div>
+      <!-- 📝 LEFT -->
+      <div class="hero-text">
 
         <h1 class="app-title">
+
           🚀 TaskFlow Pro
+
         </h1>
 
         <p class="subtitle">
-          Organize your day beautifully
+
+          Organize your life beautifully & stay productive every day
+
         </p>
 
       </div>
 
-      <!-- 🌙 DARK MODE -->
-      <button
-        class="dark-mode-btn"
-        id="darkModeBtn"
-      >
-        🌙
-      </button>
 
-    </div>
+      <!-- 🌙 RIGHT -->
+      <div class="top-actions">
+
+        <!-- 🔔 NOTIFICATIONS -->
+        <button
+          class="icon-btn"
+          id="notificationBtn"
+          title="Notifications"
+        >
+          🔔
+        </button>
+
+        <!-- 🌙 DARK MODE -->
+        <button
+          class="dark-mode-btn"
+          id="darkModeBtn"
+          title="Toggle Theme"
+        >
+          🌙
+        </button>
+
+      </div>
+
+    </header>
 
 
-    <!-- =========================
+    <!-- =========================================
          📊 PRODUCTIVITY DASHBOARD
-    ========================== -->
+    ========================================== -->
 
-    <div class="dashboard">
+    <section class="dashboard">
 
       <!-- 📈 PROGRESS -->
-      <div class="progress-card">
+      <div class="dashboard-card progress-card">
 
         <div class="progress-header">
 
-          <span>📈 Daily Progress</span>
+          <span>
+
+            📈 Daily Progress
+
+          </span>
 
           <span id="progressText">
+
             0%
+
           </span>
 
         </div>
@@ -112,107 +168,212 @@
       <!-- 🔥 STREAK -->
       <div class="dashboard-card">
 
-        <h3>🔥 Streak</h3>
+        <div class="card-icon">
+
+          🔥
+
+        </div>
+
+        <h3>Streak</h3>
 
         <p id="streakCount">
+
           0 Days
+
         </p>
 
       </div>
 
 
-      <!-- ⏰ CLOCK -->
+      <!-- ⏰ LIVE CLOCK -->
       <div class="dashboard-card">
 
-        <h3>⏰ Time</h3>
+        <div class="card-icon">
+
+          ⏰
+
+        </div>
+
+        <h3>Live Time</h3>
 
         <p id="liveClock">
+
           00:00
+
         </p>
 
       </div>
 
-    </div>
+
+      <!-- 🎯 TASK GOAL -->
+      <div class="dashboard-card">
+
+        <div class="card-icon">
+
+          🎯
+
+        </div>
+
+        <h3>Goal</h3>
+
+        <p id="goalText">
+
+          Stay Focused
+
+        </p>
+
+      </div>
+
+    </section>
 
 
-    <!-- 🏆 MOTIVATION -->
-    <div
+    <!-- =========================================
+         🏆 MOTIVATION
+    ========================================== -->
+
+    <section
       class="motivation-box"
       id="motivationBox"
     >
+
       🚀 Start your productive day!
-    </div>
+
+    </section>
 
 
-    <!-- =========================
-         ✏️ INPUT SECTION
-    ========================== -->
+    <!-- =========================================
+         ✏️ TASK CREATOR
+    ========================================== -->
 
-    <div class="input-area">
+    <section class="task-creator">
 
-      <!-- 📝 TASK INPUT -->
-      <input
-        type="text"
-        id="taskInput"
-        placeholder="✨ What needs to be done?"
-      />
+      <div class="input-area">
 
-      <!-- 📅 DATE -->
-      <input
-        type="date"
-        id="dueDateInput"
-      />
+        <!-- 📝 TASK -->
+        <div class="input-group">
 
-      <!-- 🏷️ CATEGORY -->
-      <select id="categoryInput">
+          <label>
 
-        <option value="Personal">
-          🏠 Personal
-        </option>
+            Task
 
-        <option value="Study">
-          📚 Study
-        </option>
+          </label>
 
-        <option value="Work">
-          💼 Work
-        </option>
+          <input
+            type="text"
+            id="taskInput"
+            placeholder="✨ What needs to be done?"
+          />
 
-        <option value="Health">
-          💪 Health
-        </option>
+        </div>
 
-        <option value="Shopping">
-          🛒 Shopping
-        </option>
 
-      </select>
+        <!-- 📅 DATE -->
+        <div class="input-group">
 
-      <!-- 🚨 PRIORITY -->
-      <select id="priorityInput">
+          <label>
 
-        <option value="Low">
-          🟢 Low
-        </option>
+            Due Date
 
-        <option value="Medium">
-          🟡 Medium
-        </option>
+          </label>
 
-        <option value="High">
-          🔴 High
-        </option>
+          <input
+            type="date"
+            id="dueDateInput"
+          />
 
-      </select>
+        </div>
 
-      <!-- ➕ BUTTON -->
-      <button id="addTaskBtn">
 
-        ➕ Add
+        <!-- 🏷️ CATEGORY -->
+        <div class="input-group">
 
-      </button>
+          <label>
 
-    </div>
+            Category
+
+          </label>
+
+          <select id="categoryInput">
+
+            <option value="Personal">
+
+              🏠 Personal
+
+            </option>
+
+            <option value="Study">
+
+              📚 Study
+
+            </option>
+
+            <option value="Work">
+
+              💼 Work
+
+            </option>
+
+            <option value="Health">
+
+              💪 Health
+
+            </option>
+
+            <option value="Shopping">
+
+              🛒 Shopping
+
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- 🚨 PRIORITY -->
+        <div class="input-group">
+
+          <label>
+
+            Priority
+
+          </label>
+
+          <select id="priorityInput">
+
+            <option value="Low">
+
+              🟢 Low
+
+            </option>
+
+            <option value="Medium">
+
+              🟡 Medium
+
+            </option>
+
+            <option value="High">
+
+              🔴 High
+
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- ➕ BUTTON -->
+        <button id="addTaskBtn">
+
+          ➕ Add Task
+
+        </button>
+
+      </div>
+
+    </section>
 
 
     <!-- ⚠️ ERROR -->
@@ -222,11 +383,11 @@
     ></p>
 
 
-    <!-- =========================
-         🔍 SEARCH + FILTERS
-    ========================== -->
+    <!-- =========================================
+         🔍 SEARCH + TOOLBAR
+    ========================================== -->
 
-    <div class="toolbar">
+    <section class="toolbar">
 
       <!-- 🔍 SEARCH -->
       <div class="search-area">
@@ -247,38 +408,74 @@
           class="filter-btn active"
           data-filter="all"
         >
+
           📋 All
+
         </button>
 
         <button
           class="filter-btn"
           data-filter="completed"
         >
+
           ✅ Done
+
         </button>
 
         <button
           class="filter-btn"
           data-filter="pending"
         >
+
           ⏳ Pending
+
         </button>
 
       </div>
 
-    </div>
+
+      <!-- ↕️ SORT -->
+      <div class="sort-area">
+
+        <select id="sortSelect">
+
+          <option value="newest">
+
+            🆕 Newest
+
+          </option>
+
+          <option value="oldest">
+
+            📜 Oldest
+
+          </option>
+
+          <option value="priority">
+
+            🚨 Priority
+
+          </option>
+
+        </select>
+
+      </div>
+
+    </section>
 
 
-    <!-- =========================
-         📊 COUNTERS
-    ========================== -->
+    <!-- =========================================
+         📊 STATS
+    ========================================== -->
 
-    <div class="counters">
+    <section class="counters">
 
       <div class="counter-box">
 
         <span id="totalCount">
+
           0
+
         </span>
 
         <p>Total</p>
@@ -288,7 +485,9 @@
       <div class="counter-box">
 
         <span id="completedCount">
+
           0
+
         </span>
 
         <p>Completed</p>
@@ -298,47 +497,100 @@
       <div class="counter-box">
 
         <span id="pendingCount">
+
           0
+
         </span>
 
         <p>Pending</p>
 
       </div>
 
-    </div>
+    </section>
 
 
-    <!-- =========================
+    <!-- =========================================
          📋 TASK LIST
-    ========================== -->
+    ========================================== -->
 
-    <ul
-      class="task-list"
-      id="taskList"
-    >
+    <section class="task-section">
 
-      <!-- JavaScript Tasks -->
+      <!-- 📌 SECTION HEADER -->
+      <div class="section-title">
 
-    </ul>
+        <h2>
+
+          📋 Your Tasks
+
+        </h2>
+
+        <span id="taskCountLabel">
+
+          0 Tasks
+
+        </span>
+
+      </div>
+
+      <!-- 📋 LIST -->
+      <ul
+        class="task-list"
+        id="taskList"
+      >
+
+        <!-- JavaScript Tasks -->
+
+      </ul>
+
+    </section>
 
 
-    <!-- =========================
-         🗑️ CLEAR BUTTON
-    ========================== -->
+    <!-- =========================================
+         🗑️ FOOTER ACTIONS
+    ========================================== -->
 
-    <button
-      class="clear-all-btn"
-      id="clearAllBtn"
-    >
-      🗑️ Clear All Tasks
-    </button>
+    <footer class="footer-actions">
+
+      <button
+        class="clear-all-btn"
+        id="clearAllBtn"
+      >
+
+        🗑️ Clear All Tasks
+
+      </button>
+
+      <button
+        class="export-btn"
+        id="exportBtn"
+      >
+
+        📤 Export Tasks
+
+      </button>
+
+    </footer>
 
   </div>
 
 
-  <!-- =========================
+  <!-- =========================================
+       🔔 TOAST NOTIFICATIONS
+  ========================================== -->
+
+  <div
+    class="toast"
+    id="toast"
+  >
+
+    Task Added Successfully ✅
+
+  </div>
+
+
+  <!-- =========================================
        🧠 JAVASCRIPT
-  ========================== -->
+  ========================================== -->
 
   <script src="script.js"></script>
 
