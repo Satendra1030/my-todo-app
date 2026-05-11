@@ -1,26 +1,34 @@
-📝 TaskFlow Pro
-This is my personal To-Do App built using HTML + CSS + JavaScript.
+🚀 TaskFlow
+Minimal productivity dashboard for focused workflow and smart task management.
 
-🚀 Features
-Futuristic dark glassmorphism UI
-Add / Edit / Delete tasks
-Priority labels (High / Medium / Low)
-Due date support with overdue alerts
-Task categories (Work, Study, Health, Shopping)
-Live search and filter (All / Completed / Pending)
-Real-time clock and motivation messages
-Productivity progress bar
-Local Storage support
-Fully responsive design
+✨ Features
+Add, edit, delete tasks
+Task priorities (Low, Medium, High)
+Category management
+Due dates
+Search & filter tasks
+Progress tracking
+Completion statistics
+Export tasks as JSON
+Responsive modern UI
+Glassmorphism dark theme
+Local storage support
+
+🎨 UI Highlights
+Dark graphite background
+Blue & purple glow effects
+Rounded glossy cards
+Soft shadows
+Minimal emoji usage
+Smooth animations
+Mobile responsive layout
 
 🛠 Tech Stack
- HTML5
- CSS3
- JavaScript (Vanilla JS)
+HTML5
+CSS3
+JavaScript
+LocalStorage API
+Lucide Icons
 
 🔗 Live Demo
-https://my-todo-app.vercel.app
-
-📬 Contact
-Email: satendrakushwaha1030@gmail.com
-GitHub: https://github.com/Satendra1030
+https://my-todo-app-flame-gamma.vercel.app/
