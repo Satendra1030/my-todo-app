@@ -1,70 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-  <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <meta name="theme-color" content="#050505" />
-
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-
-  <title>TaskFlow</title>
-
-  <!-- FONT -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet" />
-
-  <!-- FAVICON -->
-  <link rel="icon" href="favicon.png" />
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css" />
-
-</head>
+<!-- ======================================================
+     PREMIUM STRUCTURE UPDATE
+====================================================== -->
 
 <body>
 
+  <!-- BACKGROUND GLOW -->
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
 
-  <!-- ======================================================
-       APP LAYOUT
-  ======================================================= -->
+  <!-- APP WRAPPER -->
+  <div class="app-wrapper">
 
-  <div class="layout">
-
-
-    <!-- ======================================================
-         SIDEBAR
-    ======================================================= -->
-
-    <aside class="sidebar">
-
-      <div class="sidebar-top">
-
-        <div class="sidebar-logo">
-
-          <div class="logo-circle"></div>
-
-          <h2>TaskFlow</h2>
-
-        </div>
-
-      </div>
-
-    </aside>
-
-
-
-    <!-- ======================================================
-         MAIN APP
-    ======================================================= -->
-
+    <!-- MAIN APP -->
     <main class="app-container">
 
 
@@ -76,13 +23,17 @@
 
         <div class="logo-section">
 
-          <h1>
-            Productivity Dashboard
-          </h1>
+          <div class="logo-row">
+
+            <div class="logo-circle"></div>
+
+            <h1>TaskFlow</h1>
+
+          </div>
 
           <p>
-            Organize your workflow with a
-            minimal modern experience.
+            Minimal productivity dashboard
+            for focused workflow.
           </p>
 
         </div>
@@ -107,25 +58,35 @@
 
 
       <!-- ======================================================
-           HERO SECTION
+           HERO SECTION (VERTICAL)
       ======================================================= -->
 
-      <section class="hero-section">
+      <section class="hero-section vertical-layout">
 
 
-        <!-- LEFT -->
+        <!-- ======================================================
+             CLARITY SECTION
+        ======================================================= -->
 
         <div class="hero-left">
+
+          <div class="hero-badge">
+
+            ✨ Productivity Simplified
+
+          </div>
+
 
           <h2>
             Manage Tasks
             With Clarity
           </h2>
 
+
           <p>
-            Stay organized, track progress,
-            and maintain productivity with a
-            premium black dashboard interface.
+            Stay organized with a premium
+            dark workspace designed for
+            focus, clarity, and productivity.
           </p>
 
 
@@ -254,21 +215,40 @@
           <!-- MOTIVATION -->
 
           <div id="motivationBox" class="motivation-box">
-            Start your productive day.
+
+            Stay focused and productive.
+
           </div>
 
         </div>
 
 
 
-        <!-- RIGHT -->
+        <!-- ======================================================
+             ADD TASK SECTION
+        ======================================================= -->
 
         <div class="hero-right">
 
-          <h2 class="form-title">
-            Add New Task
-          </h2>
+          <div class="section-heading">
 
+            <div>
+
+              <span class="mini-label">
+                TASK MANAGER
+              </span>
+
+              <h2 class="form-title">
+                Add New Task
+              </h2>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- TASK FORM -->
 
           <section class="task-form">
 
@@ -598,5 +578,3 @@
   <script src="script.js"></script>
 
 </body>
-
-</html>

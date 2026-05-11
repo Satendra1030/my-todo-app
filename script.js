@@ -1,6 +1,6 @@
 // ============================================
-// TASKFLOW — ULTRA BLACK GLOSS EDITION
-// MODERN + MOBILE OPTIMIZED + PROFESSIONAL
+// TASKFLOW — GLASSMORPHIC EDITION
+// PREMIUM PRODUCTIVITY EXPERIENCE
 // ============================================
 
 
@@ -85,7 +85,7 @@ const toast =
 let tasks =
   JSON.parse(
     localStorage.getItem(
-      'taskflow_black_tasks'
+      'taskflow_glass_tasks'
     )
   ) || [];
 
@@ -97,26 +97,26 @@ let currentSort = 'newest';
 
 
 // ============================================
-// MOTIVATION MESSAGES
+// MOTIVATION
 // ============================================
 
 const motivationMessages = [
 
-  'Stay focused and productive.',
+  '🚀 Stay focused and productive.',
 
-  'Small progress matters.',
+  '✨ Small progress still matters.',
 
-  'Consistency builds success.',
+  '🔥 Consistency builds success.',
 
-  'Discipline creates results.',
+  '💡 One task at a time.',
 
-  'One task at a time.',
+  '🎯 Keep moving forward.',
 
-  'Keep moving forward.',
+  '⚡ Finish what you started.',
 
-  'You are doing great.',
+  '📈 Progress beats perfection.',
 
-  'Make today count.'
+  '🌟 Productivity creates momentum.'
 ];
 
 
@@ -128,7 +128,7 @@ function saveTasks() {
 
   localStorage.setItem(
 
-    'taskflow_black_tasks',
+    'taskflow_glass_tasks',
 
     JSON.stringify(tasks)
   );
@@ -205,6 +205,52 @@ function getPriorityClass(priority) {
 
 
 // ============================================
+// PRIORITY EMOJI
+// ============================================
+
+function getPriorityEmoji(priority) {
+
+  switch (priority) {
+
+    case 'High':
+      return '🔴';
+
+    case 'Medium':
+      return '🟡';
+
+    default:
+      return '🟢';
+  }
+}
+
+
+// ============================================
+// CATEGORY EMOJI
+// ============================================
+
+function getCategoryEmoji(category) {
+
+  switch (category) {
+
+    case 'Study':
+      return '📚';
+
+    case 'Work':
+      return '💼';
+
+    case 'Health':
+      return '💪';
+
+    case 'Shopping':
+      return '🛒';
+
+    default:
+      return '🏠';
+  }
+}
+
+
+// ============================================
 // ADD TASK
 // ============================================
 
@@ -262,9 +308,7 @@ function addTask() {
 
   resetInputs();
 
-  showToast(
-    'Task added'
-  );
+  showToast('✅ Task added');
 }
 
 
@@ -305,9 +349,7 @@ function deleteTask(id) {
 
   updateUI();
 
-  showToast(
-    'Task deleted'
-  );
+  showToast('🗑️ Task deleted');
 }
 
 
@@ -337,9 +379,9 @@ function toggleComplete(id) {
 
     task.completed
 
-      ? 'Task completed'
+      ? '🎉 Task completed'
 
-      : 'Task pending'
+      : '📌 Task pending'
   );
 }
 
@@ -379,14 +421,12 @@ function editTask(id) {
 
   renderTasks();
 
-  showToast(
-    'Task updated'
-  );
+  showToast('✏️ Task updated');
 }
 
 
 // ============================================
-// UPDATE COUNTERS
+// COUNTERS
 // ============================================
 
 function updateCounters() {
@@ -417,7 +457,7 @@ function updateCounters() {
 
 
 // ============================================
-// UPDATE PROGRESS
+// PROGRESS
 // ============================================
 
 function updateProgress() {
@@ -455,7 +495,7 @@ function updateProgress() {
 
 
 // ============================================
-// UPDATE STREAK
+// STREAK
 // ============================================
 
 function updateStreak() {
@@ -484,7 +524,7 @@ function updateMotivation() {
   if (completed === 0) {
 
     motivationBox.textContent =
-      'Start your productive day.';
+      '✨ Start your productive day.';
 
     return;
   }
@@ -504,7 +544,7 @@ function updateMotivation() {
 
 
 // ============================================
-// LIVE CLOCK
+// CLOCK
 // ============================================
 
 function updateClock() {
@@ -546,7 +586,6 @@ function getFilteredTasks() {
   if (currentFilter === 'completed') {
 
     filtered =
-
       filtered.filter(
         task => task.completed
       );
@@ -556,7 +595,6 @@ function getFilteredTasks() {
   ) {
 
     filtered =
-
       filtered.filter(
         task => !task.completed
       );
@@ -567,9 +605,7 @@ function getFilteredTasks() {
     case 'oldest':
 
       filtered.sort(
-
         (a, b) =>
-
           new Date(a.createdAt) -
           new Date(b.createdAt)
       );
@@ -588,9 +624,7 @@ function getFilteredTasks() {
       };
 
       filtered.sort(
-
         (a, b) =>
-
           priorityOrder[a.priority] -
           priorityOrder[b.priority]
       );
@@ -600,9 +634,7 @@ function getFilteredTasks() {
     case 'alphabetical':
 
       filtered.sort(
-
         (a, b) =>
-
           a.text.localeCompare(b.text)
       );
 
@@ -611,15 +643,34 @@ function getFilteredTasks() {
     default:
 
       filtered.sort(
-
         (a, b) =>
-
           new Date(b.createdAt) -
           new Date(a.createdAt)
       );
   }
 
   return filtered;
+}
+
+
+// ============================================
+// FORMAT DATE
+// ============================================
+
+function formatDate(dateString) {
+
+  if (!dateString) return '';
+
+  const date =
+    new Date(dateString);
+
+  return date.toLocaleDateString(
+    [],
+    {
+      month: 'short',
+      day: 'numeric'
+    }
+  );
 }
 
 
@@ -641,7 +692,7 @@ function renderTasks() {
       <li class="empty-state">
 
         <div class="empty-icon">
-          ✦
+          ✨
         </div>
 
         <h3>
@@ -649,7 +700,7 @@ function renderTasks() {
         </h3>
 
         <p>
-          Add your first task to begin.
+          Add your first task and start building momentum.
         </p>
 
       </li>
@@ -699,6 +750,7 @@ function renderTasks() {
             priority-badge
             ${getPriorityClass(task.priority)}
           ">
+            ${getPriorityEmoji(task.priority)}
             ${task.priority}
           </span>
 
@@ -707,6 +759,7 @@ function renderTasks() {
         <div class="task-meta">
 
           <span>
+            ${getCategoryEmoji(task.category)}
             ${task.category}
           </span>
 
@@ -717,7 +770,7 @@ function renderTasks() {
               task-date
               ${isOverdue ? 'overdue' : ''}
             ">
-              ${task.dueDate}
+              📅 ${formatDate(task.dueDate)}
             </span>
           `
 
@@ -733,13 +786,13 @@ function renderTasks() {
         <button
           class="icon-btn edit-btn"
         >
-          ✎
+          ✏️
         </button>
 
         <button
           class="icon-btn delete-btn"
         >
-          ✕
+          🗑️
         </button>
 
       </div>
@@ -882,7 +935,6 @@ if (exportBtn) {
     () => {
 
       const data =
-
         JSON.stringify(
           tasks,
           null,
@@ -890,7 +942,6 @@ if (exportBtn) {
         );
 
       const blob =
-
         new Blob(
           [data],
           {
@@ -915,7 +966,7 @@ if (exportBtn) {
       URL.revokeObjectURL(url);
 
       showToast(
-        'Tasks exported'
+        '📦 Tasks exported'
       );
     }
   );
@@ -947,7 +998,7 @@ clearAllBtn.addEventListener(
     updateUI();
 
     showToast(
-      'All tasks deleted'
+      '🧹 All tasks deleted'
     );
   }
 );
@@ -991,7 +1042,7 @@ setInterval(() => {
 
 
 // ============================================
-// INITIALIZE APP
+// INITIALIZE
 // ============================================
 
 window.addEventListener('load', () => {
@@ -1001,5 +1052,4 @@ window.addEventListener('load', () => {
   updateUI();
 
   updateClock();
-
 });
