@@ -1,5 +1,5 @@
 // ============================================
-// 🚀 TASKFLOW PRO ULTRA — PREMIUM VERSION
+// 🚀 TASKFLOW PRO ULTRA — FUTURISTIC VERSION
 // ============================================
 
 
@@ -88,6 +88,43 @@ let currentSort = 'newest';
 
 
 // ============================================
+// 💬 MOTIVATION MESSAGES
+// ============================================
+
+const motivationMessages = [
+
+  '🚀 Stay focused and productive!',
+
+  '🔥 Great things take consistency!',
+
+  '💎 Small progress is still progress!',
+
+  '⚡ Make today count!',
+
+  '🏆 Productivity looks good on you!',
+
+  '🌟 One task at a time!',
+
+  '💜 Discipline beats motivation.',
+
+  '🎯 Finish what you started today.'
+];
+
+
+// ============================================
+// 💾 SAVE TASKS
+// ============================================
+
+function saveTasks() {
+
+  localStorage.setItem(
+    'taskflow_tasks',
+    JSON.stringify(tasks)
+  );
+}
+
+
+// ============================================
 // 🔔 TOAST
 // ============================================
 
@@ -135,7 +172,7 @@ function getCategoryEmoji(category) {
 
 
 // ============================================
-// 🚨 PRIORITY CLASS
+// 🚨 PRIORITY COLORS
 // ============================================
 
 function getPriorityClass(priority) {
@@ -151,43 +188,6 @@ function getPriorityClass(priority) {
     default:
       return 'priority-low';
   }
-}
-
-
-// ============================================
-// 💬 MOTIVATION
-// ============================================
-
-const motivationMessages = [
-
-  '🚀 Stay focused and productive!',
-
-  '🔥 Great things take consistency!',
-
-  '💎 Small progress is still progress!',
-
-  '⚡ Make today count!',
-
-  '🏆 Productivity looks good on you!',
-
-  '🌟 One task at a time!',
-
-  '💜 Discipline beats motivation.',
-
-  '🎯 Finish what you started today.'
-];
-
-
-// ============================================
-// 💾 SAVE TASKS
-// ============================================
-
-function saveTasks() {
-
-  localStorage.setItem(
-    'taskflow_tasks',
-    JSON.stringify(tasks)
-  );
 }
 
 
@@ -253,10 +253,7 @@ function addTask() {
     '✅ Task added successfully'
   );
 
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+  animateDashboard();
 }
 
 
@@ -304,7 +301,7 @@ function deleteTask(id) {
 
 
 // ============================================
-// ✅ COMPLETE TASK
+// ✅ TOGGLE COMPLETE
 // ============================================
 
 function toggleComplete(id) {
@@ -319,30 +316,30 @@ function toggleComplete(id) {
   task.completed =
     !task.completed;
 
-  if (task.completed) {
-
-    document.body.animate(
-      [
-        { filter: 'brightness(1)' },
-        { filter: 'brightness(1.15)' },
-        { filter: 'brightness(1)' }
-      ],
-      {
-        duration: 500
-      }
-    );
-  }
-
   saveTasks();
 
   renderTasks();
 
   updateUI();
 
+  if (task.completed) {
+
+    document.body.animate(
+      [
+        { transform: 'scale(1)' },
+        { transform: 'scale(1.01)' },
+        { transform: 'scale(1)' }
+      ],
+      {
+        duration: 300
+      }
+    );
+  }
+
   showToast(
     task.completed
       ? '🎉 Task completed!'
-      : '↩️ Task marked pending'
+      : '↩️ Task pending again'
   );
 }
 
@@ -463,7 +460,7 @@ function updateStreak() {
 
 
 // ============================================
-// 💬 UPDATE MOTIVATION
+// 💬 MOTIVATION
 // ============================================
 
 function updateMotivation() {
@@ -619,7 +616,7 @@ function renderTasks() {
 
       <li class="empty-state">
 
-        <div class="empty-icon floating">
+        <div class="empty-icon">
           ✨
         </div>
 
@@ -646,11 +643,6 @@ function renderTasks() {
       task-item
       ${task.completed ? 'completed' : ''}
     `;
-
-    li.style.opacity = '0';
-
-    li.style.transform =
-      'translateY(20px)';
 
     const isOverdue =
 
@@ -682,7 +674,6 @@ function renderTasks() {
           <span class="
             priority-badge
             ${getPriorityClass(task.priority)}
-            glow-${task.priority.toLowerCase()}
           ">
             ${task.priority}
           </span>
@@ -700,6 +691,7 @@ function renderTasks() {
             task.dueDate
               ? `
                 <span class="
+                  task-date
                   ${isOverdue ? 'overdue' : ''}
                 ">
                   📅 ${task.dueDate}
@@ -751,15 +743,6 @@ function renderTasks() {
     );
 
     taskList.appendChild(li);
-
-    setTimeout(() => {
-
-      li.style.opacity = '1';
-
-      li.style.transform =
-        'translateY(0)';
-
-    }, 50);
   });
 }
 
@@ -778,6 +761,79 @@ function updateUI() {
 
   updateMotivation();
 }
+
+
+// ============================================
+// ✨ DASHBOARD ANIMATION
+// ============================================
+
+function animateDashboard() {
+
+  document.querySelectorAll(
+    '.dashboard-card'
+  ).forEach(card => {
+
+    card.animate(
+      [
+        {
+          transform: 'translateY(0px)'
+        },
+        {
+          transform: 'translateY(-6px)'
+        },
+        {
+          transform: 'translateY(0px)'
+        }
+      ],
+      {
+        duration: 500
+      }
+    );
+  });
+}
+
+
+// ============================================
+// 🌌 GLOW EFFECT
+// ============================================
+
+document.querySelectorAll(
+  '.dashboard-card'
+).forEach(card => {
+
+  card.addEventListener(
+    'mousemove',
+    e => {
+
+      const rect =
+        card.getBoundingClientRect();
+
+      const x =
+        e.clientX - rect.left;
+
+      const y =
+        e.clientY - rect.top;
+
+      card.style.background =
+        `
+        radial-gradient(
+          circle at ${x}px ${y}px,
+          rgba(59,130,246,0.22),
+          rgba(255,255,255,0.04)
+        )
+        `;
+    }
+  );
+
+  card.addEventListener(
+    'mouseleave',
+    () => {
+
+      card.style.background =
+        'rgba(255,255,255,0.05)';
+    }
+  );
+});
 
 
 // ============================================
@@ -900,7 +956,7 @@ addTaskBtn.addEventListener(
 
 
 // ============================================
-// ✨ LIVE MOTIVATION
+// ✨ AUTO MOTIVATION
 // ============================================
 
 setInterval(() => {
@@ -911,15 +967,18 @@ setInterval(() => {
 
 
 // ============================================
-// 🚀 INITIALIZE
+// 🚀 INITIALIZE APP
 // ============================================
 
-window.addEventListener('load', () => {
+window.addEventListener(
+  'load',
+  () => {
 
-  document.body.classList.add(
-    'loaded'
-  );
-});
+    document.body.classList.add(
+      'loaded'
+    );
+  }
+);
 
 renderTasks();
 
