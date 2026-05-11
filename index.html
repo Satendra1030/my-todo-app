@@ -1,1008 +1,408 @@
-// ============================================
-// 🚀 TASKFLOW PRO ULTRA — MODERN APP LOGIC
-// ============================================
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
 
-// ============================================
-// 📦 DOM ELEMENTS
-// ============================================
+  <!-- ============================================ -->
+  <!-- 🚀 META -->
+  <!-- ============================================ -->
 
-const taskInput =
-  document.getElementById('taskInput');
+  <meta charset="UTF-8" />
 
-const dueDateInput =
-  document.getElementById('dueDateInput');
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-const categoryInput =
-  document.getElementById('categoryInput');
+  <title>
+    TaskFlow Pro Ultra
+  </title>
 
-const priorityInput =
-  document.getElementById('priorityInput');
+  <!-- ============================================ -->
+  <!-- 🎨 GOOGLE FONT -->
+  <!-- ============================================ -->
 
-const addTaskBtn =
-  document.getElementById('addTaskBtn');
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
 
-const taskList =
-  document.getElementById('taskList');
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
 
-const errorMsg =
-  document.getElementById('errorMsg');
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-const darkModeBtn =
-  document.getElementById('darkModeBtn');
+  <!-- ============================================ -->
+  <!-- 🎨 CSS -->
+  <!-- ============================================ -->
 
-const totalCount =
-  document.getElementById('totalCount');
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
 
-const completedCount =
-  document.getElementById('completedCount');
+</head>
 
-const pendingCount =
-  document.getElementById('pendingCount');
+<body class="dark">
 
-const filterBtns =
-  document.querySelectorAll('.filter-btn');
+  <!-- ============================================ -->
+  <!-- 🌌 BACKGROUND -->
+  <!-- ============================================ -->
 
-const searchInput =
-  document.getElementById('searchInput');
+  <div class="bg-blur blur-1"></div>
 
-const progressFill =
-  document.getElementById('progressFill');
+  <div class="bg-blur blur-2"></div>
 
-const progressText =
-  document.getElementById('progressText');
+  <div class="bg-blur blur-3"></div>
 
-const streakCount =
-  document.getElementById('streakCount');
 
-const motivationBox =
-  document.getElementById('motivationBox');
+  <!-- ============================================ -->
+  <!-- 🚀 APP CONTAINER -->
+  <!-- ============================================ -->
 
-const liveClock =
-  document.getElementById('liveClock');
+  <div class="app-container">
 
-const clearAllBtn =
-  document.getElementById('clearAllBtn');
 
-const exportBtn =
-  document.getElementById('exportBtn');
+    <!-- ============================================ -->
+    <!-- 🧠 HEADER -->
+    <!-- ============================================ -->
 
-const sortSelect =
-  document.getElementById('sortSelect');
+    <header class="app-header">
 
-const taskCountLabel =
-  document.getElementById('taskCountLabel');
+      <div>
 
-const toast =
-  document.getElementById('toast');
+        <h1 class="app-title">
+          🚀 TaskFlow Pro
+        </h1>
 
-
-// ============================================
-// 💾 STORAGE
-// ============================================
-
-let tasks =
-  JSON.parse(
-    localStorage.getItem('taskflow_tasks')
-  ) || [];
-
-let currentFilter = 'all';
-
-let currentSearch = '';
-
-let currentSort = 'newest';
-
-let isDarkMode =
-  localStorage.getItem('taskflow_theme') === 'dark';
-
-
-// ============================================
-// 🌙 THEME SYSTEM
-// ============================================
-
-function initializeTheme() {
-
-  if (isDarkMode) {
-
-    document.body.classList.add('dark');
-
-    darkModeBtn.innerHTML = '☀️';
-
-  } else {
-
-    document.body.classList.remove('dark');
-
-    darkModeBtn.innerHTML = '🌙';
-  }
-}
-
-darkModeBtn.addEventListener(
-  'click',
-  () => {
-
-    isDarkMode = !isDarkMode;
-
-    document.body.classList.toggle('dark');
-
-    darkModeBtn.innerHTML =
-      isDarkMode
-        ? '☀️'
-        : '🌙';
-
-    localStorage.setItem(
-      'taskflow_theme',
-      isDarkMode
-        ? 'dark'
-        : 'light'
-    );
-
-    showToast(
-      isDarkMode
-        ? '🌙 Dark mode enabled'
-        : '☀️ Light mode enabled'
-    );
-  }
-);
-
-
-// ============================================
-// 💾 SAVE TASKS
-// ============================================
-
-function saveTasks() {
-
-  localStorage.setItem(
-    'taskflow_tasks',
-    JSON.stringify(tasks)
-  );
-}
-
-
-// ============================================
-// 🔔 TOAST NOTIFICATION
-// ============================================
-
-function showToast(message) {
-
-  if (!toast) return;
-
-  toast.textContent = message;
-
-  toast.classList.add('show');
-
-  clearTimeout(window.toastTimeout);
-
-  window.toastTimeout = setTimeout(() => {
-
-    toast.classList.remove('show');
-
-  }, 2600);
-}
-
-
-// ============================================
-// 🏷️ CATEGORY EMOJIS
-// ============================================
-
-function getCategoryEmoji(category) {
-
-  switch (category) {
-
-    case 'Study':
-      return '📚';
-
-    case 'Work':
-      return '💼';
-
-    case 'Health':
-      return '💪';
-
-    case 'Shopping':
-      return '🛒';
-
-    default:
-      return '🏠';
-  }
-}
-
-
-// ============================================
-// 🚨 PRIORITY CLASS
-// ============================================
-
-function getPriorityClass(priority) {
-
-  switch (priority) {
-
-    case 'High':
-      return 'priority-high';
-
-    case 'Medium':
-      return 'priority-medium';
-
-    default:
-      return 'priority-low';
-  }
-}
-
-
-// ============================================
-// 🎨 RANDOM MOTIVATION
-// ============================================
-
-const motivationMessages = [
-
-  '🚀 Stay focused and productive!',
-
-  '🔥 Great things take consistency!',
-
-  '💎 Small progress is still progress!',
-
-  '⚡ Make today count!',
-
-  '🏆 Productivity looks good on you!',
-
-  '🌟 One task at a time!'
-];
-
-
-// ============================================
-// ➕ ADD TASK
-// ============================================
-
-function addTask() {
-
-  const text =
-    taskInput.value.trim();
-
-  const dueDate =
-    dueDateInput.value;
-
-  const category =
-    categoryInput.value;
-
-  const priority =
-    priorityInput.value;
-
-  // ❌ Validation
-  if (!text) {
-
-    errorMsg.textContent =
-      '⚠️ Please enter a task';
-
-    taskInput.focus();
-
-    return;
-  }
-
-  errorMsg.textContent = '';
-
-  // 🆕 Create Task
-  const newTask = {
-
-    id: Date.now(),
-
-    text,
-
-    dueDate,
-
-    category,
-
-    priority,
-
-    completed: false,
-
-    createdAt: new Date().toISOString()
-  };
-
-  tasks.unshift(newTask);
-
-  saveTasks();
-
-  renderTasks();
-
-  updateUI();
-
-  resetInputs();
-
-  showToast(
-    '✅ Task added successfully'
-  );
-}
-
-
-// ============================================
-// 🧹 RESET INPUTS
-// ============================================
-
-function resetInputs() {
-
-  taskInput.value = '';
-
-  dueDateInput.value = '';
-
-  categoryInput.value = 'Personal';
-
-  priorityInput.value = 'Low';
-
-  taskInput.focus();
-}
-
-
-// ============================================
-// 🗑️ DELETE TASK
-// ============================================
-
-function deleteTask(id) {
-
-  tasks =
-    tasks.filter(
-      task => task.id !== id
-    );
-
-  saveTasks();
-
-  renderTasks();
-
-  updateUI();
-
-  showToast(
-    '🗑️ Task deleted'
-  );
-}
-
-
-// ============================================
-// ✅ COMPLETE TASK
-// ============================================
-
-function toggleComplete(id) {
-
-  const task =
-    tasks.find(
-      task => task.id === id
-    );
-
-  if (!task) return;
-
-  task.completed =
-    !task.completed;
-
-  saveTasks();
-
-  renderTasks();
-
-  updateUI();
-
-  showToast(
-    task.completed
-      ? '🎉 Task completed!'
-      : '↩️ Task marked pending'
-  );
-}
-
-
-// ============================================
-// ✏️ INLINE EDIT TASK
-// ============================================
-
-function editTask(id) {
-
-  const task =
-    tasks.find(
-      task => task.id === id
-    );
-
-  if (!task) return;
-
-  const newText =
-    prompt(
-      '✏️ Edit Task',
-      task.text
-    );
-
-  if (
-    newText === null ||
-    newText.trim() === ''
-  ) {
-    return;
-  }
-
-  task.text =
-    newText.trim();
-
-  saveTasks();
-
-  renderTasks();
-
-  showToast(
-    '✏️ Task updated'
-  );
-}
-
-
-// ============================================
-// 📊 COUNTERS
-// ============================================
-
-function updateCounters() {
-
-  const total =
-    tasks.length;
-
-  const completed =
-    tasks.filter(
-      task => task.completed
-    ).length;
-
-  const pending =
-    total - completed;
-
-  totalCount.textContent =
-    total;
-
-  completedCount.textContent =
-    completed;
-
-  pendingCount.textContent =
-    pending;
-
-  if (taskCountLabel) {
-
-    taskCountLabel.textContent =
-      `${total} Tasks`;
-  }
-}
-
-
-// ============================================
-// 📈 PROGRESS BAR
-// ============================================
-
-function updateProgress() {
-
-  const total =
-    tasks.length;
-
-  const completed =
-    tasks.filter(
-      task => task.completed
-    ).length;
-
-  const percent =
-    total === 0
-      ? 0
-      : Math.round(
-          (completed / total) * 100
-        );
-
-  progressFill.style.width =
-    `${percent}%`;
-
-  progressText.textContent =
-    `${percent}%`;
-}
-
-
-// ============================================
-// 🏆 STREAK
-// ============================================
-
-function updateStreak() {
-
-  const completed =
-    tasks.filter(
-      task => task.completed
-    ).length;
-
-  streakCount.textContent =
-    `${completed} Done`;
-}
-
-
-// ============================================
-// 💬 MOTIVATION
-// ============================================
-
-function updateMotivation() {
-
-  const completed =
-    tasks.filter(
-      task => task.completed
-    ).length;
-
-  if (completed === 0) {
-
-    motivationBox.textContent =
-      '🚀 Start your productive day!';
-
-    return;
-  }
-
-  const randomMessage =
-    motivationMessages[
-      Math.floor(
-        Math.random() *
-        motivationMessages.length
-      )
-    ];
-
-  motivationBox.textContent =
-    randomMessage;
-}
-
-
-// ============================================
-// 🕒 LIVE CLOCK
-// ============================================
-
-function updateClock() {
-
-  const now = new Date();
-
-  liveClock.textContent =
-    now.toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-}
-
-setInterval(updateClock, 1000);
-
-
-// ============================================
-// 🔍 FILTER + SEARCH + SORT
-// ============================================
-
-function getFilteredTasks() {
-
-  let filtered = [...tasks];
-
-  // 🔍 SEARCH
-  filtered =
-    filtered.filter(task =>
-      task.text
-        .toLowerCase()
-        .includes(
-          currentSearch.toLowerCase()
-        )
-    );
-
-  // 🔽 FILTER
-  if (currentFilter === 'completed') {
-
-    filtered =
-      filtered.filter(
-        task => task.completed
-      );
-
-  } else if (
-    currentFilter === 'pending'
-  ) {
-
-    filtered =
-      filtered.filter(
-        task => !task.completed
-      );
-  }
-
-  // ↕️ SORT
-  switch (currentSort) {
-
-    case 'oldest':
-
-      filtered.sort(
-        (a, b) =>
-          new Date(a.createdAt) -
-          new Date(b.createdAt)
-      );
-
-      break;
-
-    case 'priority':
-
-      const priorityOrder = {
-        High: 1,
-        Medium: 2,
-        Low: 3
-      };
-
-      filtered.sort(
-        (a, b) =>
-          priorityOrder[a.priority] -
-          priorityOrder[b.priority]
-      );
-
-      break;
-
-    case 'alphabetical':
-
-      filtered.sort(
-        (a, b) =>
-          a.text.localeCompare(b.text)
-      );
-
-      break;
-
-    default:
-
-      filtered.sort(
-        (a, b) =>
-          new Date(b.createdAt) -
-          new Date(a.createdAt)
-      );
-  }
-
-  return filtered;
-}
-
-
-// ============================================
-// 🖨️ RENDER TASKS
-// ============================================
-
-function renderTasks() {
-
-  taskList.innerHTML = '';
-
-  const filteredTasks =
-    getFilteredTasks();
-
-  // 📭 Empty State
-  if (filteredTasks.length === 0) {
-
-    taskList.innerHTML = `
-
-      <li class="empty-state">
-
-        <div class="empty-icon">
-          📝
-        </div>
-
-        <h3>
-          No tasks found
-        </h3>
-
-        <p>
-          Add a task and start being productive.
+        <p class="app-subtitle">
+          Organize your productivity beautifully
         </p>
 
-      </li>
+      </div>
 
-    `;
 
-    return;
-  }
+      <!-- 🌙 THEME BUTTON -->
+      <button
+        id="darkModeBtn"
+        class="theme-btn"
+      >
+        🌙
+      </button>
 
-  // 📋 Loop Tasks
-  filteredTasks.forEach(task => {
+    </header>
 
-    const li =
-      document.createElement('li');
 
-    li.className = `
-      task-item
-      ${task.completed ? 'completed' : ''}
-    `;
+    <!-- ============================================ -->
+    <!-- 📊 STATS -->
+    <!-- ============================================ -->
 
-    // 📅 Overdue
-    const isOverdue =
-      task.dueDate &&
-      task.dueDate <
-      new Date()
-        .toISOString()
-        .split('T')[0] &&
-      !task.completed;
+    <section class="stats-grid">
 
-    li.innerHTML = `
+      <div class="stat-card glass">
 
-      <!-- ✅ CHECKBOX -->
-      <label class="checkbox-wrapper">
+        <h3>Total</h3>
+
+        <span id="totalCount">
+          0
+        </span>
+
+      </div>
+
+      <div class="stat-card glass">
+
+        <h3>Completed</h3>
+
+        <span id="completedCount">
+          0
+        </span>
+
+      </div>
+
+      <div class="stat-card glass">
+
+        <h3>Pending</h3>
+
+        <span id="pendingCount">
+          0
+        </span>
+
+      </div>
+
+      <div class="stat-card glass">
+
+        <h3>Streak</h3>
+
+        <span id="streakCount">
+          0 Done
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 📈 PROGRESS -->
+    <!-- ============================================ -->
+
+    <section class="glass progress-section">
+
+      <div class="progress-header">
+
+        <span>
+          Productivity Progress
+        </span>
+
+        <span id="progressText">
+          0%
+        </span>
+
+      </div>
+
+      <div class="progress-bar">
+
+        <div
+          id="progressFill"
+          class="progress-fill"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 💬 MOTIVATION -->
+    <!-- ============================================ -->
+
+    <section
+      id="motivationBox"
+      class="glass motivation-box"
+    >
+      🚀 Start your productive day!
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- ⏰ CLOCK -->
+    <!-- ============================================ -->
+
+    <section class="glass live-clock-card">
+
+      <span>
+        Current Time
+      </span>
+
+      <h2 id="liveClock">
+        00:00
+      </h2>
+
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- ➕ ADD TASK -->
+    <!-- ============================================ -->
+
+    <section class="glass add-task-card">
+
+      <div class="input-group">
 
         <input
-          type="checkbox"
-          class="task-checkbox"
-          ${task.completed ? 'checked' : ''}
-        >
-
-        <span class="custom-checkbox"></span>
-
-      </label>
-
-
-      <!-- 📝 TASK CONTENT -->
-      <div class="task-content">
-
-        <div class="task-top-row">
-
-          <span class="task-text">
-
-            ${task.text}
-
-          </span>
-
-          <span class="
-            priority-badge
-            ${getPriorityClass(task.priority)}
-          ">
-
-            ${task.priority}
-
-          </span>
-
-        </div>
-
-
-        <div class="task-meta">
-
-          <span class="task-category">
-
-            ${getCategoryEmoji(task.category)}
-            ${task.category}
-
-          </span>
-
-          ${
-            task.dueDate
-            ? `
-              <span class="
-                task-due-date
-                ${isOverdue ? 'overdue' : ''}
-              ">
-                📅 ${task.dueDate}
-              </span>
-            `
-            : ''
-          }
-
-        </div>
+          type="text"
+          id="taskInput"
+          placeholder="Enter your task..."
+        />
 
       </div>
 
 
-      <!-- ⚙️ ACTIONS -->
-      <div class="task-actions">
+      <div class="task-options">
+
+        <input
+          type="date"
+          id="dueDateInput"
+        />
+
+
+        <select id="categoryInput">
+
+          <option value="Personal">
+            🏠 Personal
+          </option>
+
+          <option value="Study">
+            📚 Study
+          </option>
+
+          <option value="Work">
+            💼 Work
+          </option>
+
+          <option value="Health">
+            💪 Health
+          </option>
+
+          <option value="Shopping">
+            🛒 Shopping
+          </option>
+
+        </select>
+
+
+        <select id="priorityInput">
+
+          <option value="Low">
+            🟢 Low
+          </option>
+
+          <option value="Medium">
+            🟠 Medium
+          </option>
+
+          <option value="High">
+            🔴 High
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <button
+        id="addTaskBtn"
+        class="add-btn"
+      >
+        ➕ Add Task
+      </button>
+
+      <p id="errorMsg"></p>
+
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 🔍 SEARCH + FILTER -->
+    <!-- ============================================ -->
+
+    <section class="glass tools-section">
+
+      <div class="search-box">
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search tasks..."
+        />
+
+      </div>
+
+
+      <div class="filter-buttons">
 
         <button
-          class="edit-btn"
-          title="Edit Task"
+          class="filter-btn active"
+          data-filter="all"
         >
-          ✏️
+          All
         </button>
 
         <button
-          class="delete-btn"
-          title="Delete Task"
+          class="filter-btn"
+          data-filter="completed"
         >
-          🗑️
+          Completed
+        </button>
+
+        <button
+          class="filter-btn"
+          data-filter="pending"
+        >
+          Pending
         </button>
 
       </div>
-    `;
 
-    // ✅ Toggle Complete
-    li.querySelector(
-      '.task-checkbox'
-    ).addEventListener(
-      'change',
-      () => toggleComplete(task.id)
-    );
 
-    // ✏️ Edit
-    li.querySelector(
-      '.edit-btn'
-    ).addEventListener(
-      'click',
-      () => editTask(task.id)
-    );
+      <div class="sort-box">
 
-    // 🗑️ Delete
-    li.querySelector(
-      '.delete-btn'
-    ).addEventListener(
-      'click',
-      () => deleteTask(task.id)
-    );
+        <select id="sortSelect">
 
-    taskList.appendChild(li);
-  });
-}
+          <option value="newest">
+            Newest
+          </option>
 
+          <option value="oldest">
+            Oldest
+          </option>
 
-// ============================================
-// 🔄 UPDATE ALL UI
-// ============================================
+          <option value="priority">
+            Priority
+          </option>
 
-function updateUI() {
+          <option value="alphabetical">
+            A-Z
+          </option>
 
-  updateCounters();
+        </select>
 
-  updateProgress();
+      </div>
 
-  updateStreak();
+    </section>
 
-  updateMotivation();
-}
 
+    <!-- ============================================ -->
+    <!-- 📋 TASK HEADER -->
+    <!-- ============================================ -->
 
-// ============================================
-// 🔍 SEARCH
-// ============================================
+    <section class="task-header">
 
-searchInput.addEventListener(
-  'input',
-  e => {
+      <h2 id="taskCountLabel">
+        0 Tasks
+      </h2>
 
-    currentSearch =
-      e.target.value;
+      <button
+        id="clearAllBtn"
+        class="clear-btn"
+      >
+        🗑️ Clear All
+      </button>
 
-    renderTasks();
-  }
-);
+    </section>
 
 
-// ============================================
-// 🔽 FILTER BUTTONS
-// ============================================
+    <!-- ============================================ -->
+    <!-- 📋 TASK LIST -->
+    <!-- ============================================ -->
 
-filterBtns.forEach(btn => {
+    <ul
+      id="taskList"
+      class="task-list"
+    ></ul>
 
-  btn.addEventListener(
-    'click',
-    () => {
 
-      filterBtns.forEach(button =>
-        button.classList.remove(
-          'active'
-        )
-      );
+    <!-- ============================================ -->
+    <!-- 🔔 TOAST -->
+    <!-- ============================================ -->
 
-      btn.classList.add(
-        'active'
-      );
+    <div id="toast"></div>
 
-      currentFilter =
-        btn.dataset.filter;
+  </div>
 
-      renderTasks();
-    }
-  );
-});
 
+  <!-- ============================================ -->
+  <!-- 📜 JAVASCRIPT -->
+  <!-- ============================================ -->
 
-// ============================================
-// ↕️ SORT SELECT
-// ============================================
+  <script src="script.js"></script>
 
-if (sortSelect) {
+</body>
 
-  sortSelect.addEventListener(
-    'change',
-    e => {
-
-      currentSort =
-        e.target.value;
-
-      renderTasks();
-    }
-  );
-}
-
-
-// ============================================
-// 🗑️ CLEAR ALL TASKS
-// ============================================
-
-clearAllBtn.addEventListener(
-  'click',
-  () => {
-
-    if (
-      !confirm(
-        'Delete all tasks?'
-      )
-    ) {
-      return;
-    }
-
-    tasks = [];
-
-    saveTasks();
-
-    renderTasks();
-
-    updateUI();
-
-    showToast(
-      '🗑️ All tasks deleted'
-    );
-  }
-);
-
-
-// ============================================
-// 📤 EXPORT TASKS
-// ============================================
-
-if (exportBtn) {
-
-  exportBtn.addEventListener(
-    'click',
-    () => {
-
-      const data =
-        JSON.stringify(
-          tasks,
-          null,
-          2
-        );
-
-      const blob =
-        new Blob(
-          [data],
-          {
-            type:
-              'application/json'
-          }
-        );
-
-      const url =
-        URL.createObjectURL(blob);
-
-      const a =
-        document.createElement('a');
-
-      a.href = url;
-
-      a.download =
-        'taskflow-tasks.json';
-
-      a.click();
-
-      URL.revokeObjectURL(url);
-
-      showToast(
-        '📤 Tasks exported'
-      );
-    }
-  );
-}
-
-
-// ============================================
-// ⌨️ ENTER KEY
-// ============================================
-
-taskInput.addEventListener(
-  'keydown',
-  e => {
-
-    if (e.key === 'Enter') {
-
-      addTask();
-    }
-  }
-);
-
-
-// ============================================
-// ➕ ADD BUTTON
-// ============================================
-
-addTaskBtn.addEventListener(
-  'click',
-  addTask
-);
-
-
-// ============================================
-// 🚀 INITIALIZE APP
-// ============================================
-
-initializeTheme();
-
-renderTasks();
-
-updateUI();
-
-updateClock();
+</html>

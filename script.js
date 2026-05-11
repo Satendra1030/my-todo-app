@@ -1,5 +1,5 @@
 // ============================================
-// 🚀 TASKFLOW PRO ULTRA — FINAL MODERN DARK APP
+// 🚀 TASKFLOW PRO ULTRA — FINAL DARK VERSION
 // ============================================
 
 
@@ -27,6 +27,9 @@ const taskList =
 
 const errorMsg =
   document.getElementById('errorMsg');
+
+const darkModeBtn =
+  document.getElementById('darkModeBtn');
 
 const totalCount =
   document.getElementById('totalCount');
@@ -61,6 +64,9 @@ const liveClock =
 const clearAllBtn =
   document.getElementById('clearAllBtn');
 
+const exportBtn =
+  document.getElementById('exportBtn');
+
 const sortSelect =
   document.getElementById('sortSelect');
 
@@ -77,6 +83,13 @@ const toast =
 
 document.body.classList.add('dark');
 
+// Hide dark mode button completely
+if (darkModeBtn) {
+
+  darkModeBtn.style.display = 'none';
+
+}
+
 
 // ============================================
 // 💾 STORAGE
@@ -84,9 +97,7 @@ document.body.classList.add('dark');
 
 let tasks =
   JSON.parse(
-    localStorage.getItem(
-      'taskflow_tasks'
-    )
+    localStorage.getItem('taskflow_tasks')
   ) || [];
 
 let currentFilter = 'all';
@@ -121,23 +132,19 @@ function showToast(message) {
 
   toast.classList.add('show');
 
-  clearTimeout(
-    window.toastTimeout
-  );
+  clearTimeout(window.toastTimeout);
 
   window.toastTimeout =
     setTimeout(() => {
 
-      toast.classList.remove(
-        'show'
-      );
+      toast.classList.remove('show');
 
-    }, 2500);
+    }, 2600);
 }
 
 
 // ============================================
-// 🏷️ CATEGORY EMOJIS
+// 🏷️ CATEGORY EMOJI
 // ============================================
 
 function getCategoryEmoji(category) {
@@ -190,15 +197,15 @@ const motivationMessages = [
 
   '🚀 Stay focused and productive!',
 
-  '🔥 Consistency creates success!',
+  '🔥 Great things take consistency!',
 
-  '⚡ One task at a time!',
+  '💎 Small progress is still progress!',
 
-  '💎 Progress beats perfection!',
+  '⚡ Make today count!',
 
   '🏆 Productivity looks good on you!',
 
-  '🌟 Keep pushing forward!'
+  '🌟 One task at a time!'
 ];
 
 
@@ -233,7 +240,7 @@ function addTask() {
 
   errorMsg.textContent = '';
 
-  // 🆕 New Task
+  // 🆕 Create Task
   const newTask = {
 
     id: Date.now(),
@@ -334,10 +341,9 @@ function toggleComplete(id) {
   updateUI();
 
   showToast(
-
     task.completed
       ? '🎉 Task completed!'
-      : '↩️ Task pending'
+      : '↩️ Task marked pending'
   );
 }
 
@@ -502,17 +508,12 @@ function updateClock() {
 
   liveClock.textContent =
     now.toLocaleTimeString([], {
-
       hour: '2-digit',
-
       minute: '2-digit'
     });
 }
 
-setInterval(
-  updateClock,
-  1000
-);
+setInterval(updateClock, 1000);
 
 
 // ============================================
@@ -523,7 +524,7 @@ function getFilteredTasks() {
 
   let filtered = [...tasks];
 
-  // 🔍 Search
+  // 🔍 SEARCH
   filtered =
     filtered.filter(task =>
       task.text
@@ -533,10 +534,9 @@ function getFilteredTasks() {
         )
     );
 
-  // 🔽 Filter
+  // 🔽 FILTER
   if (
-    currentFilter ===
-    'completed'
+    currentFilter === 'completed'
   ) {
 
     filtered =
@@ -545,8 +545,7 @@ function getFilteredTasks() {
       );
 
   } else if (
-    currentFilter ===
-    'pending'
+    currentFilter === 'pending'
   ) {
 
     filtered =
@@ -555,7 +554,7 @@ function getFilteredTasks() {
       );
   }
 
-  // ↕️ Sort
+  // ↕️ SORT
   switch (currentSort) {
 
     case 'oldest':
@@ -571,11 +570,8 @@ function getFilteredTasks() {
     case 'priority':
 
       const priorityOrder = {
-
         High: 1,
-
         Medium: 2,
-
         Low: 3
       };
 
@@ -591,9 +587,7 @@ function getFilteredTasks() {
 
       filtered.sort(
         (a, b) =>
-          a.text.localeCompare(
-            b.text
-          )
+          a.text.localeCompare(b.text)
       );
 
       break;
@@ -640,7 +634,7 @@ function renderTasks() {
         </h3>
 
         <p>
-          Add tasks and stay productive.
+          Add a task and start being productive.
         </p>
 
       </li>
@@ -650,7 +644,7 @@ function renderTasks() {
     return;
   }
 
-  // 📋 Render Tasks
+  // 📋 Loop Tasks
   filteredTasks.forEach(task => {
 
     const li =
@@ -663,14 +657,11 @@ function renderTasks() {
 
     // 📅 Overdue
     const isOverdue =
-
       task.dueDate &&
-
       task.dueDate <
       new Date()
         .toISOString()
         .split('T')[0] &&
-
       !task.completed;
 
     li.innerHTML = `
@@ -706,6 +697,7 @@ function renderTasks() {
           </span>
 
         </div>
+
 
         <div class="task-meta">
 
@@ -759,8 +751,7 @@ function renderTasks() {
       '.task-checkbox'
     ).addEventListener(
       'change',
-      () =>
-        toggleComplete(task.id)
+      () => toggleComplete(task.id)
     );
 
     // ✏️ Edit
@@ -768,8 +759,7 @@ function renderTasks() {
       '.edit-btn'
     ).addEventListener(
       'click',
-      () =>
-        editTask(task.id)
+      () => editTask(task.id)
     );
 
     // 🗑️ Delete
@@ -777,8 +767,7 @@ function renderTasks() {
       '.delete-btn'
     ).addEventListener(
       'click',
-      () =>
-        deleteTask(task.id)
+      () => deleteTask(task.id)
     );
 
     taskList.appendChild(li);
@@ -848,7 +837,7 @@ filterBtns.forEach(btn => {
 
 
 // ============================================
-// ↕️ SORT SELECT
+// ↕️ SORT
 // ============================================
 
 if (sortSelect) {
@@ -874,12 +863,13 @@ clearAllBtn.addEventListener(
   'click',
   () => {
 
-    const confirmed =
-      confirm(
+    if (
+      !confirm(
         'Delete all tasks?'
-      );
-
-    if (!confirmed) return;
+      )
+    ) {
+      return;
+    }
 
     tasks = [];
 
@@ -894,6 +884,55 @@ clearAllBtn.addEventListener(
     );
   }
 );
+
+
+// ============================================
+// 📤 EXPORT TASKS
+// ============================================
+
+if (exportBtn) {
+
+  exportBtn.addEventListener(
+    'click',
+    () => {
+
+      const data =
+        JSON.stringify(
+          tasks,
+          null,
+          2
+        );
+
+      const blob =
+        new Blob(
+          [data],
+          {
+            type:
+              'application/json'
+          }
+        );
+
+      const url =
+        URL.createObjectURL(blob);
+
+      const a =
+        document.createElement('a');
+
+      a.href = url;
+
+      a.download =
+        'taskflow-tasks.json';
+
+      a.click();
+
+      URL.revokeObjectURL(url);
+
+      showToast(
+        '📤 Tasks exported'
+      );
+    }
+  );
+}
 
 
 // ============================================
