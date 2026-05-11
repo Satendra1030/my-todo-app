@@ -1,10 +1,10 @@
 // ============================================
-// 🚀 TASKFLOW PRO — ADVANCED JAVASCRIPT
+// 🚀 TASKFLOW PRO ULTRA — MODERN APP LOGIC
 // ============================================
 
 
 // ============================================
-// 📦 ELEMENTS
+// 📦 DOM ELEMENTS
 // ============================================
 
 const taskInput =
@@ -67,14 +67,14 @@ const clearAllBtn =
 const exportBtn =
   document.getElementById('exportBtn');
 
-const toast =
-  document.getElementById('toast');
-
 const sortSelect =
   document.getElementById('sortSelect');
 
 const taskCountLabel =
   document.getElementById('taskCountLabel');
+
+const toast =
+  document.getElementById('toast');
 
 
 // ============================================
@@ -83,7 +83,7 @@ const taskCountLabel =
 
 let tasks =
   JSON.parse(
-    localStorage.getItem('tasks')
+    localStorage.getItem('taskflow_tasks')
   ) || [];
 
 let currentFilter = 'all';
@@ -93,18 +93,27 @@ let currentSearch = '';
 let currentSort = 'newest';
 
 let isDarkMode =
-  localStorage.getItem('darkMode') === 'true';
+  localStorage.getItem('taskflow_theme') === 'dark';
 
 
 // ============================================
-// 🌙 DARK MODE
+// 🌙 THEME SYSTEM
 // ============================================
 
-if (isDarkMode) {
+function initializeTheme() {
 
-  document.body.classList.add('dark');
+  if (isDarkMode) {
 
-  darkModeBtn.textContent = '☀️';
+    document.body.classList.add('dark');
+
+    darkModeBtn.innerHTML = '☀️';
+
+  } else {
+
+    document.body.classList.remove('dark');
+
+    darkModeBtn.innerHTML = '🌙';
+  }
 }
 
 darkModeBtn.addEventListener(
@@ -113,16 +122,24 @@ darkModeBtn.addEventListener(
 
     isDarkMode = !isDarkMode;
 
-    document.body.classList.toggle(
-      'dark'
-    );
+    document.body.classList.toggle('dark');
 
-    darkModeBtn.textContent =
-      isDarkMode ? '☀️' : '🌙';
+    darkModeBtn.innerHTML =
+      isDarkMode
+        ? '☀️'
+        : '🌙';
 
     localStorage.setItem(
-      'darkMode',
+      'taskflow_theme',
       isDarkMode
+        ? 'dark'
+        : 'light'
+    );
+
+    showToast(
+      isDarkMode
+        ? '🌙 Dark mode enabled'
+        : '☀️ Light mode enabled'
     );
   }
 );
@@ -135,32 +152,36 @@ darkModeBtn.addEventListener(
 function saveTasks() {
 
   localStorage.setItem(
-    'tasks',
+    'taskflow_tasks',
     JSON.stringify(tasks)
   );
 }
 
 
 // ============================================
-// 🔔 TOAST
+// 🔔 TOAST NOTIFICATION
 // ============================================
 
 function showToast(message) {
+
+  if (!toast) return;
 
   toast.textContent = message;
 
   toast.classList.add('show');
 
-  setTimeout(() => {
+  clearTimeout(window.toastTimeout);
+
+  window.toastTimeout = setTimeout(() => {
 
     toast.classList.remove('show');
 
-  }, 2500);
+  }, 2600);
 }
 
 
 // ============================================
-// 🏷️ CATEGORY EMOJI
+// 🏷️ CATEGORY EMOJIS
 // ============================================
 
 function getCategoryEmoji(category) {
@@ -186,7 +207,7 @@ function getCategoryEmoji(category) {
 
 
 // ============================================
-// 🚨 PRIORITY COLOR
+// 🚨 PRIORITY CLASS
 // ============================================
 
 function getPriorityClass(priority) {
@@ -203,6 +224,26 @@ function getPriorityClass(priority) {
       return 'priority-low';
   }
 }
+
+
+// ============================================
+// 🎨 RANDOM MOTIVATION
+// ============================================
+
+const motivationMessages = [
+
+  '🚀 Stay focused and productive!',
+
+  '🔥 Great things take consistency!',
+
+  '💎 Small progress is still progress!',
+
+  '⚡ Make today count!',
+
+  '🏆 Productivity looks good on you!',
+
+  '🌟 One task at a time!'
+];
 
 
 // ============================================
@@ -224,10 +265,10 @@ function addTask() {
     priorityInput.value;
 
   // ❌ Validation
-  if (text === '') {
+  if (!text) {
 
     errorMsg.textContent =
-      '⚠️ Please enter a task!';
+      '⚠️ Please enter a task';
 
     taskInput.focus();
 
@@ -236,7 +277,7 @@ function addTask() {
 
   errorMsg.textContent = '';
 
-  // 🆕 New Task Object
+  // 🆕 Create Task
   const newTask = {
 
     id: Date.now(),
@@ -260,16 +301,12 @@ function addTask() {
 
   renderTasks();
 
-  updateCounters();
-
-  updateProgress();
-
-  updateMotivation();
+  updateUI();
 
   resetInputs();
 
   showToast(
-    '✅ Task added successfully!'
+    '✅ Task added successfully'
   );
 }
 
@@ -307,11 +344,7 @@ function deleteTask(id) {
 
   renderTasks();
 
-  updateCounters();
-
-  updateProgress();
-
-  updateMotivation();
+  updateUI();
 
   showToast(
     '🗑️ Task deleted'
@@ -320,7 +353,7 @@ function deleteTask(id) {
 
 
 // ============================================
-// ✅ TOGGLE COMPLETE
+// ✅ COMPLETE TASK
 // ============================================
 
 function toggleComplete(id) {
@@ -339,11 +372,7 @@ function toggleComplete(id) {
 
   renderTasks();
 
-  updateCounters();
-
-  updateProgress();
-
-  updateMotivation();
+  updateUI();
 
   showToast(
     task.completed
@@ -354,7 +383,7 @@ function toggleComplete(id) {
 
 
 // ============================================
-// ✏️ EDIT TASK
+// ✏️ INLINE EDIT TASK
 // ============================================
 
 function editTask(id) {
@@ -368,7 +397,7 @@ function editTask(id) {
 
   const newText =
     prompt(
-      'Edit your task:',
+      '✏️ Edit Task',
       task.text
     );
 
@@ -379,7 +408,8 @@ function editTask(id) {
     return;
   }
 
-  task.text = newText.trim();
+  task.text =
+    newText.trim();
 
   saveTasks();
 
@@ -417,13 +447,16 @@ function updateCounters() {
   pendingCount.textContent =
     pending;
 
-  taskCountLabel.textContent =
-    `${total} Tasks`;
+  if (taskCountLabel) {
+
+    taskCountLabel.textContent =
+      `${total} Tasks`;
+  }
 }
 
 
 // ============================================
-// 📈 PROGRESS
+// 📈 PROGRESS BAR
 // ============================================
 
 function updateProgress() {
@@ -452,41 +485,7 @@ function updateProgress() {
 
 
 // ============================================
-// 🏆 MOTIVATION
-// ============================================
-
-function updateMotivation() {
-
-  const completed =
-    tasks.filter(
-      task => task.completed
-    ).length;
-
-  if (completed === 0) {
-
-    motivationBox.textContent =
-      '🚀 Start your productive day!';
-
-  } else if (completed < 3) {
-
-    motivationBox.textContent =
-      '🔥 Nice start! Keep going!';
-
-  } else if (completed < 6) {
-
-    motivationBox.textContent =
-      '💪 You are crushing today!';
-
-  } else {
-
-    motivationBox.textContent =
-      '🏆 Productivity master!';
-  }
-}
-
-
-// ============================================
-// 🔥 STREAK
+// 🏆 STREAK
 // ============================================
 
 function updateStreak() {
@@ -502,7 +501,39 @@ function updateStreak() {
 
 
 // ============================================
-// ⏰ LIVE CLOCK
+// 💬 MOTIVATION
+// ============================================
+
+function updateMotivation() {
+
+  const completed =
+    tasks.filter(
+      task => task.completed
+    ).length;
+
+  if (completed === 0) {
+
+    motivationBox.textContent =
+      '🚀 Start your productive day!';
+
+    return;
+  }
+
+  const randomMessage =
+    motivationMessages[
+      Math.floor(
+        Math.random() *
+        motivationMessages.length
+      )
+    ];
+
+  motivationBox.textContent =
+    randomMessage;
+}
+
+
+// ============================================
+// 🕒 LIVE CLOCK
 // ============================================
 
 function updateClock() {
@@ -518,8 +549,6 @@ function updateClock() {
 
 setInterval(updateClock, 1000);
 
-updateClock();
-
 
 // ============================================
 // 🔍 FILTER + SEARCH + SORT
@@ -529,16 +558,17 @@ function getFilteredTasks() {
 
   let filtered = [...tasks];
 
-  // 🔍 Search
-  filtered = filtered.filter(task =>
-    task.text
-      .toLowerCase()
-      .includes(
-        currentSearch.toLowerCase()
-      )
-  );
+  // 🔍 SEARCH
+  filtered =
+    filtered.filter(task =>
+      task.text
+        .toLowerCase()
+        .includes(
+          currentSearch.toLowerCase()
+        )
+    );
 
-  // 🔽 Filter
+  // 🔽 FILTER
   if (currentFilter === 'completed') {
 
     filtered =
@@ -556,26 +586,51 @@ function getFilteredTasks() {
       );
   }
 
-  // ↕️ Sort
-  if (currentSort === 'oldest') {
+  // ↕️ SORT
+  switch (currentSort) {
 
-    filtered.reverse();
+    case 'oldest':
 
-  } else if (
-    currentSort === 'priority'
-  ) {
+      filtered.sort(
+        (a, b) =>
+          new Date(a.createdAt) -
+          new Date(b.createdAt)
+      );
 
-    const priorityOrder = {
-      High: 1,
-      Medium: 2,
-      Low: 3
-    };
+      break;
 
-    filtered.sort(
-      (a, b) =>
-        priorityOrder[a.priority] -
-        priorityOrder[b.priority]
-    );
+    case 'priority':
+
+      const priorityOrder = {
+        High: 1,
+        Medium: 2,
+        Low: 3
+      };
+
+      filtered.sort(
+        (a, b) =>
+          priorityOrder[a.priority] -
+          priorityOrder[b.priority]
+      );
+
+      break;
+
+    case 'alphabetical':
+
+      filtered.sort(
+        (a, b) =>
+          a.text.localeCompare(b.text)
+      );
+
+      break;
+
+    default:
+
+      filtered.sort(
+        (a, b) =>
+          new Date(b.createdAt) -
+          new Date(a.createdAt)
+      );
   }
 
   return filtered;
@@ -593,13 +648,24 @@ function renderTasks() {
   const filteredTasks =
     getFilteredTasks();
 
+  // 📭 Empty State
   if (filteredTasks.length === 0) {
 
     taskList.innerHTML = `
 
       <li class="empty-state">
 
-        🎉 No tasks found
+        <div class="empty-icon">
+          📝
+        </div>
+
+        <h3>
+          No tasks found
+        </h3>
+
+        <p>
+          Add a task and start being productive.
+        </p>
 
       </li>
 
@@ -608,6 +674,7 @@ function renderTasks() {
     return;
   }
 
+  // 📋 Loop Tasks
   filteredTasks.forEach(task => {
 
     const li =
@@ -616,10 +683,10 @@ function renderTasks() {
     li.className = `
       task-item
       ${task.completed ? 'completed' : ''}
-      ${getPriorityClass(task.priority)}
     `;
 
-    const overdue =
+    // 📅 Overdue
+    const isOverdue =
       task.dueDate &&
       task.dueDate <
       new Date()
@@ -629,14 +696,21 @@ function renderTasks() {
 
     li.innerHTML = `
 
-      <!-- ✅ Checkbox -->
-      <input
-        type="checkbox"
-        class="task-checkbox"
-        ${task.completed ? 'checked' : ''}
-      >
+      <!-- ✅ CHECKBOX -->
+      <label class="checkbox-wrapper">
 
-      <!-- 📝 Content -->
+        <input
+          type="checkbox"
+          class="task-checkbox"
+          ${task.completed ? 'checked' : ''}
+        >
+
+        <span class="custom-checkbox"></span>
+
+      </label>
+
+
+      <!-- 📝 TASK CONTENT -->
       <div class="task-content">
 
         <div class="task-top-row">
@@ -647,7 +721,10 @@ function renderTasks() {
 
           </span>
 
-          <span class="priority-badge">
+          <span class="
+            priority-badge
+            ${getPriorityClass(task.priority)}
+          ">
 
             ${task.priority}
 
@@ -655,9 +732,10 @@ function renderTasks() {
 
         </div>
 
+
         <div class="task-meta">
 
-          <span>
+          <span class="task-category">
 
             ${getCategoryEmoji(task.category)}
             ${task.category}
@@ -668,8 +746,8 @@ function renderTasks() {
             task.dueDate
             ? `
               <span class="
-                due-date
-                ${overdue ? 'overdue' : ''}
+                task-due-date
+                ${isOverdue ? 'overdue' : ''}
               ">
                 📅 ${task.dueDate}
               </span>
@@ -681,17 +759,20 @@ function renderTasks() {
 
       </div>
 
-      <!-- ⚙️ Actions -->
+
+      <!-- ⚙️ ACTIONS -->
       <div class="task-actions">
 
         <button
           class="edit-btn"
+          title="Edit Task"
         >
           ✏️
         </button>
 
         <button
           class="delete-btn"
+          title="Delete Task"
         >
           🗑️
         </button>
@@ -699,7 +780,7 @@ function renderTasks() {
       </div>
     `;
 
-    // ✅ Checkbox
+    // ✅ Toggle Complete
     li.querySelector(
       '.task-checkbox'
     ).addEventListener(
@@ -729,7 +810,23 @@ function renderTasks() {
 
 
 // ============================================
-// 🔍 SEARCH INPUT
+// 🔄 UPDATE ALL UI
+// ============================================
+
+function updateUI() {
+
+  updateCounters();
+
+  updateProgress();
+
+  updateStreak();
+
+  updateMotivation();
+}
+
+
+// ============================================
+// 🔍 SEARCH
 // ============================================
 
 searchInput.addEventListener(
@@ -777,32 +874,36 @@ filterBtns.forEach(btn => {
 // ↕️ SORT SELECT
 // ============================================
 
-sortSelect.addEventListener(
-  'change',
-  e => {
+if (sortSelect) {
 
-    currentSort =
-      e.target.value;
+  sortSelect.addEventListener(
+    'change',
+    e => {
 
-    renderTasks();
-  }
-);
+      currentSort =
+        e.target.value;
+
+      renderTasks();
+    }
+  );
+}
 
 
 // ============================================
-// 🗑️ CLEAR ALL
+// 🗑️ CLEAR ALL TASKS
 // ============================================
 
 clearAllBtn.addEventListener(
   'click',
   () => {
 
-    const confirmed =
-      confirm(
+    if (
+      !confirm(
         'Delete all tasks?'
-      );
-
-    if (!confirmed) return;
+      )
+    ) {
+      return;
+    }
 
     tasks = [];
 
@@ -810,16 +911,10 @@ clearAllBtn.addEventListener(
 
     renderTasks();
 
-    updateCounters();
-
-    updateProgress();
-
-    updateMotivation();
-
-    updateStreak();
+    updateUI();
 
     showToast(
-      '🗑️ All tasks cleared'
+      '🗑️ All tasks deleted'
     );
   }
 );
@@ -829,46 +924,49 @@ clearAllBtn.addEventListener(
 // 📤 EXPORT TASKS
 // ============================================
 
-exportBtn.addEventListener(
-  'click',
-  () => {
+if (exportBtn) {
 
-    const data =
-      JSON.stringify(
-        tasks,
-        null,
-        2
+  exportBtn.addEventListener(
+    'click',
+    () => {
+
+      const data =
+        JSON.stringify(
+          tasks,
+          null,
+          2
+        );
+
+      const blob =
+        new Blob(
+          [data],
+          {
+            type:
+              'application/json'
+          }
+        );
+
+      const url =
+        URL.createObjectURL(blob);
+
+      const a =
+        document.createElement('a');
+
+      a.href = url;
+
+      a.download =
+        'taskflow-tasks.json';
+
+      a.click();
+
+      URL.revokeObjectURL(url);
+
+      showToast(
+        '📤 Tasks exported'
       );
-
-    const blob =
-      new Blob(
-        [data],
-        {
-          type:
-            'application/json'
-        }
-      );
-
-    const url =
-      URL.createObjectURL(blob);
-
-    const a =
-      document.createElement('a');
-
-    a.href = url;
-
-    a.download =
-      'taskflow-tasks.json';
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-
-    showToast(
-      '📤 Tasks exported'
-    );
-  }
-);
+    }
+  );
+}
 
 
 // ============================================
@@ -876,7 +974,7 @@ exportBtn.addEventListener(
 // ============================================
 
 taskInput.addEventListener(
-  'keypress',
+  'keydown',
   e => {
 
     if (e.key === 'Enter') {
@@ -901,12 +999,10 @@ addTaskBtn.addEventListener(
 // 🚀 INITIALIZE APP
 // ============================================
 
+initializeTheme();
+
 renderTasks();
 
-updateCounters();
+updateUI();
 
-updateProgress();
-
-updateMotivation();
-
-updateStreak();
+updateClock();
