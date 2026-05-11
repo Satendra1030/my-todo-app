@@ -1,5 +1,5 @@
 // ============================================
-// 🚀 TASKFLOW PRO ULTRA — FINAL DARK VERSION
+// 🚀 TASKFLOW PRO ULTRA — MODERN APP LOGIC
 // ============================================
 
 
@@ -78,26 +78,14 @@ const toast =
 
 
 // ============================================
-// 🌑 FORCE DARK MODE
-// ============================================
-
-document.body.classList.add('dark');
-
-// Hide dark mode button completely
-if (darkModeBtn) {
-
-  darkModeBtn.style.display = 'none';
-
-}
-
-
-// ============================================
 // 💾 STORAGE
 // ============================================
 
 let tasks =
   JSON.parse(
-    localStorage.getItem('taskflow_tasks')
+    localStorage.getItem(
+      'taskflow_tasks'
+    )
   ) || [];
 
 let currentFilter = 'all';
@@ -105,6 +93,66 @@ let currentFilter = 'all';
 let currentSearch = '';
 
 let currentSort = 'newest';
+
+let isDarkMode =
+  localStorage.getItem(
+    'taskflow_theme'
+  ) === 'dark';
+
+
+// ============================================
+// 🌙 THEME SYSTEM
+// ============================================
+
+function initializeTheme() {
+
+  if (isDarkMode) {
+
+    document.body.classList.add(
+      'dark'
+    );
+
+    darkModeBtn.innerHTML = '☀️';
+
+  } else {
+
+    document.body.classList.remove(
+      'dark'
+    );
+
+    darkModeBtn.innerHTML = '🌙';
+  }
+}
+
+darkModeBtn.addEventListener(
+  'click',
+  () => {
+
+    isDarkMode = !isDarkMode;
+
+    document.body.classList.toggle(
+      'dark'
+    );
+
+    darkModeBtn.innerHTML =
+      isDarkMode
+        ? '☀️'
+        : '🌙';
+
+    localStorage.setItem(
+      'taskflow_theme',
+      isDarkMode
+        ? 'dark'
+        : 'light'
+    );
+
+    showToast(
+      isDarkMode
+        ? '🌙 Dark mode enabled'
+        : '☀️ Light mode enabled'
+    );
+  }
+);
 
 
 // ============================================
@@ -132,19 +180,23 @@ function showToast(message) {
 
   toast.classList.add('show');
 
-  clearTimeout(window.toastTimeout);
+  clearTimeout(
+    window.toastTimeout
+  );
 
   window.toastTimeout =
     setTimeout(() => {
 
-      toast.classList.remove('show');
+      toast.classList.remove(
+        'show'
+      );
 
     }, 2600);
 }
 
 
 // ============================================
-// 🏷️ CATEGORY EMOJI
+// 🏷️ CATEGORY EMOJIS
 // ============================================
 
 function getCategoryEmoji(category) {
@@ -190,7 +242,7 @@ function getPriorityClass(priority) {
 
 
 // ============================================
-// 💬 MOTIVATION MESSAGES
+// 🎨 RANDOM MOTIVATION
 // ============================================
 
 const motivationMessages = [
@@ -227,7 +279,8 @@ function addTask() {
   const priority =
     priorityInput.value;
 
-  // ❌ Validation
+  // ❌ VALIDATION
+
   if (!text) {
 
     errorMsg.textContent =
@@ -240,7 +293,8 @@ function addTask() {
 
   errorMsg.textContent = '';
 
-  // 🆕 Create Task
+  // 🆕 CREATE TASK
+
   const newTask = {
 
     id: Date.now(),
@@ -319,7 +373,7 @@ function deleteTask(id) {
 
 
 // ============================================
-// ✅ TOGGLE COMPLETE
+// ✅ COMPLETE TASK
 // ============================================
 
 function toggleComplete(id) {
@@ -439,7 +493,9 @@ function updateProgress() {
     total === 0
       ? 0
       : Math.round(
-          (completed / total) * 100
+          (
+            completed / total
+          ) * 100
         );
 
   progressFill.style.width =
@@ -508,7 +564,9 @@ function updateClock() {
 
   liveClock.textContent =
     now.toLocaleTimeString([], {
+
       hour: '2-digit',
+
       minute: '2-digit'
     });
 }
@@ -525,8 +583,10 @@ function getFilteredTasks() {
   let filtered = [...tasks];
 
   // 🔍 SEARCH
+
   filtered =
     filtered.filter(task =>
+
       task.text
         .toLowerCase()
         .includes(
@@ -535,6 +595,7 @@ function getFilteredTasks() {
     );
 
   // 🔽 FILTER
+
   if (
     currentFilter === 'completed'
   ) {
@@ -555,12 +616,14 @@ function getFilteredTasks() {
   }
 
   // ↕️ SORT
+
   switch (currentSort) {
 
     case 'oldest':
 
       filtered.sort(
         (a, b) =>
+
           new Date(a.createdAt) -
           new Date(b.createdAt)
       );
@@ -570,13 +633,17 @@ function getFilteredTasks() {
     case 'priority':
 
       const priorityOrder = {
+
         High: 1,
+
         Medium: 2,
+
         Low: 3
       };
 
       filtered.sort(
         (a, b) =>
+
           priorityOrder[a.priority] -
           priorityOrder[b.priority]
       );
@@ -587,7 +654,10 @@ function getFilteredTasks() {
 
       filtered.sort(
         (a, b) =>
-          a.text.localeCompare(b.text)
+
+          a.text.localeCompare(
+            b.text
+          )
       );
 
       break;
@@ -596,6 +666,7 @@ function getFilteredTasks() {
 
       filtered.sort(
         (a, b) =>
+
           new Date(b.createdAt) -
           new Date(a.createdAt)
       );
@@ -616,7 +687,8 @@ function renderTasks() {
   const filteredTasks =
     getFilteredTasks();
 
-  // 📭 Empty State
+  // 📭 EMPTY STATE
+
   if (
     filteredTasks.length === 0
   ) {
@@ -644,7 +716,8 @@ function renderTasks() {
     return;
   }
 
-  // 📋 Loop Tasks
+  // 📋 LOOP TASKS
+
   filteredTasks.forEach(task => {
 
     const li =
@@ -655,18 +728,23 @@ function renderTasks() {
       ${task.completed ? 'completed' : ''}
     `;
 
-    // 📅 Overdue
+    // 📅 OVERDUE
+
     const isOverdue =
+
       task.dueDate &&
+
       task.dueDate <
       new Date()
         .toISOString()
         .split('T')[0] &&
+
       !task.completed;
 
     li.innerHTML = `
 
       <!-- ✅ CHECKBOX -->
+
       <label class="checkbox-wrapper">
 
         <input
@@ -679,32 +757,38 @@ function renderTasks() {
 
       </label>
 
-
       <!-- 📝 TASK CONTENT -->
-      <div class="task-content">
 
-        <div class="task-top-row">
+      <div class="task-text-area">
 
-          <span class="task-text">
-            ${task.text}
-          </span>
+        <span class="task-text">
 
-          <span class="
-            priority-badge
-            ${getPriorityClass(task.priority)}
-          ">
-            ${task.priority}
-          </span>
+          ${task.text}
 
-        </div>
+        </span>
 
-
-        <div class="task-meta">
+        <div
+          style="
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            margin-top:8px;
+          "
+        >
 
           <span class="task-category">
 
             ${getCategoryEmoji(task.category)}
             ${task.category}
+
+          </span>
+
+          <span class="
+            task-priority
+            ${getPriorityClass(task.priority)}
+          ">
+
+            🚨 ${task.priority}
 
           </span>
 
@@ -725,8 +809,8 @@ function renderTasks() {
 
       </div>
 
-
       <!-- ⚙️ ACTIONS -->
+
       <div class="task-actions">
 
         <button
@@ -746,7 +830,8 @@ function renderTasks() {
       </div>
     `;
 
-    // ✅ Complete
+    // ✅ TOGGLE COMPLETE
+
     li.querySelector(
       '.task-checkbox'
     ).addEventListener(
@@ -754,7 +839,8 @@ function renderTasks() {
       () => toggleComplete(task.id)
     );
 
-    // ✏️ Edit
+    // ✏️ EDIT
+
     li.querySelector(
       '.edit-btn'
     ).addEventListener(
@@ -762,7 +848,8 @@ function renderTasks() {
       () => editTask(task.id)
     );
 
-    // 🗑️ Delete
+    // 🗑️ DELETE
+
     li.querySelector(
       '.delete-btn'
     ).addEventListener(
@@ -818,6 +905,7 @@ filterBtns.forEach(btn => {
     () => {
 
       filterBtns.forEach(button =>
+
         button.classList.remove(
           'active'
         )
@@ -837,7 +925,7 @@ filterBtns.forEach(btn => {
 
 
 // ============================================
-// ↕️ SORT
+// ↕️ SORT SELECT
 // ============================================
 
 if (sortSelect) {
@@ -856,7 +944,7 @@ if (sortSelect) {
 
 
 // ============================================
-// 🗑️ CLEAR ALL
+// 🗑️ CLEAR ALL TASKS
 // ============================================
 
 clearAllBtn.addEventListener(
@@ -964,6 +1052,8 @@ addTaskBtn.addEventListener(
 // ============================================
 // 🚀 INITIALIZE APP
 // ============================================
+
+initializeTheme();
 
 renderTasks();
 

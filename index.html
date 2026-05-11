@@ -53,10 +53,10 @@
 
 </head>
 
-<body class="dark">
+<body>
 
   <!-- ============================================
-       ✨ BACKGROUND GLOW
+       ✨ BACKGROUND EFFECTS
   ============================================= -->
 
   <div class="bg-circle bg-circle-1"></div>
@@ -77,7 +77,7 @@
       <div>
 
         <h1 class="app-title">
-          TaskFlow Pro
+          🚀 TaskFlow Pro
         </h1>
 
         <p class="subtitle">
@@ -86,7 +86,7 @@
 
       </div>
 
-      <!-- 🌙 THEME BUTTON -->
+      <!-- 🌙 DARK MODE -->
 
       <button
         id="darkModeBtn"
@@ -187,7 +187,7 @@
         placeholder="Enter your task..."
       />
 
-      <!-- 📅 DATE -->
+      <!-- 📅 DUE DATE -->
 
       <input
         type="date"
@@ -199,23 +199,23 @@
       <select id="categoryInput">
 
         <option value="Personal">
-          Personal
+          🏠 Personal
         </option>
 
         <option value="Study">
-          Study
+          📚 Study
         </option>
 
         <option value="Work">
-          Work
+          💼 Work
         </option>
 
         <option value="Health">
-          Health
+          💪 Health
         </option>
 
         <option value="Shopping">
-          Shopping
+          🛒 Shopping
         </option>
 
       </select>
@@ -225,24 +225,24 @@
       <select id="priorityInput">
 
         <option value="Low">
-          Low
+          🟢 Low
         </option>
 
         <option value="Medium">
-          Medium
+          🟡 Medium
         </option>
 
         <option value="High">
-          High
+          🔴 High
         </option>
 
       </select>
 
-      <!-- ➕ BUTTON -->
+      <!-- ➕ ADD BUTTON -->
 
       <button id="addTaskBtn">
 
-        Add Task
+        ➕ Add
 
       </button>
 
@@ -270,7 +270,7 @@
         <input
           type="text"
           id="searchInput"
-          placeholder="Search tasks..."
+          placeholder="🔍 Search tasks..."
         />
 
       </div>
@@ -307,19 +307,19 @@
       <select id="sortSelect">
 
         <option value="newest">
-          Newest
+          🆕 Newest
         </option>
 
         <option value="oldest">
-          Oldest
+          🕒 Oldest
         </option>
 
         <option value="priority">
-          Priority
+          🚨 Priority
         </option>
 
         <option value="alphabetical">
-          A-Z
+          🔤 A-Z
         </option>
 
       </select>
@@ -381,37 +381,63 @@
     ============================================= -->
 
     <div
+      class="task-header"
       style="
         display:flex;
         justify-content:space-between;
         align-items:center;
-        margin-bottom:18px;
         gap:16px;
+        margin-bottom:22px;
         flex-wrap:wrap;
       "
     >
+
+      <!-- 📌 TASK COUNT -->
 
       <h2
         id="taskCountLabel"
         style="
           font-size:1.1rem;
-          color:#d1d5db;
           font-weight:600;
+          color:#d1d5db;
         "
       >
         0 Tasks
       </h2>
 
-      <!-- 🗑️ CLEAR -->
+      <!-- ⚙️ ACTION BUTTONS -->
 
-      <button
-        id="clearAllBtn"
-        class="clear-all-btn"
+      <div
+        style="
+          display:flex;
+          gap:12px;
+          flex-wrap:wrap;
+        "
       >
 
-        Clear All
+        <!-- 📤 EXPORT -->
 
-      </button>
+        <button
+          id="exportBtn"
+          class="clear-all-btn"
+        >
+
+          📤 Export Tasks
+
+        </button>
+
+        <!-- 🗑️ CLEAR -->
+
+        <button
+          id="clearAllBtn"
+          class="clear-all-btn"
+        >
+
+          🗑️ Clear All
+
+        </button>
+
+      </div>
 
     </div>
 
@@ -422,7 +448,11 @@
     <ul
       id="taskList"
       class="task-list"
-    ></ul>
+    >
+
+      <!-- Tasks Render Here -->
+
+    </ul>
 
   </div>
 
@@ -436,7 +466,7 @@
   ></div>
 
   <!-- ============================================
-       🚀 JAVASCRIPT
+       🚀 SCRIPT
   ============================================= -->
 
   <script src="script.js"></script>
