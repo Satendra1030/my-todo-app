@@ -1,5 +1,5 @@
 // ============================================
-// 🚀 TASKFLOW PRO X — ULTRA MODERN APP LOGIC
+// 🚀 TASKFLOW PRO ULTRA — FINAL DARK VERSION
 // ============================================
 
 
@@ -27,6 +27,9 @@ const taskList =
 
 const errorMsg =
   document.getElementById('errorMsg');
+
+const darkModeBtn =
+  document.getElementById('darkModeBtn');
 
 const totalCount =
   document.getElementById('totalCount');
@@ -75,15 +78,26 @@ const toast =
 
 
 // ============================================
-// 💾 LOCAL STORAGE
+// 🌑 FORCE DARK MODE
 // ============================================
 
-const STORAGE_KEY =
-  'taskflow_ultra_tasks';
+document.body.classList.add('dark');
+
+// Hide dark mode button completely
+if (darkModeBtn) {
+
+  darkModeBtn.style.display = 'none';
+
+}
+
+
+// ============================================
+// 💾 STORAGE
+// ============================================
 
 let tasks =
   JSON.parse(
-    localStorage.getItem(STORAGE_KEY)
+    localStorage.getItem('taskflow_tasks')
   ) || [];
 
 let currentFilter = 'all';
@@ -100,14 +114,14 @@ let currentSort = 'newest';
 function saveTasks() {
 
   localStorage.setItem(
-    STORAGE_KEY,
+    'taskflow_tasks',
     JSON.stringify(tasks)
   );
 }
 
 
 // ============================================
-// 🔔 TOAST SYSTEM
+// 🔔 TOAST NOTIFICATION
 // ============================================
 
 function showToast(message) {
@@ -183,41 +197,16 @@ const motivationMessages = [
 
   '🚀 Stay focused and productive!',
 
-  '🔥 Keep building momentum!',
+  '🔥 Great things take consistency!',
 
-  '⚡ Small progress is still progress!',
+  '💎 Small progress is still progress!',
 
-  '🏆 You are doing amazing today!',
+  '⚡ Make today count!',
 
-  '💎 Discipline creates success!',
+  '🏆 Productivity looks good on you!',
 
-  '🌟 Finish strong today!'
+  '🌟 One task at a time!'
 ];
-
-
-// ============================================
-// 📅 FORMAT DATE
-// ============================================
-
-function formatDate(date) {
-
-  if (!date) return '';
-
-  const options = {
-
-    month: 'short',
-
-    day: 'numeric',
-
-    year: 'numeric'
-  };
-
-  return new Date(date)
-    .toLocaleDateString(
-      'en-US',
-      options
-    );
-}
 
 
 // ============================================
@@ -238,8 +227,7 @@ function addTask() {
   const priority =
     priorityInput.value;
 
-  // ❌ VALIDATION
-
+  // ❌ Validation
   if (!text) {
 
     errorMsg.textContent =
@@ -252,8 +240,7 @@ function addTask() {
 
   errorMsg.textContent = '';
 
-  // 🆕 TASK OBJECT
-
+  // 🆕 Create Task
   const newTask = {
 
     id: Date.now(),
@@ -272,8 +259,6 @@ function addTask() {
       new Date().toISOString()
   };
 
-  // ➕ ADD NEW TASK
-
   tasks.unshift(newTask);
 
   saveTasks();
@@ -285,7 +270,7 @@ function addTask() {
   resetInputs();
 
   showToast(
-    '✅ Task added'
+    '✅ Task added successfully'
   );
 }
 
@@ -378,7 +363,7 @@ function editTask(id) {
 
   const newText =
     prompt(
-      '✏️ Edit task',
+      '✏️ Edit Task',
       task.text
     );
 
@@ -454,9 +439,7 @@ function updateProgress() {
     total === 0
       ? 0
       : Math.round(
-          (
-            completed / total
-          ) * 100
+          (completed / total) * 100
         );
 
   progressFill.style.width =
@@ -468,7 +451,7 @@ function updateProgress() {
 
 
 // ============================================
-// 🔥 STREAK
+// 🏆 STREAK
 // ============================================
 
 function updateStreak() {
@@ -516,28 +499,21 @@ function updateMotivation() {
 
 
 // ============================================
-// ⏰ LIVE CLOCK
+// 🕒 LIVE CLOCK
 // ============================================
 
 function updateClock() {
 
-  const now =
-    new Date();
+  const now = new Date();
 
   liveClock.textContent =
-    now.toLocaleTimeString(
-      [],
-      {
-        hour: '2-digit',
-        minute: '2-digit'
-      }
-    );
+    now.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
 }
 
-setInterval(
-  updateClock,
-  1000
-);
+setInterval(updateClock, 1000);
 
 
 // ============================================
@@ -546,26 +522,21 @@ setInterval(
 
 function getFilteredTasks() {
 
-  let filtered =
-    [...tasks];
+  let filtered = [...tasks];
 
   // 🔍 SEARCH
-
   filtered =
     filtered.filter(task =>
       task.text
         .toLowerCase()
         .includes(
-          currentSearch
-            .toLowerCase()
+          currentSearch.toLowerCase()
         )
     );
 
   // 🔽 FILTER
-
   if (
-    currentFilter ===
-    'completed'
+    currentFilter === 'completed'
   ) {
 
     filtered =
@@ -574,8 +545,7 @@ function getFilteredTasks() {
       );
 
   } else if (
-    currentFilter ===
-    'pending'
+    currentFilter === 'pending'
   ) {
 
     filtered =
@@ -585,7 +555,6 @@ function getFilteredTasks() {
   }
 
   // ↕️ SORT
-
   switch (currentSort) {
 
     case 'oldest':
@@ -601,22 +570,15 @@ function getFilteredTasks() {
     case 'priority':
 
       const priorityOrder = {
-
         High: 1,
-
         Medium: 2,
-
         Low: 3
       };
 
       filtered.sort(
         (a, b) =>
-          priorityOrder[
-            a.priority
-          ] -
-          priorityOrder[
-            b.priority
-          ]
+          priorityOrder[a.priority] -
+          priorityOrder[b.priority]
       );
 
       break;
@@ -625,9 +587,7 @@ function getFilteredTasks() {
 
       filtered.sort(
         (a, b) =>
-          a.text.localeCompare(
-            b.text
-          )
+          a.text.localeCompare(b.text)
       );
 
       break;
@@ -656,8 +616,7 @@ function renderTasks() {
   const filteredTasks =
     getFilteredTasks();
 
-  // 📭 EMPTY STATE
-
+  // 📭 Empty State
   if (
     filteredTasks.length === 0
   ) {
@@ -675,7 +634,7 @@ function renderTasks() {
         </h3>
 
         <p>
-          Add tasks and start being productive.
+          Add a task and start being productive.
         </p>
 
       </li>
@@ -685,8 +644,7 @@ function renderTasks() {
     return;
   }
 
-  // 📋 LOOP TASKS
-
+  // 📋 Loop Tasks
   filteredTasks.forEach(task => {
 
     const li =
@@ -694,41 +652,27 @@ function renderTasks() {
 
     li.className = `
       task-item
-      ${
-        task.completed
-          ? 'completed'
-          : ''
-      }
+      ${task.completed ? 'completed' : ''}
     `;
 
-    // 📅 OVERDUE CHECK
-
+    // 📅 Overdue
     const isOverdue =
-
       task.dueDate &&
-
       task.dueDate <
-
       new Date()
         .toISOString()
         .split('T')[0] &&
-
       !task.completed;
 
     li.innerHTML = `
 
       <!-- ✅ CHECKBOX -->
-
       <label class="checkbox-wrapper">
 
         <input
           type="checkbox"
           class="task-checkbox"
-          ${
-            task.completed
-              ? 'checked'
-              : ''
-          }
+          ${task.completed ? 'checked' : ''}
         >
 
         <span class="custom-checkbox"></span>
@@ -736,25 +680,20 @@ function renderTasks() {
       </label>
 
 
-      <!-- 📝 CONTENT -->
-
+      <!-- 📝 TASK CONTENT -->
       <div class="task-content">
 
         <div class="task-top-row">
 
           <span class="task-text">
-
             ${task.text}
-
           </span>
 
           <span class="
             priority-badge
             ${getPriorityClass(task.priority)}
           ">
-
             ${task.priority}
-
           </span>
 
         </div>
@@ -774,15 +713,9 @@ function renderTasks() {
               ? `
                 <span class="
                   task-due-date
-                  ${
-                    isOverdue
-                      ? 'overdue'
-                      : ''
-                  }
+                  ${isOverdue ? 'overdue' : ''}
                 ">
-
-                  📅 ${formatDate(task.dueDate)}
-
+                  📅 ${task.dueDate}
                 </span>
               `
               : ''
@@ -794,19 +727,18 @@ function renderTasks() {
 
 
       <!-- ⚙️ ACTIONS -->
-
       <div class="task-actions">
 
         <button
           class="edit-btn"
-          title="Edit"
+          title="Edit Task"
         >
           ✏️
         </button>
 
         <button
           class="delete-btn"
-          title="Delete"
+          title="Delete Task"
         >
           🗑️
         </button>
@@ -814,40 +746,28 @@ function renderTasks() {
       </div>
     `;
 
-    // ✅ COMPLETE
-
+    // ✅ Complete
     li.querySelector(
       '.task-checkbox'
     ).addEventListener(
       'change',
-      () =>
-        toggleComplete(
-          task.id
-        )
+      () => toggleComplete(task.id)
     );
 
-    // ✏️ EDIT
-
+    // ✏️ Edit
     li.querySelector(
       '.edit-btn'
     ).addEventListener(
       'click',
-      () =>
-        editTask(
-          task.id
-        )
+      () => editTask(task.id)
     );
 
-    // 🗑️ DELETE
-
+    // 🗑️ Delete
     li.querySelector(
       '.delete-btn'
     ).addEventListener(
       'click',
-      () =>
-        deleteTask(
-          task.id
-        )
+      () => deleteTask(task.id)
     );
 
     taskList.appendChild(li);
@@ -898,7 +818,6 @@ filterBtns.forEach(btn => {
     () => {
 
       filterBtns.forEach(button =>
-
         button.classList.remove(
           'active'
         )
@@ -918,7 +837,7 @@ filterBtns.forEach(btn => {
 
 
 // ============================================
-// ↕️ SORT SELECT
+// ↕️ SORT
 // ============================================
 
 if (sortSelect) {
@@ -944,12 +863,13 @@ clearAllBtn.addEventListener(
   'click',
   () => {
 
-    const confirmed =
-      confirm(
+    if (
+      !confirm(
         'Delete all tasks?'
-      );
-
-    if (!confirmed) return;
+      )
+    ) {
+      return;
+    }
 
     tasks = [];
 
@@ -960,7 +880,7 @@ clearAllBtn.addEventListener(
     updateUI();
 
     showToast(
-      '🗑️ All tasks cleared'
+      '🗑️ All tasks deleted'
     );
   }
 );
@@ -993,9 +913,7 @@ if (exportBtn) {
         );
 
       const url =
-        URL.createObjectURL(
-          blob
-        );
+        URL.createObjectURL(blob);
 
       const a =
         document.createElement('a');
@@ -1007,9 +925,7 @@ if (exportBtn) {
 
       a.click();
 
-      URL.revokeObjectURL(
-        url
-      );
+      URL.revokeObjectURL(url);
 
       showToast(
         '📤 Tasks exported'
