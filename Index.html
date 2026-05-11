@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <!-- 🧠 This section is the "brain info" — the browser reads it but users don't see it -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My To-Do App</title>
+
+    <!-- 🎨 This connects your style.css file (the decoration) -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+
+    <!-- 🏠 This is the MAIN BOX that holds everything -->
+    <div class="container">
+
+      <!-- ☀️🌙 Dark Mode Button (top right corner) -->
+      <button class="dark-mode-btn" id="darkModeBtn">🌙 Dark Mode</button>
+
+      <!-- 📝 App Title -->
+      <h1 class="app-title">My To-Do List</h1>
+
+      <!-- 📊 COUNTERS — shows how many tasks you have -->
+      <div class="counters">
+        <div class="counter-box">
+          <span id="totalCount">0</span>
+          <p>Total</p>
+        </div>
+        <div class="counter-box">
+          <span id="completedCount">0</span>
+          <p>Completed</p>
+        </div>
+        <div class="counter-box">
+          <span id="pendingCount">0</span>
+          <p>Pending</p>
+        </div>
+      </div>
+
+      <!-- ✏️ INPUT AREA — where you type a new task -->
+      <div class="input-area">
+        <input
+          type="text"
+          id="taskInput"
+          placeholder="Write a task... e.g. Buy milk 🥛"
+        />
+        <input
+          type="date"
+          id="dueDateInput"
+        />
+        <button id="addTaskBtn">+ Add Task</button>
+      </div>
+
+      <!-- ⚠️ Error message (shows if user types nothing) -->
+      <p class="error-msg" id="errorMsg"></p>
+
+      <!-- 🔽 FILTER BUTTONS — All / Completed / Pending -->
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">All Tasks</button>
+        <button class="filter-btn" data-filter="completed">✅ Completed</button>
+        <button class="filter-btn" data-filter="pending">⏳ Pending</button>
+      </div>
+
+      <!-- 📋 TASK LIST — all your tasks appear here -->
+      <ul class="task-list" id="taskList">
+        <!-- Tasks will be added here automatically by script.js -->
+      </ul>
+
+    </div><!-- end of container -->
+
+    <!-- 🧠 This connects your script.js file (the brain) -->
+    <script src="script.js"></script>
+
+  </body>
+
+</html>
