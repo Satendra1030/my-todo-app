@@ -166,6 +166,7 @@ body::before{
     );
 
   -webkit-background-clip:text;
+  background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
@@ -568,7 +569,6 @@ body::before{
     );
 
   -webkit-background-clip:text;
-  background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
