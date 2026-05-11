@@ -1065,3 +1065,441 @@ body::after {
     font-size: 2.2rem;
   }
 }
+/* =========================================================
+   🚀 ULTRA PREMIUM IMPROVEMENTS
+========================================================= */
+
+
+/* =========================================================
+   🌌 ANIMATED BACKGROUND GRID
+========================================================= */
+
+body::after {
+
+  content: '';
+
+  position: fixed;
+
+  inset: 0;
+
+  background-image:
+
+    linear-gradient(
+      rgba(255,255,255,0.03) 1px,
+      transparent 1px
+    ),
+
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.03) 1px,
+      transparent 1px
+    );
+
+  background-size: 60px 60px;
+
+  z-index: -3;
+
+  opacity: 0.25;
+
+  animation:
+    moveGrid 30s linear infinite;
+}
+
+@keyframes moveGrid {
+
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(60px);
+  }
+}
+
+
+/* =========================================================
+   ✨ FLOATING PARTICLES
+========================================================= */
+
+body::before {
+
+  animation:
+    floatingGlow 10s ease-in-out infinite;
+}
+
+@keyframes floatingGlow {
+
+  0% {
+    transform: translate(0,0);
+  }
+
+  50% {
+    transform: translate(40px,30px);
+  }
+
+  100% {
+    transform: translate(0,0);
+  }
+}
+
+
+/* =========================================================
+   💎 GLASS EFFECT BOOST
+========================================================= */
+
+.hero-left,
+.hero-right,
+.quick-card,
+.task-item,
+.stat-card,
+.focus-card,
+.app-container {
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.hero-left::after,
+.hero-right::after,
+.quick-card::after,
+.task-item::after,
+.stat-card::after {
+
+  content: '';
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,0.08),
+      transparent 40%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   🚀 PREMIUM CARD HOVER
+========================================================= */
+
+.task-item:hover,
+.quick-card:hover,
+.stat-card:hover,
+.hero-right:hover {
+
+  transform:
+    translateY(-6px)
+    scale(1.01);
+
+  border-color:
+    rgba(139,92,246,0.35);
+
+  box-shadow:
+
+    0 15px 35px rgba(59,130,246,0.15),
+
+    0 0 30px rgba(139,92,246,0.12);
+}
+
+
+/* =========================================================
+   🟣 NEON BORDER GLOW
+========================================================= */
+
+.app-container {
+
+  position: relative;
+}
+
+.app-container::before {
+
+  content: '';
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 34px;
+
+  padding: 1px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(59,130,246,0.45),
+      rgba(139,92,246,0.35),
+      rgba(236,72,153,0.25)
+    );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+
+  mask-composite: exclude;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   ⚡ BUTTON IMPROVEMENTS
+========================================================= */
+
+.add-btn,
+.clear-btn,
+.filter-btn,
+.sort-select {
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.add-btn::before,
+.clear-btn::before {
+
+  content: '';
+
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 100%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.25),
+      transparent
+    );
+
+  transition: 0.7s;
+}
+
+.add-btn:hover::before,
+.clear-btn:hover::before {
+
+  left: 100%;
+}
+
+
+/* =========================================================
+   🔥 TASK CARD GLOW BY PRIORITY
+========================================================= */
+
+.priority-high {
+
+  box-shadow:
+    0 0 15px rgba(239,68,68,0.25);
+}
+
+.priority-medium {
+
+  box-shadow:
+    0 0 15px rgba(250,204,21,0.18);
+}
+
+.priority-low {
+
+  box-shadow:
+    0 0 15px rgba(34,197,94,0.18);
+}
+
+
+/* =========================================================
+   ✨ INPUT GLOW
+========================================================= */
+
+.task-form input:hover,
+.task-form select:hover,
+.search-box input:hover {
+
+  border-color:
+    rgba(139,92,246,0.4);
+}
+
+
+/* =========================================================
+   🚀 SEARCH BAR PREMIUM
+========================================================= */
+
+.search-box input {
+
+  box-shadow:
+    inset 0 0 15px rgba(255,255,255,0.02);
+}
+
+
+/* =========================================================
+   📊 STATS GLOW
+========================================================= */
+
+.stat-card h2 {
+
+  background:
+    linear-gradient(
+      90deg,
+      #60a5fa,
+      #a78bfa
+    );
+
+  background-clip: text;
+
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* =========================================================
+   💬 MOTIVATION GLOW
+========================================================= */
+
+.motivation-box {
+
+  box-shadow:
+    0 0 20px rgba(139,92,246,0.12);
+}
+
+
+/* =========================================================
+   🕒 LIVE CLOCK
+========================================================= */
+
+.clock-box {
+
+  font-size: 2rem;
+
+  font-weight: 700;
+
+  color: white;
+
+  text-shadow:
+    0 0 15px rgba(59,130,246,0.4);
+}
+
+
+/* =========================================================
+   ✨ EMPTY STATE ANIMATION
+========================================================= */
+
+.empty-icon {
+
+  animation:
+    floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   🌈 SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+
+  background:
+    #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      #3b82f6,
+      #8b5cf6
+    );
+}
+
+
+/* =========================================================
+   📱 MOBILE PREMIUM FIX
+========================================================= */
+
+@media (max-width: 768px) {
+
+  body {
+
+    padding: 15px;
+  }
+
+  .app-container {
+
+    padding: 20px;
+
+    border-radius: 24px;
+  }
+
+  .hero-left h2 {
+
+    font-size: 1.7rem;
+  }
+
+  .quick-stats {
+
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .focus-card {
+
+    width: 100%;
+  }
+
+  .task-item {
+
+    padding: 18px;
+  }
+
+  .task-top {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .priority-badge {
+
+    margin-top: 8px;
+  }
+}
