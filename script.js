@@ -64,8 +64,7 @@ const liveClock =
 const clearAllBtn =
   document.getElementById('clearAllBtn');
 
-const exportBtn =
-  document.getElementById('exportBtn');
+
 
 const sortSelect =
   document.getElementById('sortSelect');
@@ -886,53 +885,6 @@ clearAllBtn.addEventListener(
 );
 
 
-// ============================================
-// 📤 EXPORT TASKS
-// ============================================
-
-if (exportBtn) {
-
-  exportBtn.addEventListener(
-    'click',
-    () => {
-
-      const data =
-        JSON.stringify(
-          tasks,
-          null,
-          2
-        );
-
-      const blob =
-        new Blob(
-          [data],
-          {
-            type:
-              'application/json'
-          }
-        );
-
-      const url =
-        URL.createObjectURL(blob);
-
-      const a =
-        document.createElement('a');
-
-      a.href = url;
-
-      a.download =
-        'taskflow-tasks.json';
-
-      a.click();
-
-      URL.revokeObjectURL(url);
-
-      showToast(
-        '📤 Tasks exported'
-      );
-    }
-  );
-}
 
 
 // ============================================
