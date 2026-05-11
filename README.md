@@ -1,96 +1,27 @@
-TaskFlow Pro 🚀
-Ultra Modern Productivity Dashboard built with HTML, CSS, and JavaScript featuring a futuristic dark UI, glassmorphism effects, productivity tracking, and smooth animations.
+📝 TaskFlow Pro
+This is my personal To-Do App built using HTML + CSS + JavaScript.
+🚀 Features
 
-✨ Features
+Futuristic dark glassmorphism UI
+Add / Edit / Delete tasks
+Priority labels (High / Medium / Low)
+Due date support with overdue alerts
+Task categories (Work, Study, Health, Shopping)
+Live search and filter (All / Completed / Pending)
+Real-time clock and motivation messages
+Productivity progress bar
+Local Storage support
+Fully responsive design
 
-
-🌌 Futuristic Dark UI
-
-
-💎 Glassmorphism Design
-
-
-🟣 Neon Glow Effects
-
-
-📱 Fully Responsive Layout
-
-
-✅ Add / Edit / Delete Tasks
-
-
-🔍 Live Search
-
-
-📊 Productivity Progress Bar
-
-
-🏆 Completed Task Tracker
-
-
-🚨 Priority Labels (Low / Medium / High)
-
-
-📅 Due Date Support
-
-
-📂 Task Categories
-
-
-⚡ Smooth Hover Animations
-
-
-🔥 Real-Time Clock
-
-
-💬 Dynamic Motivation Messages
-
-
-🗑️ Clear All Tasks
-
-
-💾 Local Storage Support
-
-
-🚀 Premium Dashboard Experience
-
-
-
-📸 Preview
-Desktop UI
-
-
-Futuristic glowing dashboard
-
-
-Premium task cards
-
-
-Responsive glassmorphism layout
-
-
-Mobile UI
-
-
-Optimized touch-friendly interface
-
-
-Responsive task management
-
-
-Clean stacked layout
-
-
-
-🛠️ Tech Stack
-
+🛠 Tech Stack
 
 HTML5
-
-
 CSS3
-
-
 JavaScript (Vanilla JS)
 
+🔗 Live Demo
+https://my-todo-app.vercel.app
+📬 Contact
 
+Email: satendrakushwaha1030@gmail.com
+GitHub: https://github.com/Satendra1030
