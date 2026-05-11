@@ -1,446 +1,735 @@
-/* ============================================
-   🌍 GENERAL SETTINGS — Rules for the whole page
-   ============================================ */
+/* =========================================
+   🌍 GLOBAL RESET
+========================================= */
 
-/* This is like saying "clean everything before decorating" */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* The main page body — background color, font style */
+
+/* =========================================
+   🌍 BODY
+========================================= */
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f4ff;
+
+  background: linear-gradient(
+    135deg,
+    #eef2ff,
+    #f8fbff
+  );
+
   color: #333;
+
   min-height: 100vh;
-  transition: all 0.3s ease; /* smooth color changes */
+
   padding: 20px;
+
+  transition: all 0.3s ease;
 }
 
-/* ============================================
-   🌙 DARK MODE — when user clicks dark mode button
-   ============================================ */
+
+/* =========================================
+   🌙 DARK MODE
+========================================= */
 
 body.dark {
-  background-color: #1a1a2e;
-  color: #e0e0e0;
+  background: linear-gradient(
+    135deg,
+    #0f172a,
+    #1e293b
+  );
+
+  color: #e2e8f0;
 }
 
 
-/* ============================================
-   📦 CONTAINER — the big white card in the middle
-   ============================================ */
+/* =========================================
+   📦 MAIN CONTAINER
+========================================= */
 
 .container {
-  max-width: 680px;        /* not too wide on big screens */
-  margin: 0 auto;          /* center it on the page */
-  background: #ffffff;
-  border-radius: 20px;     /* rounded corners */
-  padding: 30px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); /* soft shadow */
+
+  max-width: 720px;
+
+  margin: 0 auto;
+
+  background: rgba(255,255,255,0.85);
+
+  backdrop-filter: blur(10px);
+
+  border-radius: 28px;
+
+  padding: 32px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+
   position: relative;
-  transition: background 0.3s ease;
+
+  transition: all 0.3s ease;
 }
 
 body.dark .container {
-  background: #16213e;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+  background: rgba(15,23,42,0.8);
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.4);
 }
 
 
-/* ============================================
-   🌙 DARK MODE BUTTON — top right corner
-   ============================================ */
+/* =========================================
+   🌙 DARK MODE BUTTON
+========================================= */
 
 .dark-mode-btn {
-  position: absolute;   /* float it to the top-right */
+
+  position: absolute;
+
   top: 20px;
+
   right: 20px;
-  background: #e8eaf6;
+
   border: none;
-  padding: 8px 14px;
-  border-radius: 20px;
-  cursor: pointer;      /* hand cursor on hover */
+
+  background: #eef2ff;
+
+  color: #4a6cf7;
+
+  padding: 10px 16px;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
   font-size: 14px;
-  transition: background 0.3s ease;
+
+  font-weight: 600;
+
+  transition: all 0.3s ease;
 }
 
 .dark-mode-btn:hover {
-  background: #c5cae9;
+
+  transform: scale(1.05);
+
+  background: #dbe4ff;
 }
 
 body.dark .dark-mode-btn {
-  background: #0f3460;
-  color: #e0e0e0;
+
+  background: #1e293b;
+
+  color: #cbd5e1;
 }
 
 
-/* ============================================
-   📝 APP TITLE
-   ============================================ */
+/* =========================================
+   📝 TITLE
+========================================= */
 
 .app-title {
+
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 25px;
+
+  font-size: 2.3rem;
+
+  margin-bottom: 28px;
+
   color: #4a6cf7;
-  margin-top: 10px;
+
+  font-weight: 800;
 }
 
 body.dark .app-title {
-  color: #818cf8;
+  color: #93c5fd;
 }
 
 
-/* ============================================
-   📊 COUNTERS — the 3 number boxes
-   ============================================ */
+/* =========================================
+   📊 COUNTERS
+========================================= */
 
 .counters {
-  display: flex;           /* put them side by side */
-  justify-content: space-around;
-  margin-bottom: 25px;
-  gap: 10px;
+
+  display: grid;
+
+  grid-template-columns: repeat(3,1fr);
+
+  gap: 14px;
+
+  margin-bottom: 28px;
 }
 
 .counter-box {
-  background: #f0f4ff;
-  border-radius: 14px;
-  padding: 14px 20px;
+
+  background: #f8fbff;
+
+  border-radius: 20px;
+
+  padding: 18px;
+
   text-align: center;
-  flex: 1;                 /* each box takes equal space */
-  transition: transform 0.2s ease;
+
+  transition: all 0.3s ease;
+
+  border: 1px solid #edf2ff;
 }
 
 .counter-box:hover {
-  transform: translateY(-4px); /* floats up a little on hover */
+
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 8px 20px rgba(74,108,247,0.12);
 }
 
 .counter-box span {
-  font-size: 1.8rem;
+
+  font-size: 2rem;
+
   font-weight: bold;
+
   color: #4a6cf7;
-  display: block;
 }
 
 .counter-box p {
-  font-size: 0.8rem;
-  color: #888;
-  margin-top: 4px;
+
+  margin-top: 6px;
+
+  color: #777;
+
+  font-size: 14px;
 }
 
 body.dark .counter-box {
-  background: #0f3460;
+
+  background: #16213e;
+
+  border-color: #22304f;
 }
 
-body.dark .counter-box span {
-  color: #818cf8;
+body.dark .counter-box p {
+  color: #aaa;
 }
 
 
-/* ============================================
-   ✏️ INPUT AREA — text box + date + button
-   ============================================ */
+/* =========================================
+   ✏️ INPUT AREA
+========================================= */
 
 .input-area {
+
   display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;    /* wraps on small screens */
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+  margin-bottom: 12px;
 }
 
-/* The text input box */
+
+/* TEXT INPUT */
+
 .input-area input[type="text"] {
-  flex: 1;            /* takes up most of the space */
-  padding: 12px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
+
+  flex: 1;
+
+  min-width: 220px;
+
+  padding: 14px 16px;
+
+  border-radius: 14px;
+
+  border: 2px solid #e2e8f0;
+
   font-size: 15px;
+
   outline: none;
-  transition: border 0.3s ease;
-  min-width: 180px;
+
+  transition: all 0.3s ease;
 }
 
 .input-area input[type="text"]:focus {
-  border-color: #4a6cf7; /* blue border when you click it */
+
+  border-color: #4a6cf7;
+
+  box-shadow:
+    0 0 0 4px rgba(74,108,247,0.12);
 }
 
-/* The date picker */
+
+/* DATE INPUT */
+
 .input-area input[type="date"] {
-  padding: 12px 10px;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  font-size: 14px;
+
+  padding: 14px;
+
+  border-radius: 14px;
+
+  border: 2px solid #e2e8f0;
+
   outline: none;
-  cursor: pointer;
-  transition: border 0.3s ease;
+
+  transition: all 0.3s ease;
 }
 
 .input-area input[type="date"]:focus {
+
   border-color: #4a6cf7;
+
+  box-shadow:
+    0 0 0 4px rgba(74,108,247,0.12);
 }
 
-/* The Add Task button */
-#addTaskBtn {
-  padding: 12px 20px;
-  background: #4a6cf7;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 15px;
+
+/* CATEGORY SELECT */
+
+.input-area select {
+
+  padding: 14px;
+
+  border-radius: 14px;
+
+  border: 2px solid #e2e8f0;
+
+  outline: none;
+
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-  white-space: nowrap;
+
+  transition: all 0.3s ease;
+
+  background: white;
+}
+
+.input-area select:focus {
+
+  border-color: #4a6cf7;
+
+  box-shadow:
+    0 0 0 4px rgba(74,108,247,0.12);
+}
+
+
+/* DARK INPUTS */
+
+body.dark .input-area input,
+body.dark .input-area select {
+
+  background: #16213e;
+
+  border-color: #22304f;
+
+  color: #e2e8f0;
+}
+
+
+/* ADD BUTTON */
+
+#addTaskBtn {
+
+  border: none;
+
+  background: linear-gradient(
+    135deg,
+    #4a6cf7,
+    #6d7dff
+  );
+
+  color: white;
+
+  padding: 14px 22px;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  font-weight: bold;
+
+  transition: all 0.3s ease;
 }
 
 #addTaskBtn:hover {
-  background: #3451d1;
-  transform: scale(1.05); /* slightly bigger on hover */
-}
 
-body.dark .input-area input {
-  background: #0f3460;
-  border-color: #1a4a8a;
-  color: #e0e0e0;
+  transform: scale(1.05);
+
+  box-shadow:
+    0 8px 20px rgba(74,108,247,0.25);
 }
 
 
-/* ============================================
+/* =========================================
    ⚠️ ERROR MESSAGE
-   ============================================ */
+========================================= */
 
 .error-msg {
-  color: #e53935;
+
+  color: #ef4444;
+
   font-size: 13px;
-  margin-bottom: 10px;
-  min-height: 18px;   /* keeps layout stable even when empty */
+
+  margin-bottom: 14px;
+
+  min-height: 18px;
 }
 
 
-/* ============================================
+/* =========================================
    🔽 FILTER BUTTONS
-   ============================================ */
+========================================= */
 
 .filters {
+
   display: flex;
+
   gap: 10px;
-  margin-bottom: 20px;
+
   flex-wrap: wrap;
+
+  margin-bottom: 22px;
 }
 
 .filter-btn {
-  padding: 8px 18px;
-  border: 2px solid #e0e0e0;
-  border-radius: 20px;
+
+  border: 2px solid #e2e8f0;
+
   background: transparent;
+
+  padding: 10px 18px;
+
+  border-radius: 999px;
+
   cursor: pointer;
+
   font-size: 14px;
+
   transition: all 0.3s ease;
-  color: #555;
 }
 
 .filter-btn:hover {
+
   border-color: #4a6cf7;
+
   color: #4a6cf7;
 }
 
-/* The currently selected filter gets filled in blue */
 .filter-btn.active {
+
   background: #4a6cf7;
+
   color: white;
+
   border-color: #4a6cf7;
 }
 
 body.dark .filter-btn {
-  color: #aaa;
-  border-color: #1a4a8a;
+
+  border-color: #22304f;
+
+  color: #cbd5e1;
 }
 
-body.dark .filter-btn.active {
-  background: #818cf8;
-  border-color: #818cf8;
+
+/* =========================================
+   📋 TASK LIST
+========================================= */
+
+.task-list {
+
+  list-style: none;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+
+/* TASK CARD */
+
+.task-item {
+
+  background: #f8fbff;
+
+  border-left: 5px solid #4a6cf7;
+
+  border-radius: 18px;
+
+  padding: 16px;
+
+  display: flex;
+
+  gap: 14px;
+
+  align-items: flex-start;
+
+  transition: all 0.3s ease;
+
+  animation: slideIn 0.3s ease;
+}
+
+.task-item:hover {
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 10px 20px rgba(74,108,247,0.12);
+}
+
+body.dark .task-item {
+
+  background: #16213e;
+}
+
+
+/* COMPLETED */
+
+.task-item.completed {
+
+  opacity: 0.7;
+
+  border-left-color: #22c55e;
+}
+
+.task-item.completed .task-text {
+
+  text-decoration: line-through;
+
+  color: #94a3b8;
+}
+
+
+/* CHECKBOX */
+
+.task-checkbox {
+
+  width: 20px;
+
+  height: 20px;
+
+  margin-top: 4px;
+
+  accent-color: #4a6cf7;
+
+  cursor: pointer;
+}
+
+
+/* TEXT AREA */
+
+.task-text-area {
+
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.task-text {
+
+  font-size: 15px;
+
+  line-height: 1.5;
+
+  word-break: break-word;
+}
+
+
+/* CATEGORY BADGE */
+
+.task-category {
+
+  width: fit-content;
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+  background: #eef2ff;
+
+  color: #4a6cf7;
+}
+
+
+/* DUE DATE */
+
+.task-due-date {
+
+  font-size: 12px;
+
+  color: #777;
+}
+
+.task-due-date.overdue {
+
+  color: #ef4444;
+
+  font-weight: bold;
+}
+
+
+/* EDIT INPUT */
+
+.task-edit-input {
+
+  width: 100%;
+
+  padding: 8px 10px;
+
+  border-radius: 10px;
+
+  border: 2px solid #4a6cf7;
+
+  outline: none;
+
+  font-size: 14px;
+}
+
+body.dark .task-edit-input {
+
+  background: #0f172a;
+
   color: white;
 }
 
 
-/* ============================================
-   📋 TASK LIST — the list of all tasks
-   ============================================ */
+/* ACTION BUTTONS */
 
-.task-list {
-  list-style: none;  /* removes bullet points */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* Each single task card */
-.task-item {
-  background: #f8f9ff;
-  border-radius: 14px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-left: 4px solid #4a6cf7; /* blue line on the left */
-  transition: all 0.3s ease;
-  animation: slideIn 0.3s ease; /* slides in when added */
-}
-
-.task-item:hover {
-  transform: translateX(4px); /* slides right on hover */
-  box-shadow: 0 4px 15px rgba(74, 108, 247, 0.1);
-}
-
-/* Completed task looks faded */
-.task-item.completed {
-  border-left-color: #4caf50; /* green line for done tasks */
-  opacity: 0.7;
-}
-
-.task-item.completed .task-text {
-  text-decoration: line-through; /* strikethrough text */
-  color: #aaa;
-}
-
-body.dark .task-item {
-  background: #0f3460;
-}
-
-
-/* ✅ Checkbox */
-.task-checkbox {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  accent-color: #4a6cf7; /* colors the checkbox blue */
-  flex-shrink: 0;
-}
-
-/* Task text area (grows to fill space) */
-.task-text-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.task-text {
-  font-size: 15px;
-  word-break: break-word;
-}
-
-/* The due date shown under the task */
-.task-due-date {
-  font-size: 12px;
-  color: #888;
-}
-
-.task-due-date.overdue {
-  color: #e53935; /* red if past due date */
-  font-weight: bold;
-}
-
-/* Hidden input box for editing */
-.task-edit-input {
-  font-size: 15px;
-  padding: 4px 8px;
-  border: 2px solid #4a6cf7;
-  border-radius: 8px;
-  outline: none;
-  width: 100%;
-}
-
-body.dark .task-edit-input {
-  background: #1a1a2e;
-  color: #e0e0e0;
-}
-
-
-/* ✏️ Edit & 🗑️ Delete Buttons on each task */
 .task-actions {
+
   display: flex;
-  gap: 6px;
-  flex-shrink: 0;
+
+  gap: 8px;
 }
 
-.edit-btn, .delete-btn {
+.edit-btn,
+.delete-btn {
+
   border: none;
-  border-radius: 8px;
-  padding: 6px 10px;
+
+  width: 38px;
+
+  height: 38px;
+
+  border-radius: 12px;
+
   cursor: pointer;
-  font-size: 14px;
-  transition: transform 0.2s ease, background 0.2s ease;
+
+  font-size: 15px;
+
+  transition: all 0.2s ease;
 }
 
 .edit-btn {
-  background: #e8f0fe;
+
+  background: #e0e7ff;
+
   color: #4a6cf7;
 }
 
 .edit-btn:hover {
-  background: #c5d5fb;
-  transform: scale(1.1);
+
+  transform: scale(1.08);
+
+  background: #c7d2fe;
 }
 
 .delete-btn {
-  background: #fce8e8;
-  color: #e53935;
+
+  background: #fee2e2;
+
+  color: #ef4444;
 }
 
 .delete-btn:hover {
-  background: #f5b7b7;
-  transform: scale(1.1);
+
+  transform: scale(1.08);
+
+  background: #fecaca;
 }
 
 
-/* ============================================
+/* =========================================
    💫 ANIMATIONS
-   ============================================ */
+========================================= */
 
-/* Task slides in from the left when added */
 @keyframes slideIn {
+
   from {
+
     opacity: 0;
-    transform: translateX(-20px);
+
+    transform: translateY(10px);
   }
+
   to {
+
     opacity: 1;
-    transform: translateX(0);
+
+    transform: translateY(0);
   }
 }
 
 
-/* ============================================
-   📱 MOBILE FRIENDLY — for small screens
-   ============================================ */
+/* =========================================
+   📱 MOBILE
+========================================= */
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+
   .container {
-    padding: 20px 16px;
+
+    padding: 22px 16px;
   }
 
   .app-title {
-    font-size: 1.5rem;
-    margin-top: 40px;
-  }
 
-  .input-area {
-    flex-direction: column; /* stack inputs vertically */
-  }
+    font-size: 1.8rem;
 
-  .input-area input[type="date"],
-  #addTaskBtn {
-    width: 100%;
+    margin-top: 50px;
   }
 
   .counters {
-    gap: 6px;
+
+    grid-template-columns: 1fr;
   }
 
-  .counter-box {
-    padding: 10px;
+  .input-area {
+
+    flex-direction: column;
+  }
+
+  .input-area input,
+  .input-area select,
+  #addTaskBtn {
+
+    width: 100%;
+  }
+
+  .task-item {
+
+    flex-direction: column;
+  }
+
+  .task-actions {
+
+    width: 100%;
+
+    justify-content: flex-end;
   }
 }

@@ -1,35 +1,29 @@
 // ============================================
-// 📦 STEP 1 — GRAB ALL THE HTML PIECES
-// Like picking up your LEGO pieces before building
+// 📦 GET HTML ELEMENTS
 // ============================================
 
-const taskInput     = document.getElementById('taskInput');      // the text box
-const dueDateInput  = document.getElementById('dueDateInput');   // the date picker
-const addTaskBtn    = document.getElementById('addTaskBtn');     // the Add button
-const taskList      = document.getElementById('taskList');       // the list container
-const errorMsg      = document.getElementById('errorMsg');       // error message
-const darkModeBtn   = document.getElementById('darkModeBtn');    // dark mode button
-const totalCount    = document.getElementById('totalCount');     // total counter
-const completedCount = document.getElementById('completedCount');// completed counter
-const pendingCount  = document.getElementById('pendingCount');   // pending counter
-const filterBtns    = document.querySelectorAll('.filter-btn'); // all 3 filter buttons
+const taskInput      = document.getElementById('taskInput');
+const dueDateInput   = document.getElementById('dueDateInput');
+const categoryInput  = document.getElementById('categoryInput');
+const addTaskBtn     = document.getElementById('addTaskBtn');
+const taskList       = document.getElementById('taskList');
+const errorMsg       = document.getElementById('errorMsg');
+const darkModeBtn    = document.getElementById('darkModeBtn');
+const totalCount     = document.getElementById('totalCount');
+const completedCount = document.getElementById('completedCount');
+const pendingCount   = document.getElementById('pendingCount');
+const filterBtns     = document.querySelectorAll('.filter-btn');
 
 
 // ============================================
-// 💾 STEP 2 — LOAD SAVED TASKS
-// Like opening your notebook where you saved tasks last time
+// 💾 LOAD SAVED DATA
 // ============================================
 
-// Load tasks from localStorage (saved in browser) OR start with empty list
-let tasks = JSON.parse(localStorage.getItem('myTasks')) || [];
-
-// Remember which filter is active (all / completed / pending)
+let tasks         = JSON.parse(localStorage.getItem('myTasks')) || [];
 let currentFilter = 'all';
+let isDarkMode    = localStorage.getItem('darkMode') === 'true';
 
-// Remember if dark mode was on
-let isDarkMode = localStorage.getItem('darkMode') === 'true';
-
-// Apply dark mode if it was saved
+// Apply saved dark mode
 if (isDarkMode) {
   document.body.classList.add('dark');
   darkModeBtn.textContent = '☀️ Light Mode';
@@ -37,8 +31,7 @@ if (isDarkMode) {
 
 
 // ============================================
-// 💡 STEP 3 — HELPER: SAVE TASKS TO BROWSER
-// Like saving your notebook so you don't forget tasks
+// 💾 SAVE TASKS TO BROWSER
 // ============================================
 
 function saveTasks() {
@@ -47,13 +40,12 @@ function saveTasks() {
 
 
 // ============================================
-// 🔢 STEP 4 — UPDATE THE COUNTERS
-// Counts Total / Completed / Pending automatically
+// 🔢 UPDATE COUNTERS
 // ============================================
 
 function updateCounters() {
   const total     = tasks.length;
-  const completed = tasks.filter(t => t.completed).length;
+  const completed = tasks.filter(function(t) { return t.completed; }).length;
   const pending   = total - completed;
 
   totalCount.textContent     = total;
@@ -63,254 +55,246 @@ function updateCounters() {
 
 
 // ============================================
-// 🖨️ STEP 5 — SHOW TASKS ON SCREEN
-// Like printing your task list on paper
+// 🏷️ CATEGORY EMOJI HELPER
 // ============================================
 
-function renderTasks() {
-
-  // Decide which tasks to show based on filter
-  let filteredTasks = tasks;
-
-  if (currentFilter === 'completed') {
-    filteredTasks = tasks.filter(t => t.completed);
-  } else if (currentFilter === 'pending') {
-    filteredTasks = tasks.filter(t => !t.completed);
-  }
-
-  // Clear the list first (so we don't print doubles)
-  taskList.innerHTML = '';
-
-  // If no tasks, show a friendly message
-  if (filteredTasks.length === 0) {
-    taskList.innerHTML = `
-      <li style="text-align:center; color:#aaa; padding:30px; font-size:15px;">
-        🎉 No tasks here! Add one above.
-      </li>`;
-    return;
-  }
-
-  // Loop through each task and build its HTML card
-  filteredTasks.forEach(task => {
-
-    // Check if task is overdue (past due date and not completed)
-    const today = new Date().toISOString().split('T')[0]; // today's date
-    const isOverdue = task.dueDate && task.dueDate < today && !task.completed;
-
-    // Build the task card HTML
-    const li = document.createElement('li');
-    li.classList.add('task-item');
-    if (task.completed) li.classList.add('completed');
-    li.setAttribute('data-id', task.id); // remember which task this is
-
-    li.innerHTML = `
-      <!-- ✅ Checkbox to mark done -->
-      <input
-        type="checkbox"
-        class="task-checkbox"
-        ${task.completed ? 'checked' : ''}
-        title="Mark as complete"
-      />
-
-      <!-- 📝 Task text and due date -->
-      <div class="task-text-area">
-        <span class="task-text">${task.text}</span>
-        <input class="task-edit-input" style="display:none;" value="${task.text}" />
-        ${task.dueDate
-          ? `<span class="task-due-date ${isOverdue ? 'overdue' : ''}">
-               📅 ${isOverdue ? '⚠️ Overdue! ' : ''}Due: ${task.dueDate}
-             </span>`
-          : ''}
-      </div>
-
-      <!-- ✏️🗑️ Edit and Delete buttons -->
-      <div class="task-actions">
-        <button class="edit-btn" title="Edit task">✏️</button>
-        <button class="delete-btn" title="Delete task">🗑️</button>
-      </div>
-    `;
-
-    taskList.appendChild(li); // add the card to the list
-  });
-
-  updateCounters(); // update the numbers after rendering
+function getCategoryEmoji(category) {
+  var emojis = {
+    'Study'    : '📚',
+    'Work'     : '💼',
+    'Health'   : '💪',
+    'Shopping' : '🛒',
+    'Personal' : '🏠'
+  };
+  return emojis[category] || '🏠';
 }
 
 
 // ============================================
-// ➕ STEP 6 — ADD A NEW TASK
-// Runs when user clicks the "Add Task" button
+// 🖨️ RENDER TASKS ON SCREEN
 // ============================================
 
-function addTask() {
-  const text    = taskInput.value.trim();    // get typed text (remove extra spaces)
-  const dueDate = dueDateInput.value;        // get chosen date
+function renderTasks() {
 
-  // ❌ Validation: don't allow empty tasks
-  if (text === '') {
-    errorMsg.textContent = '⚠️ Please write a task before adding!';
-    taskInput.focus(); // put cursor back in the box
+  // Filter tasks based on current filter
+  var filteredTasks = tasks;
+
+  if (currentFilter === 'completed') {
+    filteredTasks = tasks.filter(function(t) { return t.completed; });
+  } else if (currentFilter === 'pending') {
+    filteredTasks = tasks.filter(function(t) { return !t.completed; });
+  }
+
+  // Clear the list
+  taskList.innerHTML = '';
+
+  // Show message if no tasks
+  if (filteredTasks.length === 0) {
+    taskList.innerHTML = '<li style="text-align:center;color:#aaa;padding:30px;">🎉 No tasks here! Add one above.</li>';
+    updateCounters();
     return;
   }
 
-  // ✅ Clear error if everything is fine
+  // Draw each task
+  var today = new Date().toISOString().split('T')[0];
+
+  filteredTasks.forEach(function(task) {
+
+    var isOverdue = task.dueDate && task.dueDate < today && !task.completed;
+
+    var li = document.createElement('li');
+    li.className = 'task-item' + (task.completed ? ' completed' : '');
+    li.setAttribute('data-id', task.id);
+
+    // Due date HTML
+    var dueDateHTML = '';
+    if (task.dueDate) {
+      var overdueText = isOverdue ? '⚠️ Overdue! ' : '';
+      var overdueClass = isOverdue ? 'overdue' : '';
+      dueDateHTML = '<span class="task-due-date ' + overdueClass + '">📅 ' + overdueText + 'Due: ' + task.dueDate + '</span>';
+    }
+
+    var categoryEmoji = getCategoryEmoji(task.category);
+    var categoryName  = task.category || 'Personal';
+    var checkedAttr   = task.completed ? 'checked' : '';
+
+    li.innerHTML =
+      '<input type="checkbox" class="task-checkbox" ' + checkedAttr + ' />' +
+      '<div class="task-text-area">' +
+        '<span class="task-text">' + task.text + '</span>' +
+        '<input class="task-edit-input" style="display:none;" value="' + task.text.replace(/"/g, '&quot;') + '" />' +
+        '<span class="task-category">' + categoryEmoji + ' ' + categoryName + '</span>' +
+        dueDateHTML +
+      '</div>' +
+      '<div class="task-actions">' +
+        '<button class="edit-btn">✏️</button>' +
+        '<button class="delete-btn">🗑️</button>' +
+      '</div>';
+
+    taskList.appendChild(li);
+  });
+
+  updateCounters();
+}
+
+
+// ============================================
+// ➕ ADD NEW TASK
+// ============================================
+
+function addTask() {
+
+  var text     = taskInput.value.trim();
+  var dueDate  = dueDateInput.value;
+  var category = categoryInput.value || 'Personal';
+
+  // Validation — don't allow empty tasks
+  if (text === '') {
+    errorMsg.textContent = '⚠️ Please write a task before adding!';
+    taskInput.focus();
+    return;
+  }
+
   errorMsg.textContent = '';
 
-  // Build the new task object (like filling out a form)
-  const newTask = {
-    id:        Date.now(),   // unique ID using current time
-    text:      text,
-    dueDate:   dueDate,
-    completed: false
+  // Build new task object
+  var newTask = {
+    id        : Date.now(),
+    text      : text,
+    dueDate   : dueDate,
+    category  : category,
+    completed : false
   };
 
-  // Add to our tasks list
   tasks.push(newTask);
-
-  // Save and re-draw the list
   saveTasks();
   renderTasks();
 
-  // Clear the input boxes so they're ready for next task
-  taskInput.value   = '';
-  dueDateInput.value = '';
+  // Clear inputs
+  taskInput.value     = '';
+  dueDateInput.value  = '';
+  categoryInput.value = 'Personal';
   taskInput.focus();
 }
 
 
 // ============================================
-// 🗑️ STEP 7 — DELETE A TASK
-// Removes task from the list forever
+// 🗑️ DELETE A TASK
 // ============================================
 
 function deleteTask(id) {
-  // Keep all tasks EXCEPT the one we want to delete
-  tasks = tasks.filter(t => t.id !== id);
+  tasks = tasks.filter(function(t) { return t.id !== id; });
   saveTasks();
   renderTasks();
 }
 
 
 // ============================================
-// ✅ STEP 8 — TOGGLE COMPLETE / INCOMPLETE
-// Marks a task as done or undone
+// ✅ MARK TASK COMPLETE / INCOMPLETE
 // ============================================
 
 function toggleComplete(id) {
-  // Find the task and flip its completed value
-  const task = tasks.find(t => t.id === id);
-  if (!task) return;
-  task.completed = !task.completed;
+  var task = tasks.find(function(t) { return t.id === id; });
+  if (task) {
+    task.completed = !task.completed;
+  }
   saveTasks();
   renderTasks();
 }
 
+
 // ============================================
-// ✏️ STEP 9 — EDIT A TASK
-// Lets user change the task text
+// ✏️ EDIT A TASK
 // ============================================
 
 function editTask(id, li) {
-  const taskTextSpan = li.querySelector('.task-text');
-  const editInput    = li.querySelector('.task-edit-input');
-  const editBtn      = li.querySelector('.edit-btn');
 
-  // Are we already in "editing mode"?
-  const isEditing = editInput.style.display === 'block';
+  var taskTextSpan = li.querySelector('.task-text');
+  var editInput    = li.querySelector('.task-edit-input');
+  var editBtn      = li.querySelector('.edit-btn');
+  var isEditing    = editInput.style.display === 'block';
 
   if (!isEditing) {
-    // 🖊️ ENTER edit mode — show the input box, hide the text
+    // Enter edit mode
     taskTextSpan.style.display = 'none';
     editInput.style.display    = 'block';
     editInput.focus();
-    editBtn.textContent = '💾'; // change button to "Save"
+    editBtn.textContent = '💾';
 
   } else {
-    // 💾 SAVE — hide the input box, show updated text
-    const newText = editInput.value.trim();
+    // Save edit
+    var newText = editInput.value.trim();
 
     if (newText === '') {
       alert('Task cannot be empty!');
       return;
     }
 
-    // Update the task in our list
-    const task = tasks.find(t => t.id === id);
-    if (task) task.text = newText;
+    var task = tasks.find(function(t) { return t.id === id; });
+    if (task) {
+      task.text = newText;
+    }
 
     saveTasks();
-    renderTasks(); // re-draw with the new text
+    renderTasks();
   }
 }
 
 
 // ============================================
-// 🌙 STEP 10 — DARK MODE TOGGLE
-// Switches between light and dark
+// 🌙 DARK MODE TOGGLE
 // ============================================
 
-darkModeBtn.addEventListener('click', () => {
+darkModeBtn.addEventListener('click', function() {
   isDarkMode = !isDarkMode;
   document.body.classList.toggle('dark');
   darkModeBtn.textContent = isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
-  localStorage.setItem('darkMode', isDarkMode); // remember choice
+  localStorage.setItem('darkMode', isDarkMode);
 });
 
 
 // ============================================
-// 🔽 STEP 11 — FILTER BUTTONS
-// Shows All / Completed / Pending tasks
+// 🔽 FILTER BUTTONS
 // ============================================
 
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-
-    // Remove "active" from all buttons
-    filterBtns.forEach(b => b.classList.remove('active'));
-
-    // Add "active" to the clicked button
+filterBtns.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    filterBtns.forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
-
-    // Remember which filter is selected
     currentFilter = btn.getAttribute('data-filter');
-
-    // Re-draw the list with the new filter
     renderTasks();
   });
 });
 
 
 // ============================================
-// 🖱️ STEP 12 — LISTEN FOR CLICKS ON THE TASK LIST
-// One listener handles ALL tasks (even future ones!)
+// 🖱️ CLICK EVENTS ON TASK LIST
 // ============================================
 
-taskList.addEventListener('click', (e) => {
+taskList.addEventListener('click', function(e) {
 
-  // Find the parent task card
-  const li = e.target.closest('.task-item');
+  var li = e.target.closest('.task-item');
   if (!li) return;
 
-  // Get the task ID from the card
-  const id = Number(li.getAttribute('data-id'));
+  var id = Number(li.getAttribute('data-id'));
 
-  // Which element was clicked?
   if (e.target.classList.contains('task-checkbox')) {
-    toggleComplete(id);                // ✅ checkbox clicked
+    toggleComplete(id);
+
   } else if (e.target.classList.contains('delete-btn')) {
-    deleteTask(id);                    // 🗑️ delete button clicked
+    deleteTask(id);
+
   } else if (e.target.classList.contains('edit-btn')) {
-    editTask(id, li);                  // ✏️ edit button clicked
+    editTask(id, li);
   }
 });
 
 
 // ============================================
-// ⌨️ STEP 13 — PRESS ENTER TO ADD TASK
-// So you don't have to click the button every time
+// ⌨️ PRESS ENTER TO ADD TASK
 // ============================================
 
-taskInput.addEventListener('keypress', (e) => {
+taskInput.addEventListener('keypress', function(e) {
   if (e.key === 'Enter') {
     addTask();
   }
@@ -318,15 +302,14 @@ taskInput.addEventListener('keypress', (e) => {
 
 
 // ============================================
-// 🖱️ STEP 14 — ADD BUTTON CLICK
+// 🖱️ ADD BUTTON CLICK
 // ============================================
 
 addTaskBtn.addEventListener('click', addTask);
 
 
 // ============================================
-// 🚀 STEP 15 — START THE APP!
-// Runs everything when the page first loads
+// 🚀 START THE APP
 // ============================================
 
 renderTasks();
