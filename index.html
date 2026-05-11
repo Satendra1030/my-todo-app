@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-  <!-- 🧠 Browser Information -->
+  <!-- 🌍 BASIC SETTINGS -->
   <meta charset="UTF-8" />
 
   <meta
@@ -12,91 +11,157 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <!-- 🌟 Website Title -->
-  <title>My Advanced To-Do App</title>
+  <!-- 🌟 WEBSITE TITLE -->
+  <title>TaskFlow Pro | Advanced To-Do App</title>
 
-  <!-- 🎨 CSS File -->
+  <!-- 🎨 CSS FILE -->
   <link
     rel="stylesheet"
     href="style.css"
+  />
+
+  <!-- ✨ GOOGLE FONTS -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
   />
 
 </head>
 
 <body>
 
-  <!-- 📦 MAIN APP CONTAINER -->
+  <!-- 🌌 BACKGROUND BLUR CIRCLES -->
+  <div class="bg-circle bg-circle-1"></div>
+  <div class="bg-circle bg-circle-2"></div>
+
+  <!-- 📦 MAIN APP -->
   <div class="container">
 
-    <!-- 🌙 DARK MODE BUTTON -->
-    <button
-      class="dark-mode-btn"
-      id="darkModeBtn"
-    >
-      🌙 Dark Mode
-    </button>
+    <!-- =========================
+         🚀 TOP HEADER
+    ========================== -->
+
+    <div class="top-bar">
+
+      <!-- 📝 TITLE -->
+      <div>
+
+        <h1 class="app-title">
+          🚀 TaskFlow Pro
+        </h1>
+
+        <p class="subtitle">
+          Organize your day beautifully
+        </p>
+
+      </div>
+
+      <!-- 🌙 DARK MODE -->
+      <button
+        class="dark-mode-btn"
+        id="darkModeBtn"
+      >
+        🌙
+      </button>
+
+    </div>
 
 
-    <!-- 📝 APP TITLE -->
-    <h1 class="app-title">
+    <!-- =========================
+         📊 PRODUCTIVITY DASHBOARD
+    ========================== -->
 
-      ✅ My To-Do List
+    <div class="dashboard">
 
-    </h1>
+      <!-- 📈 PROGRESS -->
+      <div class="progress-card">
 
+        <div class="progress-header">
 
-    <!-- 📊 TASK COUNTERS -->
-    <div class="counters">
+          <span>📈 Daily Progress</span>
 
-      <!-- TOTAL -->
-      <div class="counter-box">
+          <span id="progressText">
+            0%
+          </span>
 
-        <span id="totalCount">0</span>
+        </div>
 
-        <p>Total Tasks</p>
+        <div class="progress-bar">
+
+          <div
+            class="progress-fill"
+            id="progressFill"
+          ></div>
+
+        </div>
 
       </div>
 
 
-      <!-- COMPLETED -->
-      <div class="counter-box">
+      <!-- 🔥 STREAK -->
+      <div class="dashboard-card">
 
-        <span id="completedCount">0</span>
+        <h3>🔥 Streak</h3>
 
-        <p>Completed</p>
+        <p id="streakCount">
+          0 Days
+        </p>
 
       </div>
 
 
-      <!-- PENDING -->
-      <div class="counter-box">
+      <!-- ⏰ CLOCK -->
+      <div class="dashboard-card">
 
-        <span id="pendingCount">0</span>
+        <h3>⏰ Time</h3>
 
-        <p>Pending</p>
+        <p id="liveClock">
+          00:00
+        </p>
 
       </div>
 
     </div>
 
 
-    <!-- ✏️ INPUT AREA -->
+    <!-- 🏆 MOTIVATION -->
+    <div
+      class="motivation-box"
+      id="motivationBox"
+    >
+      🚀 Start your productive day!
+    </div>
+
+
+    <!-- =========================
+         ✏️ INPUT SECTION
+    ========================== -->
+
     <div class="input-area">
 
-      <!-- 📝 TASK TEXT -->
+      <!-- 📝 TASK INPUT -->
       <input
         type="text"
         id="taskInput"
-        placeholder="Write a task... e.g. Buy milk 🥛"
+        placeholder="✨ What needs to be done?"
       />
 
-
-      <!-- 📅 DUE DATE -->
+      <!-- 📅 DATE -->
       <input
         type="date"
         id="dueDateInput"
       />
-
 
       <!-- 🏷️ CATEGORY -->
       <select id="categoryInput">
@@ -123,7 +188,6 @@
 
       </select>
 
-
       <!-- 🚨 PRIORITY -->
       <select id="priorityInput">
 
@@ -141,83 +205,141 @@
 
       </select>
 
-
-      <!-- ➕ ADD BUTTON -->
+      <!-- ➕ BUTTON -->
       <button id="addTaskBtn">
 
-        + Add Task
+        ➕ Add
 
       </button>
 
     </div>
 
 
-    <!-- ⚠️ ERROR MESSAGE -->
+    <!-- ⚠️ ERROR -->
     <p
       class="error-msg"
       id="errorMsg"
-    >
-    </p>
+    ></p>
 
 
-    <!-- 🔍 SEARCH BAR -->
-    <div class="search-area">
+    <!-- =========================
+         🔍 SEARCH + FILTERS
+    ========================== -->
 
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="🔍 Search your tasks..."
-      />
+    <div class="toolbar">
+
+      <!-- 🔍 SEARCH -->
+      <div class="search-area">
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="🔍 Search tasks..."
+        />
+
+      </div>
+
+
+      <!-- 🔽 FILTERS -->
+      <div class="filters">
+
+        <button
+          class="filter-btn active"
+          data-filter="all"
+        >
+          📋 All
+        </button>
+
+        <button
+          class="filter-btn"
+          data-filter="completed"
+        >
+          ✅ Done
+        </button>
+
+        <button
+          class="filter-btn"
+          data-filter="pending"
+        >
+          ⏳ Pending
+        </button>
+
+      </div>
 
     </div>
 
 
-    <!-- 🔽 FILTER BUTTONS -->
-    <div class="filters">
+    <!-- =========================
+         📊 COUNTERS
+    ========================== -->
 
-      <!-- ALL -->
-      <button
-        class="filter-btn active"
-        data-filter="all"
-      >
-        📋 All
-      </button>
+    <div class="counters">
 
+      <div class="counter-box">
 
-      <!-- COMPLETED -->
-      <button
-        class="filter-btn"
-        data-filter="completed"
-      >
-        ✅ Completed
-      </button>
+        <span id="totalCount">
+          0
+        </span>
 
+        <p>Total</p>
 
-      <!-- PENDING -->
-      <button
-        class="filter-btn"
-        data-filter="pending"
-      >
-        ⏳ Pending
-      </button>
+      </div>
+
+      <div class="counter-box">
+
+        <span id="completedCount">
+          0
+        </span>
+
+        <p>Completed</p>
+
+      </div>
+
+      <div class="counter-box">
+
+        <span id="pendingCount">
+          0
+        </span>
+
+        <p>Pending</p>
+
+      </div>
 
     </div>
 
 
-    <!-- 📋 TASK LIST -->
+    <!-- =========================
+         📋 TASK LIST
+    ========================== -->
+
     <ul
       class="task-list"
       id="taskList"
     >
 
-      <!-- Tasks added using JavaScript -->
+      <!-- JavaScript Tasks -->
 
     </ul>
+
+
+    <!-- =========================
+         🗑️ CLEAR BUTTON
+    ========================== -->
+
+    <button
+      class="clear-all-btn"
+      id="clearAllBtn"
+    >
+      🗑️ Clear All Tasks
+    </button>
 
   </div>
 
 
-  <!-- 🧠 JAVASCRIPT -->
+  <!-- =========================
+       🧠 JAVASCRIPT
+  ========================== -->
+
   <script src="script.js"></script>
 
 </body>

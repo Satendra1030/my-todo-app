@@ -1,35 +1,79 @@
 // ============================================
+// 🚀 ADVANCED TODO APP
+// ============================================
+
+
+// ============================================
 // 📦 GET HTML ELEMENTS
 // ============================================
 
-var taskInput      = document.getElementById('taskInput');
-var dueDateInput   = document.getElementById('dueDateInput');
-var categoryInput  = document.getElementById('categoryInput');
-var priorityInput  = document.getElementById('priorityInput');
-var addTaskBtn     = document.getElementById('addTaskBtn');
-var taskList       = document.getElementById('taskList');
-var errorMsg       = document.getElementById('errorMsg');
-var darkModeBtn    = document.getElementById('darkModeBtn');
-var totalCount     = document.getElementById('totalCount');
-var completedCount = document.getElementById('completedCount');
-var pendingCount   = document.getElementById('pendingCount');
-var filterBtns     = document.querySelectorAll('.filter-btn');
-var searchInput    = document.getElementById('searchInput');
+const taskInput =
+  document.getElementById('taskInput');
+
+const dueDateInput =
+  document.getElementById('dueDateInput');
+
+const categoryInput =
+  document.getElementById('categoryInput');
+
+const priorityInput =
+  document.getElementById('priorityInput');
+
+const addTaskBtn =
+  document.getElementById('addTaskBtn');
+
+const taskList =
+  document.getElementById('taskList');
+
+const errorMsg =
+  document.getElementById('errorMsg');
+
+const darkModeBtn =
+  document.getElementById('darkModeBtn');
+
+const totalCount =
+  document.getElementById('totalCount');
+
+const completedCount =
+  document.getElementById('completedCount');
+
+const pendingCount =
+  document.getElementById('pendingCount');
+
+const filterBtns =
+  document.querySelectorAll('.filter-btn');
+
+const searchInput =
+  document.getElementById('searchInput');
 
 
 // ============================================
-// 💾 LOAD SAVED DATA
+// 💾 LOAD DATA
 // ============================================
 
-var tasks         = JSON.parse(localStorage.getItem('myTasks')) || [];
-var currentFilter = 'all';
-var searchText    = '';
-var isDarkMode    = localStorage.getItem('darkMode') === 'true';
+let tasks =
+  JSON.parse(
+    localStorage.getItem('myTasks')
+  ) || [];
 
-// Apply dark mode on load
+let currentFilter = 'all';
+
+let searchText = '';
+
+let isDarkMode =
+  localStorage.getItem('darkMode')
+  === 'true';
+
+
+// ============================================
+// 🌙 APPLY DARK MODE
+// ============================================
+
 if (isDarkMode) {
+
   document.body.classList.add('dark');
-  darkModeBtn.textContent = '☀️ Light Mode';
+
+  darkModeBtn.textContent = '☀️';
 }
 
 
@@ -38,7 +82,11 @@ if (isDarkMode) {
 // ============================================
 
 function saveTasks() {
-  localStorage.setItem('myTasks', JSON.stringify(tasks));
+
+  localStorage.setItem(
+    'myTasks',
+    JSON.stringify(tasks)
+  );
 }
 
 
@@ -47,13 +95,24 @@ function saveTasks() {
 // ============================================
 
 function updateCounters() {
-  var total     = tasks.length;
-  var completed = tasks.filter(function(t) { return t.completed; }).length;
-  var pending   = total - completed;
 
-  totalCount.textContent     = total;
-  completedCount.textContent = completed;
-  pendingCount.textContent   = pending;
+  const total = tasks.length;
+
+  const completed =
+    tasks.filter(
+      task => task.completed
+    ).length;
+
+  const pending =
+    total - completed;
+
+  totalCount.textContent = total;
+
+  completedCount.textContent =
+    completed;
+
+  pendingCount.textContent =
+    pending;
 }
 
 
@@ -62,28 +121,44 @@ function updateCounters() {
 // ============================================
 
 function getCategoryEmoji(category) {
-  var map = {
-    'Study'    : '📚',
-    'Work'     : '💼',
-    'Health'   : '💪',
-    'Shopping' : '🛒',
-    'Personal' : '🏠'
-  };
-  return map[category] || '🏠';
+
+  switch (category) {
+
+    case 'Study':
+      return '📚';
+
+    case 'Work':
+      return '💼';
+
+    case 'Health':
+      return '💪';
+
+    case 'Shopping':
+      return '🛒';
+
+    default:
+      return '🏠';
+  }
 }
 
 
 // ============================================
-// 🚨 PRIORITY EMOJI
+// 🚨 PRIORITY CLASS
 // ============================================
 
-function getPriorityEmoji(priority) {
-  var map = {
-    'High'   : '🔴',
-    'Medium' : '🟡',
-    'Low'    : '🟢'
-  };
-  return map[priority] || '🟢';
+function getPriorityClass(priority) {
+
+  switch(priority) {
+
+    case 'High':
+      return 'priority-high';
+
+    case 'Medium':
+      return 'priority-medium';
+
+    default:
+      return 'priority-low';
+  }
 }
 
 
@@ -93,92 +168,191 @@ function getPriorityEmoji(priority) {
 
 function renderTasks() {
 
-  var filteredTasks = tasks.slice(); // copy array
+  let filteredTasks = [...tasks];
 
-  // Filter by status
+  // 🔍 SEARCH FILTER
+  filteredTasks =
+    filteredTasks.filter(task =>
+      task.text
+        .toLowerCase()
+        .includes(
+          searchText.toLowerCase()
+        )
+    );
+
+  // 🔽 STATUS FILTER
   if (currentFilter === 'completed') {
-    filteredTasks = filteredTasks.filter(function(t) { return t.completed; });
-  } else if (currentFilter === 'pending') {
-    filteredTasks = filteredTasks.filter(function(t) { return !t.completed; });
+
+    filteredTasks =
+      filteredTasks.filter(
+        task => task.completed
+      );
   }
 
-  // Filter by search text
-  if (searchText !== '') {
-    filteredTasks = filteredTasks.filter(function(t) {
-      return t.text.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
-    });
+  else if (
+    currentFilter === 'pending'
+  ) {
+
+    filteredTasks =
+      filteredTasks.filter(
+        task => !task.completed
+      );
   }
 
-  // Sort by priority
-  var priorityOrder = { 'High': 1, 'Medium': 2, 'Low': 3 };
-  filteredTasks.sort(function(a, b) {
-    return (priorityOrder[a.priority] || 3) - (priorityOrder[b.priority] || 3);
+  // 🚨 SORT PRIORITY
+  filteredTasks.sort((a, b) => {
+
+    const order = {
+      High: 1,
+      Medium: 2,
+      Low: 3
+    };
+
+    return (
+      order[a.priority]
+      -
+      order[b.priority]
+    );
   });
 
-  // Clear list
+  // 🧹 CLEAR LIST
   taskList.innerHTML = '';
 
-  // Empty state
+  // 😴 EMPTY STATE
   if (filteredTasks.length === 0) {
-    var emptyLi = document.createElement('li');
-    emptyLi.className = 'empty-message';
-    emptyLi.textContent = '🎉 No matching tasks found!';
-    taskList.appendChild(emptyLi);
+
+    taskList.innerHTML = `
+      <li class="empty-message">
+        😴 No tasks found
+      </li>
+    `;
+
     updateCounters();
+
     return;
   }
 
-  // Draw each task
-  var today = new Date().toISOString().split('T')[0];
+  // 🔁 LOOP TASKS
+  filteredTasks.forEach(task => {
 
-  filteredTasks.forEach(function(task) {
+    const today =
+      new Date()
+      .toISOString()
+      .split('T')[0];
 
-    var isOverdue = task.dueDate && task.dueDate < today && !task.completed;
+    const isOverdue =
+      task.dueDate &&
+      task.dueDate < today &&
+      !task.completed;
 
-    // Build due date HTML
-    var dueDateHTML = '';
-    if (task.dueDate) {
-      var overdueClass = isOverdue ? ' overdue' : '';
-      var overdueText  = isOverdue ? '⚠️ Overdue! ' : '';
-      dueDateHTML =
-        '<span class="task-due-date' + overdueClass + '">' +
-          '📅 ' + overdueText + 'Due: ' + task.dueDate +
-        '</span>';
+    const li =
+      document.createElement('li');
+
+    li.classList.add('task-item');
+
+    if (task.completed) {
+
+      li.classList.add('completed');
     }
 
-    // Build priority HTML
-    var priorityClass = 'priority-' + (task.priority || 'low').toLowerCase();
-    var priorityHTML =
-      '<span class="task-priority ' + priorityClass + '">' +
-        getPriorityEmoji(task.priority) + ' ' + (task.priority || 'Low') + ' Priority' +
-      '</span>';
+    li.setAttribute(
+      'data-id',
+      task.id
+    );
 
-    // Build category HTML
-    var categoryHTML =
-      '<span class="task-category">' +
-        getCategoryEmoji(task.category) + ' ' + (task.category || 'Personal') +
-      '</span>';
+    li.innerHTML = `
 
-    // Build task card
-    var li = document.createElement('li');
-    li.className = 'task-item' + (task.completed ? ' completed' : '');
-    li.setAttribute('data-id', task.id);
+      <!-- ✅ CHECKBOX -->
+      <input
+        type="checkbox"
+        class="task-checkbox"
+        ${task.completed ? 'checked' : ''}
+      />
 
-    li.innerHTML =
-      '<input type="checkbox" class="task-checkbox" ' + (task.completed ? 'checked' : '') + ' />' +
+      <!-- 📝 CONTENT -->
+      <div class="task-text-area">
 
-      '<div class="task-text-area">' +
-        '<span class="task-text">' + task.text + '</span>' +
-        '<input class="task-edit-input" style="display:none;" value="' + task.text.replace(/"/g, '&quot;') + '" />' +
-        categoryHTML +
-        priorityHTML +
-        dueDateHTML +
-      '</div>' +
+        <!-- 📝 TEXT -->
+        <span class="task-text">
+          ${task.text}
+        </span>
 
-      '<div class="task-actions">' +
-        '<button class="edit-btn">✏️</button>' +
-        '<button class="delete-btn">🗑️</button>' +
-      '</div>';
+        <!-- ✏️ EDIT INPUT -->
+        <input
+          class="task-edit-input"
+          style="display:none;"
+          value="${task.text}"
+        />
+
+        <!-- 🏷️ CATEGORY -->
+        <span class="task-category">
+
+          ${getCategoryEmoji(task.category)}
+
+          ${task.category}
+
+        </span>
+
+        <!-- 🚨 PRIORITY -->
+        <span class="
+          task-priority
+          ${getPriorityClass(task.priority)}
+        ">
+
+          ${task.priority} Priority
+
+        </span>
+
+        <!-- 📅 DATE -->
+        ${
+          task.dueDate
+          ?
+          `
+          <span class="
+            task-due-date
+            ${isOverdue ? 'overdue' : ''}
+          ">
+
+            📅
+
+            ${
+              isOverdue
+              ?
+              '⚠️ Overdue!'
+              :
+              'Due'
+            }
+
+            :
+            ${task.dueDate}
+
+          </span>
+          `
+          :
+          ''
+        }
+
+      </div>
+
+      <!-- 🎮 ACTIONS -->
+      <div class="task-actions">
+
+        <!-- ✏️ EDIT -->
+        <button
+          class="edit-btn"
+        >
+          ✏️
+        </button>
+
+        <!-- 🗑️ DELETE -->
+        <button
+          class="delete-btn"
+        >
+          🗑️
+        </button>
+
+      </div>
+    `;
 
     taskList.appendChild(li);
   });
@@ -193,39 +367,66 @@ function renderTasks() {
 
 function addTask() {
 
-  var text     = taskInput.value.trim();
-  var dueDate  = dueDateInput.value;
-  var category = categoryInput.value  || 'Personal';
-  var priority = priorityInput.value  || 'Low';
+  const text =
+    taskInput.value.trim();
 
-  // Validation
+  const dueDate =
+    dueDateInput.value;
+
+  const category =
+    categoryInput.value;
+
+  const priority =
+    priorityInput.value;
+
+  // ❌ VALIDATION
   if (text === '') {
-    errorMsg.textContent = '⚠️ Please write a task!';
+
+    errorMsg.textContent =
+      '⚠️ Please enter a task';
+
     taskInput.focus();
+
     return;
   }
 
+  // ✅ CLEAR ERROR
   errorMsg.textContent = '';
 
-  // Create task
-  var newTask = {
-    id        : Date.now(),
-    text      : text,
-    dueDate   : dueDate,
-    category  : category,
-    priority  : priority,
-    completed : false
+  // 🆕 NEW TASK
+  const newTask = {
+
+    id: Date.now(),
+
+    text,
+
+    dueDate,
+
+    category,
+
+    priority,
+
+    completed: false
   };
 
+  // ➕ PUSH
   tasks.push(newTask);
+
   saveTasks();
+
   renderTasks();
 
-  // Reset inputs
-  taskInput.value     = '';
-  dueDateInput.value  = '';
-  categoryInput.value = 'Personal';
-  priorityInput.value = 'Low';
+  // 🧹 RESET
+  taskInput.value = '';
+
+  dueDateInput.value = '';
+
+  categoryInput.value =
+    'Personal';
+
+  priorityInput.value =
+    'Low';
+
   taskInput.focus();
 }
 
@@ -235,8 +436,14 @@ function addTask() {
 // ============================================
 
 function deleteTask(id) {
-  tasks = tasks.filter(function(t) { return t.id !== id; });
+
+  tasks =
+    tasks.filter(
+      task => task.id !== id
+    );
+
   saveTasks();
+
   renderTasks();
 }
 
@@ -246,10 +453,19 @@ function deleteTask(id) {
 // ============================================
 
 function toggleComplete(id) {
-  var task = tasks.find(function(t) { return t.id === id; });
+
+  const task =
+    tasks.find(
+      task => task.id === id
+    );
+
   if (!task) return;
-  task.completed = !task.completed;
+
+  task.completed =
+    !task.completed;
+
   saveTasks();
+
   renderTasks();
 }
 
@@ -260,28 +476,62 @@ function toggleComplete(id) {
 
 function editTask(id, li) {
 
-  var taskText  = li.querySelector('.task-text');
-  var editInput = li.querySelector('.task-edit-input');
-  var editBtn   = li.querySelector('.edit-btn');
-  var isEditing = editInput.style.display === 'block';
+  const taskText =
+    li.querySelector('.task-text');
 
+  const editInput =
+    li.querySelector(
+      '.task-edit-input'
+    );
+
+  const editBtn =
+    li.querySelector('.edit-btn');
+
+  const isEditing =
+    editInput.style.display
+    === 'block';
+
+  // ✏️ ENTER EDIT
   if (!isEditing) {
-    // Enter edit mode
-    taskText.style.display  = 'none';
-    editInput.style.display = 'block';
-    editInput.focus();
-    editBtn.textContent = '💾';
 
-  } else {
-    // Save edit
-    var newText = editInput.value.trim();
+    taskText.style.display =
+      'none';
+
+    editInput.style.display =
+      'block';
+
+    editInput.focus();
+
+    editBtn.textContent = '💾';
+  }
+
+  // 💾 SAVE EDIT
+  else {
+
+    const newText =
+      editInput.value.trim();
+
     if (newText === '') {
-      alert('Task cannot be empty!');
+
+      alert(
+        'Task cannot be empty'
+      );
+
       return;
     }
-    var task = tasks.find(function(t) { return t.id === id; });
-    if (task) { task.text = newText; }
+
+    const task =
+      tasks.find(
+        task => task.id === id
+      );
+
+    if (task) {
+
+      task.text = newText;
+    }
+
     saveTasks();
+
     renderTasks();
   }
 }
@@ -291,25 +541,59 @@ function editTask(id, li) {
 // 🌙 DARK MODE
 // ============================================
 
-darkModeBtn.addEventListener('click', function() {
-  isDarkMode = !isDarkMode;
-  document.body.classList.toggle('dark');
-  darkModeBtn.textContent = isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
-  localStorage.setItem('darkMode', isDarkMode);
-});
+darkModeBtn.addEventListener(
+  'click',
+  () => {
+
+    isDarkMode = !isDarkMode;
+
+    document.body.classList.toggle(
+      'dark'
+    );
+
+    darkModeBtn.textContent =
+      isDarkMode
+      ? '☀️'
+      : '🌙';
+
+    localStorage.setItem(
+      'darkMode',
+      isDarkMode
+    );
+  }
+);
 
 
 // ============================================
-// 🔽 FILTER BUTTONS
+// 🔽 FILTERS
 // ============================================
 
-filterBtns.forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    filterBtns.forEach(function(b) { b.classList.remove('active'); });
-    btn.classList.add('active');
-    currentFilter = btn.getAttribute('data-filter');
-    renderTasks();
-  });
+filterBtns.forEach(btn => {
+
+  btn.addEventListener(
+    'click',
+    () => {
+
+      // REMOVE ACTIVE
+      filterBtns.forEach(button => {
+
+        button.classList.remove(
+          'active'
+        );
+      });
+
+      // ADD ACTIVE
+      btn.classList.add('active');
+
+      // SAVE FILTER
+      currentFilter =
+        btn.getAttribute(
+          'data-filter'
+        );
+
+      renderTasks();
+    }
+  );
 });
 
 
@@ -317,49 +601,92 @@ filterBtns.forEach(function(btn) {
 // 🔍 SEARCH
 // ============================================
 
-searchInput.addEventListener('input', function(e) {
-  searchText = e.target.value;
-  renderTasks();
-});
+searchInput.addEventListener(
+  'input',
+  e => {
 
+    searchText = e.target.value;
 
-// ============================================
-// 🖱️ TASK CLICK EVENTS
-// ============================================
-
-taskList.addEventListener('click', function(e) {
-
-  var li = e.target.closest('.task-item');
-  if (!li) return;
-
-  var id = Number(li.getAttribute('data-id'));
-
-  if (e.target.classList.contains('task-checkbox')) {
-    toggleComplete(id);
-
-  } else if (e.target.classList.contains('delete-btn')) {
-    deleteTask(id);
-
-  } else if (e.target.classList.contains('edit-btn')) {
-    editTask(id, li);
+    renderTasks();
   }
-});
+);
+
+
+// ============================================
+// 🖱️ TASK ACTIONS
+// ============================================
+
+taskList.addEventListener(
+  'click',
+  e => {
+
+    const li =
+      e.target.closest('.task-item');
+
+    if (!li) return;
+
+    const id =
+      Number(
+        li.getAttribute('data-id')
+      );
+
+    // ✅ CHECKBOX
+    if (
+      e.target.classList.contains(
+        'task-checkbox'
+      )
+    ) {
+
+      toggleComplete(id);
+    }
+
+    // 🗑️ DELETE
+    else if (
+      e.target.classList.contains(
+        'delete-btn'
+      )
+    ) {
+
+      deleteTask(id);
+    }
+
+    // ✏️ EDIT
+    else if (
+      e.target.classList.contains(
+        'edit-btn'
+      )
+    ) {
+
+      editTask(id, li);
+    }
+  }
+);
 
 
 // ============================================
 // ⌨️ ENTER KEY
 // ============================================
 
-taskInput.addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') { addTask(); }
-});
+taskInput.addEventListener(
+  'keypress',
+  e => {
+
+    if (e.key === 'Enter') {
+
+      addTask();
+    }
+  }
+);
 
 
 // ============================================
-// 🖱️ ADD BUTTON
+// ➕ BUTTON CLICK
 // ============================================
 
-addTaskBtn.addEventListener('click', addTask);
+addTaskBtn.addEventListener(
+  'click',
+  addTask
+);
 
 
 // ============================================
