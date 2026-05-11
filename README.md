@@ -1,7 +1,7 @@
 📝 TaskFlow Pro
 This is my personal To-Do App built using HTML + CSS + JavaScript.
-🚀 Features
 
+🚀 Features
 Futuristic dark glassmorphism UI
 Add / Edit / Delete tasks
 Priority labels (High / Medium / Low)
@@ -14,14 +14,13 @@ Local Storage support
 Fully responsive design
 
 🛠 Tech Stack
-
-HTML5
-CSS3
-JavaScript (Vanilla JS)
+ HTML5
+ CSS3
+ JavaScript (Vanilla JS)
 
 🔗 Live Demo
 https://my-todo-app.vercel.app
-📬 Contact
 
+📬 Contact
 Email: satendrakushwaha1030@gmail.com
 GitHub: https://github.com/Satendra1030
