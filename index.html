@@ -1,72 +1,104 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <!-- 🧠 Browser information -->
+
+  <!-- 🧠 Browser Information -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- 🌟 Website title -->
-  <title>My To-Do App</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-  <!-- 🎨 Connect CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- 🌟 Website Title -->
+  <title>My Advanced To-Do App</title>
+
+  <!-- 🎨 CSS File -->
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
+
 </head>
 
 <body>
 
-  <!-- 📦 Main container -->
+  <!-- 📦 MAIN APP CONTAINER -->
   <div class="container">
 
-    <!-- 🌙 Dark Mode Button -->
-    <button class="dark-mode-btn" id="darkModeBtn">
+    <!-- 🌙 DARK MODE BUTTON -->
+    <button
+      class="dark-mode-btn"
+      id="darkModeBtn"
+    >
       🌙 Dark Mode
     </button>
 
-    <!-- 📝 App Title -->
-    <h1 class="app-title">My To-Do List</h1>
 
-    <!-- 📊 Task Counters -->
+    <!-- 📝 APP TITLE -->
+    <h1 class="app-title">
+
+      ✅ My To-Do List
+
+    </h1>
+
+
+    <!-- 📊 TASK COUNTERS -->
     <div class="counters">
 
-      <!-- Total Tasks -->
+      <!-- TOTAL -->
       <div class="counter-box">
+
         <span id="totalCount">0</span>
-        <p>Total</p>
+
+        <p>Total Tasks</p>
+
       </div>
 
-      <!-- Completed Tasks -->
+
+      <!-- COMPLETED -->
       <div class="counter-box">
+
         <span id="completedCount">0</span>
+
         <p>Completed</p>
+
       </div>
 
-      <!-- Pending Tasks -->
+
+      <!-- PENDING -->
       <div class="counter-box">
+
         <span id="pendingCount">0</span>
+
         <p>Pending</p>
+
       </div>
 
     </div>
 
+
     <!-- ✏️ INPUT AREA -->
     <div class="input-area">
 
-      <!-- 📝 Task text -->
+      <!-- 📝 TASK TEXT -->
       <input
         type="text"
         id="taskInput"
         placeholder="Write a task... e.g. Buy milk 🥛"
       />
 
-      <!-- 📅 Due date -->
+
+      <!-- 📅 DUE DATE -->
       <input
         type="date"
         id="dueDateInput"
       />
 
-      <!-- 🏷️ Category Dropdown -->
+
+      <!-- 🏷️ CATEGORY -->
       <select id="categoryInput">
 
         <option value="Personal">
@@ -91,26 +123,68 @@
 
       </select>
 
-      <!-- ➕ Add Button -->
+
+      <!-- 🚨 PRIORITY -->
+      <select id="priorityInput">
+
+        <option value="Low">
+          🟢 Low
+        </option>
+
+        <option value="Medium">
+          🟡 Medium
+        </option>
+
+        <option value="High">
+          🔴 High
+        </option>
+
+      </select>
+
+
+      <!-- ➕ ADD BUTTON -->
       <button id="addTaskBtn">
+
         + Add Task
+
       </button>
 
     </div>
 
-    <!-- ⚠️ Error Message -->
-    <p class="error-msg" id="errorMsg"></p>
 
-    <!-- 🔽 Filter Buttons -->
+    <!-- ⚠️ ERROR MESSAGE -->
+    <p
+      class="error-msg"
+      id="errorMsg"
+    >
+    </p>
+
+
+    <!-- 🔍 SEARCH BAR -->
+    <div class="search-area">
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Search your tasks..."
+      />
+
+    </div>
+
+
+    <!-- 🔽 FILTER BUTTONS -->
     <div class="filters">
 
+      <!-- ALL -->
       <button
         class="filter-btn active"
         data-filter="all"
       >
-        All Tasks
+        📋 All
       </button>
 
+
+      <!-- COMPLETED -->
       <button
         class="filter-btn"
         data-filter="completed"
@@ -118,6 +192,8 @@
         ✅ Completed
       </button>
 
+
+      <!-- PENDING -->
       <button
         class="filter-btn"
         data-filter="pending"
@@ -127,18 +203,24 @@
 
     </div>
 
-    <!-- 📋 Task List -->
-    <ul class="task-list" id="taskList">
 
-      <!-- Tasks added by JavaScript -->
+    <!-- 📋 TASK LIST -->
+    <ul
+      class="task-list"
+      id="taskList"
+    >
+
+      <!-- Tasks added using JavaScript -->
 
     </ul>
 
   </div>
 
-  <!-- 🧠 Connect JavaScript -->
+
+  <!-- 🧠 JAVASCRIPT -->
   <script src="script.js"></script>
 
 </body>
 
 </html>
+```

@@ -1,6 +1,7 @@
-/* =========================================
+```css id="u7f2kx"
+/* ============================================
    🌍 GLOBAL RESET
-========================================= */
+============================================ */
 
 * {
   margin: 0;
@@ -9,440 +10,299 @@
 }
 
 
-/* =========================================
+/* ============================================
    🌍 BODY
-========================================= */
+============================================ */
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-  background: linear-gradient(
-    135deg,
-    #eef2ff,
-    #f8fbff
-  );
-
-  color: #333;
-
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f7ff;
+  color: #222;
   min-height: 100vh;
-
   padding: 20px;
-
   transition: all 0.3s ease;
 }
 
-
-/* =========================================
-   🌙 DARK MODE
-========================================= */
-
 body.dark {
-  background: linear-gradient(
-    135deg,
-    #0f172a,
-    #1e293b
-  );
-
+  background: #0f172a;
   color: #e2e8f0;
 }
 
 
-/* =========================================
+/* ============================================
    📦 MAIN CONTAINER
-========================================= */
+============================================ */
 
 .container {
-
-  max-width: 720px;
-
-  margin: 0 auto;
-
-  background: rgba(255,255,255,0.85);
-
-  backdrop-filter: blur(10px);
-
-  border-radius: 28px;
-
-  padding: 32px;
-
+  max-width: 750px;
+  margin: auto;
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
   box-shadow:
     0 10px 30px rgba(0,0,0,0.08);
-
   position: relative;
-
-  transition: all 0.3s ease;
+  overflow: hidden;
+  transition: 0.3s ease;
 }
 
 body.dark .container {
-
-  background: rgba(15,23,42,0.8);
-
-  box-shadow:
-    0 10px 40px rgba(0,0,0,0.4);
+  background: #16213e;
 }
 
 
-/* =========================================
+/* ============================================
    🌙 DARK MODE BUTTON
-========================================= */
+============================================ */
 
 .dark-mode-btn {
-
   position: absolute;
-
   top: 20px;
-
   right: 20px;
 
   border: none;
-
-  background: #eef2ff;
-
-  color: #4a6cf7;
-
   padding: 10px 16px;
 
-  border-radius: 999px;
+  border-radius: 50px;
+
+  background: #edf2ff;
 
   cursor: pointer;
 
   font-size: 14px;
 
-  font-weight: 600;
-
-  transition: all 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .dark-mode-btn:hover {
-
   transform: scale(1.05);
-
-  background: #dbe4ff;
 }
 
 body.dark .dark-mode-btn {
-
-  background: #1e293b;
-
-  color: #cbd5e1;
+  background: #243b67;
+  color: white;
 }
 
 
-/* =========================================
+/* ============================================
    📝 TITLE
-========================================= */
+============================================ */
 
 .app-title {
-
   text-align: center;
-
+  margin-bottom: 30px;
   font-size: 2.3rem;
-
-  margin-bottom: 28px;
-
-  color: #4a6cf7;
-
-  font-weight: 800;
+  color: #4f46e5;
 }
 
 body.dark .app-title {
-  color: #93c5fd;
+  color: #818cf8;
 }
 
 
-/* =========================================
+/* ============================================
    📊 COUNTERS
-========================================= */
+============================================ */
 
 .counters {
-
-  display: grid;
-
-  grid-template-columns: repeat(3,1fr);
-
-  gap: 14px;
-
-  margin-bottom: 28px;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
 .counter-box {
+  flex: 1;
 
-  background: #f8fbff;
-
-  border-radius: 20px;
+  background: #eef2ff;
 
   padding: 18px;
 
+  border-radius: 18px;
+
   text-align: center;
 
-  transition: all 0.3s ease;
-
-  border: 1px solid #edf2ff;
+  transition: 0.3s ease;
 }
 
 .counter-box:hover {
-
-  transform: translateY(-4px);
-
-  box-shadow:
-    0 8px 20px rgba(74,108,247,0.12);
+  transform: translateY(-5px);
 }
 
 .counter-box span {
-
+  display: block;
   font-size: 2rem;
-
   font-weight: bold;
-
-  color: #4a6cf7;
+  color: #4f46e5;
 }
 
 .counter-box p {
-
-  margin-top: 6px;
-
-  color: #777;
-
+  margin-top: 5px;
   font-size: 14px;
 }
 
 body.dark .counter-box {
-
-  background: #16213e;
-
-  border-color: #22304f;
-}
-
-body.dark .counter-box p {
-  color: #aaa;
+  background: #243b67;
 }
 
 
-/* =========================================
+/* ============================================
    ✏️ INPUT AREA
-========================================= */
+============================================ */
 
 .input-area {
-
   display: flex;
-
-  gap: 12px;
-
   flex-wrap: wrap;
-
-  margin-bottom: 12px;
+  gap: 12px;
+  margin-bottom: 15px;
 }
 
-
-/* TEXT INPUT */
-
-.input-area input[type="text"] {
-
+.input-area input,
+.input-area select {
   flex: 1;
 
-  min-width: 220px;
+  padding: 12px;
 
-  padding: 14px 16px;
+  border-radius: 12px;
 
-  border-radius: 14px;
-
-  border: 2px solid #e2e8f0;
-
-  font-size: 15px;
+  border: 2px solid #dbe4ff;
 
   outline: none;
 
-  transition: all 0.3s ease;
+  font-size: 14px;
+
+  transition: 0.3s ease;
 }
 
-.input-area input[type="text"]:focus {
-
-  border-color: #4a6cf7;
-
-  box-shadow:
-    0 0 0 4px rgba(74,108,247,0.12);
-}
-
-
-/* DATE INPUT */
-
-.input-area input[type="date"] {
-
-  padding: 14px;
-
-  border-radius: 14px;
-
-  border: 2px solid #e2e8f0;
-
-  outline: none;
-
-  transition: all 0.3s ease;
-}
-
-.input-area input[type="date"]:focus {
-
-  border-color: #4a6cf7;
-
-  box-shadow:
-    0 0 0 4px rgba(74,108,247,0.12);
-}
-
-
-/* CATEGORY SELECT */
-
-.input-area select {
-
-  padding: 14px;
-
-  border-radius: 14px;
-
-  border: 2px solid #e2e8f0;
-
-  outline: none;
-
-  cursor: pointer;
-
-  transition: all 0.3s ease;
-
-  background: white;
-}
-
+.input-area input:focus,
 .input-area select:focus {
-
-  border-color: #4a6cf7;
-
-  box-shadow:
-    0 0 0 4px rgba(74,108,247,0.12);
+  border-color: #4f46e5;
 }
-
-
-/* DARK INPUTS */
 
 body.dark .input-area input,
 body.dark .input-area select {
-
-  background: #16213e;
-
-  border-color: #22304f;
-
-  color: #e2e8f0;
+  background: #243b67;
+  border-color: #334b77;
+  color: white;
 }
 
 
-/* ADD BUTTON */
+/* ============================================
+   ➕ ADD BUTTON
+============================================ */
 
 #addTaskBtn {
-
   border: none;
 
-  background: linear-gradient(
-    135deg,
-    #4a6cf7,
-    #6d7dff
-  );
+  padding: 12px 20px;
+
+  background: #4f46e5;
 
   color: white;
 
-  padding: 14px 22px;
-
-  border-radius: 14px;
+  border-radius: 12px;
 
   cursor: pointer;
 
-  font-size: 15px;
-
-  font-weight: bold;
-
-  transition: all 0.3s ease;
+  transition: 0.3s ease;
 }
 
 #addTaskBtn:hover {
-
   transform: scale(1.05);
-
-  box-shadow:
-    0 8px 20px rgba(74,108,247,0.25);
+  background: #4338ca;
 }
 
 
-/* =========================================
-   ⚠️ ERROR MESSAGE
-========================================= */
+/* ============================================
+   ⚠️ ERROR
+============================================ */
 
 .error-msg {
-
   color: #ef4444;
-
-  font-size: 13px;
-
-  margin-bottom: 14px;
-
-  min-height: 18px;
+  margin-bottom: 12px;
+  min-height: 20px;
 }
 
 
-/* =========================================
+/* ============================================
+   🔍 SEARCH
+============================================ */
+
+.search-area {
+  margin-bottom: 20px;
+}
+
+.search-area input {
+  width: 100%;
+
+  padding: 14px;
+
+  border-radius: 14px;
+
+  border: 2px solid #dbe4ff;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: 0.3s ease;
+}
+
+.search-area input:focus {
+  border-color: #4f46e5;
+}
+
+body.dark .search-area input {
+  background: #243b67;
+  border-color: #334b77;
+  color: white;
+}
+
+
+/* ============================================
    🔽 FILTER BUTTONS
-========================================= */
+============================================ */
 
 .filters {
-
   display: flex;
-
   gap: 10px;
-
+  margin-bottom: 25px;
   flex-wrap: wrap;
-
-  margin-bottom: 22px;
 }
 
 .filter-btn {
-
-  border: 2px solid #e2e8f0;
-
-  background: transparent;
+  border: none;
 
   padding: 10px 18px;
 
   border-radius: 999px;
 
+  background: #eef2ff;
+
   cursor: pointer;
 
-  font-size: 14px;
-
-  transition: all 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .filter-btn:hover {
-
-  border-color: #4a6cf7;
-
-  color: #4a6cf7;
+  transform: translateY(-2px);
 }
 
 .filter-btn.active {
-
-  background: #4a6cf7;
-
+  background: #4f46e5;
   color: white;
-
-  border-color: #4a6cf7;
 }
 
 body.dark .filter-btn {
-
-  border-color: #22304f;
-
-  color: #cbd5e1;
+  background: #243b67;
+  color: white;
 }
 
 
-/* =========================================
+/* ============================================
    📋 TASK LIST
-========================================= */
+============================================ */
 
 .task-list {
-
   list-style: none;
 
   display: flex;
@@ -453,13 +313,14 @@ body.dark .filter-btn {
 }
 
 
-/* TASK CARD */
+/* ============================================
+   📦 TASK ITEM
+============================================ */
 
 .task-item {
+  background: #f8faff;
 
-  background: #f8fbff;
-
-  border-left: 5px solid #4a6cf7;
+  border-left: 5px solid #4f46e5;
 
   border-radius: 18px;
 
@@ -467,66 +328,46 @@ body.dark .filter-btn {
 
   display: flex;
 
-  gap: 14px;
-
   align-items: flex-start;
 
-  transition: all 0.3s ease;
+  gap: 14px;
 
   animation: slideIn 0.3s ease;
+
+  transition: 0.3s ease;
 }
 
 .task-item:hover {
-
-  transform: translateY(-3px);
-
-  box-shadow:
-    0 10px 20px rgba(74,108,247,0.12);
+  transform: translateX(5px);
 }
 
 body.dark .task-item {
-
-  background: #16213e;
+  background: #243b67;
 }
 
-
-/* COMPLETED */
-
 .task-item.completed {
-
   opacity: 0.7;
-
   border-left-color: #22c55e;
 }
 
-.task-item.completed .task-text {
 
-  text-decoration: line-through;
-
-  color: #94a3b8;
-}
-
-
-/* CHECKBOX */
+/* ============================================
+   ✅ CHECKBOX
+============================================ */
 
 .task-checkbox {
-
   width: 20px;
-
   height: 20px;
-
-  margin-top: 4px;
-
-  accent-color: #4a6cf7;
-
+  margin-top: 3px;
   cursor: pointer;
 }
 
 
-/* TEXT AREA */
+/* ============================================
+   📝 TASK CONTENT
+============================================ */
 
 .task-text-area {
-
   flex: 1;
 
   display: flex;
@@ -537,199 +378,205 @@ body.dark .task-item {
 }
 
 .task-text {
-
-  font-size: 15px;
-
-  line-height: 1.5;
-
+  font-size: 16px;
+  line-height: 1.4;
   word-break: break-word;
 }
 
+.task-item.completed .task-text {
+  text-decoration: line-through;
+}
 
-/* CATEGORY BADGE */
+
+/* ============================================
+   🏷️ CATEGORY BADGE
+============================================ */
 
 .task-category {
-
   width: fit-content;
 
-  padding: 6px 12px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background: #dbe4ff;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+body.dark .task-category {
+  background: #334b77;
+}
+
+
+/* ============================================
+   🚨 PRIORITY BADGES
+============================================ */
+
+.task-priority {
+  width: fit-content;
+
+  padding: 5px 10px;
 
   border-radius: 999px;
 
   font-size: 12px;
 
   font-weight: bold;
+}
 
-  background: #eef2ff;
+.priority-high {
+  background: #fee2e2;
+  color: #dc2626;
+}
 
-  color: #4a6cf7;
+.priority-medium {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.priority-low {
+  background: #dcfce7;
+  color: #16a34a;
 }
 
 
-/* DUE DATE */
+/* ============================================
+   📅 DUE DATE
+============================================ */
 
 .task-due-date {
-
   font-size: 12px;
-
-  color: #777;
+  color: #64748b;
 }
 
 .task-due-date.overdue {
-
   color: #ef4444;
-
   font-weight: bold;
 }
 
 
-/* EDIT INPUT */
+/* ============================================
+   ✏️ EDIT INPUT
+============================================ */
 
 .task-edit-input {
-
-  width: 100%;
-
-  padding: 8px 10px;
+  padding: 8px;
 
   border-radius: 10px;
 
-  border: 2px solid #4a6cf7;
+  border: 2px solid #4f46e5;
 
   outline: none;
-
-  font-size: 14px;
 }
 
 body.dark .task-edit-input {
-
   background: #0f172a;
-
   color: white;
 }
 
 
-/* ACTION BUTTONS */
+/* ============================================
+   🎮 ACTION BUTTONS
+============================================ */
 
 .task-actions {
-
   display: flex;
-
   gap: 8px;
 }
 
 .edit-btn,
 .delete-btn {
-
   border: none;
 
-  width: 38px;
+  padding: 8px 10px;
 
-  height: 38px;
-
-  border-radius: 12px;
+  border-radius: 10px;
 
   cursor: pointer;
 
-  font-size: 15px;
-
-  transition: all 0.2s ease;
+  transition: 0.3s ease;
 }
 
 .edit-btn {
-
-  background: #e0e7ff;
-
-  color: #4a6cf7;
-}
-
-.edit-btn:hover {
-
-  transform: scale(1.08);
-
-  background: #c7d2fe;
+  background: #dbe4ff;
 }
 
 .delete-btn {
-
   background: #fee2e2;
-
-  color: #ef4444;
 }
 
+.edit-btn:hover,
 .delete-btn:hover {
-
-  transform: scale(1.08);
-
-  background: #fecaca;
+  transform: scale(1.1);
 }
 
 
-/* =========================================
-   💫 ANIMATIONS
-========================================= */
+/* ============================================
+   😴 EMPTY MESSAGE
+============================================ */
+
+.empty-message {
+  text-align: center;
+  padding: 30px;
+  color: #94a3b8;
+}
+
+
+/* ============================================
+   ✨ ANIMATIONS
+============================================ */
 
 @keyframes slideIn {
 
   from {
-
     opacity: 0;
-
     transform: translateY(10px);
   }
 
   to {
-
     opacity: 1;
-
     transform: translateY(0);
   }
 }
 
 
-/* =========================================
-   📱 MOBILE
-========================================= */
+/* ============================================
+   📱 MOBILE RESPONSIVE
+============================================ */
 
 @media (max-width: 600px) {
 
   .container {
-
-    padding: 22px 16px;
+    padding: 20px;
   }
 
   .app-title {
-
     font-size: 1.8rem;
-
     margin-top: 50px;
   }
 
   .counters {
-
-    grid-template-columns: 1fr;
-  }
-
-  .input-area {
-
     flex-direction: column;
   }
 
-  .input-area input,
-  .input-area select,
-  #addTaskBtn {
+  .input-area {
+    flex-direction: column;
+  }
 
+  #addTaskBtn {
     width: 100%;
   }
 
   .task-item {
-
     flex-direction: column;
   }
 
   .task-actions {
-
     width: 100%;
-
     justify-content: flex-end;
   }
 }
+```
