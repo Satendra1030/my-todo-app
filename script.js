@@ -1,10 +1,10 @@
 // ============================================
-// 🚀 TASKFLOW PRO ULTRA — FUTURISTIC VERSION
+// TASKFLOW — MODERN BLACK EDITION
 // ============================================
 
 
 // ============================================
-// 📦 DOM ELEMENTS
+// DOM ELEMENTS
 // ============================================
 
 const taskInput =
@@ -72,7 +72,7 @@ const toast =
 
 
 // ============================================
-// 💾 STORAGE
+// STORAGE
 // ============================================
 
 let tasks =
@@ -88,31 +88,31 @@ let currentSort = 'newest';
 
 
 // ============================================
-// 💬 MOTIVATION MESSAGES
+// MOTIVATION
 // ============================================
 
 const motivationMessages = [
 
-  '🚀 Stay focused and productive!',
+  'Stay focused and productive.',
 
-  '🔥 Great things take consistency!',
+  'Consistency creates results.',
 
-  '💎 Small progress is still progress!',
+  'Small progress still matters.',
 
-  '⚡ Make today count!',
+  'Make today count.',
 
-  '🏆 Productivity looks good on you!',
+  'Keep moving forward.',
 
-  '🌟 One task at a time!',
+  'One task at a time.',
 
-  '💜 Discipline beats motivation.',
+  'Discipline builds success.',
 
-  '🎯 Finish what you started today.'
+  'Finish what you started.'
 ];
 
 
 // ============================================
-// 💾 SAVE TASKS
+// SAVE TASKS
 // ============================================
 
 function saveTasks() {
@@ -125,7 +125,7 @@ function saveTasks() {
 
 
 // ============================================
-// 🔔 TOAST
+// TOAST
 // ============================================
 
 function showToast(message) {
@@ -146,33 +146,7 @@ function showToast(message) {
 
 
 // ============================================
-// 🏷️ CATEGORY ICONS
-// ============================================
-
-function getCategoryEmoji(category) {
-
-  switch (category) {
-
-    case 'Study':
-      return '📚';
-
-    case 'Work':
-      return '💼';
-
-    case 'Health':
-      return '💪';
-
-    case 'Shopping':
-      return '🛒';
-
-    default:
-      return '🏠';
-  }
-}
-
-
-// ============================================
-// 🚨 PRIORITY COLORS
+// PRIORITY CLASS
 // ============================================
 
 function getPriorityClass(priority) {
@@ -192,7 +166,7 @@ function getPriorityClass(priority) {
 
 
 // ============================================
-// ➕ ADD TASK
+// ADD TASK
 // ============================================
 
 function addTask() {
@@ -212,7 +186,7 @@ function addTask() {
   if (!text) {
 
     errorMsg.textContent =
-      '⚠️ Please enter a task';
+      'Please enter a task';
 
     taskInput.focus();
 
@@ -250,15 +224,13 @@ function addTask() {
   resetInputs();
 
   showToast(
-    '✅ Task added successfully'
+    'Task added successfully'
   );
-
-  animateDashboard();
 }
 
 
 // ============================================
-// 🧹 RESET INPUTS
+// RESET INPUTS
 // ============================================
 
 function resetInputs() {
@@ -278,7 +250,7 @@ function resetInputs() {
 
 
 // ============================================
-// 🗑️ DELETE TASK
+// DELETE TASK
 // ============================================
 
 function deleteTask(id) {
@@ -295,13 +267,13 @@ function deleteTask(id) {
   updateUI();
 
   showToast(
-    '🗑️ Task deleted'
+    'Task deleted'
   );
 }
 
 
 // ============================================
-// ✅ TOGGLE COMPLETE
+// TOGGLE COMPLETE
 // ============================================
 
 function toggleComplete(id) {
@@ -331,21 +303,22 @@ function toggleComplete(id) {
         { transform: 'scale(1)' }
       ],
       {
-        duration: 300
+        duration: 250
       }
     );
   }
 
   showToast(
+
     task.completed
-      ? '🎉 Task completed!'
-      : '↩️ Task pending again'
+      ? 'Task completed'
+      : 'Task marked as pending'
   );
 }
 
 
 // ============================================
-// ✏️ EDIT TASK
+// EDIT TASK
 // ============================================
 
 function editTask(id) {
@@ -359,7 +332,7 @@ function editTask(id) {
 
   const newText =
     prompt(
-      '✏️ Edit Task',
+      'Edit Task',
       task.text
     );
 
@@ -378,13 +351,13 @@ function editTask(id) {
   renderTasks();
 
   showToast(
-    '✏️ Task updated'
+    'Task updated'
   );
 }
 
 
 // ============================================
-// 📊 COUNTERS
+// COUNTERS
 // ============================================
 
 function updateCounters() {
@@ -415,7 +388,7 @@ function updateCounters() {
 
 
 // ============================================
-// 📈 PROGRESS
+// PROGRESS
 // ============================================
 
 function updateProgress() {
@@ -432,8 +405,8 @@ function updateProgress() {
     total === 0
       ? 0
       : Math.round(
-          (completed / total) * 100
-        );
+        (completed / total) * 100
+      );
 
   progressFill.style.width =
     `${percent}%`;
@@ -444,7 +417,7 @@ function updateProgress() {
 
 
 // ============================================
-// 🏆 STREAK
+// STREAK
 // ============================================
 
 function updateStreak() {
@@ -460,7 +433,7 @@ function updateStreak() {
 
 
 // ============================================
-// 💬 MOTIVATION
+// MOTIVATION
 // ============================================
 
 function updateMotivation() {
@@ -473,17 +446,17 @@ function updateMotivation() {
   if (completed === 0) {
 
     motivationBox.textContent =
-      '🚀 Start your productive day!';
+      'Start your productive day.';
 
     return;
   }
 
   const randomMessage =
     motivationMessages[
-      Math.floor(
-        Math.random() *
-        motivationMessages.length
-      )
+    Math.floor(
+      Math.random() *
+      motivationMessages.length
+    )
     ];
 
   motivationBox.textContent =
@@ -492,7 +465,7 @@ function updateMotivation() {
 
 
 // ============================================
-// 🕒 LIVE CLOCK
+// LIVE CLOCK
 // ============================================
 
 function updateClock() {
@@ -512,7 +485,7 @@ setInterval(updateClock, 1000);
 
 
 // ============================================
-// 🔍 FILTER TASKS
+// FILTER TASKS
 // ============================================
 
 function getFilteredTasks() {
@@ -600,7 +573,7 @@ function getFilteredTasks() {
 
 
 // ============================================
-// 🖨️ RENDER TASKS
+// RENDER TASKS
 // ============================================
 
 function renderTasks() {
@@ -617,7 +590,7 @@ function renderTasks() {
       <li class="empty-state">
 
         <div class="empty-icon">
-          ✨
+          •
         </div>
 
         <h3>
@@ -683,22 +656,20 @@ function renderTasks() {
         <div class="task-meta">
 
           <span>
-            ${getCategoryEmoji(task.category)}
             ${task.category}
           </span>
 
-          ${
-            task.dueDate
-              ? `
+          ${task.dueDate
+        ? `
                 <span class="
                   task-date
                   ${isOverdue ? 'overdue' : ''}
                 ">
-                  📅 ${task.dueDate}
+                  ${task.dueDate}
                 </span>
               `
-              : ''
-          }
+        : ''
+      }
 
         </div>
 
@@ -709,13 +680,13 @@ function renderTasks() {
         <button
           class="icon-btn edit-btn"
         >
-          ✏️
+          Edit
         </button>
 
         <button
           class="icon-btn delete-btn"
         >
-          🗑️
+          Delete
         </button>
 
       </div>
@@ -748,7 +719,7 @@ function renderTasks() {
 
 
 // ============================================
-// 🔄 UPDATE UI
+// UPDATE UI
 // ============================================
 
 function updateUI() {
@@ -764,80 +735,7 @@ function updateUI() {
 
 
 // ============================================
-// ✨ DASHBOARD ANIMATION
-// ============================================
-
-function animateDashboard() {
-
-  document.querySelectorAll(
-    '.dashboard-card'
-  ).forEach(card => {
-
-    card.animate(
-      [
-        {
-          transform: 'translateY(0px)'
-        },
-        {
-          transform: 'translateY(-6px)'
-        },
-        {
-          transform: 'translateY(0px)'
-        }
-      ],
-      {
-        duration: 500
-      }
-    );
-  });
-}
-
-
-// ============================================
-// 🌌 GLOW EFFECT
-// ============================================
-
-document.querySelectorAll(
-  '.dashboard-card'
-).forEach(card => {
-
-  card.addEventListener(
-    'mousemove',
-    e => {
-
-      const rect =
-        card.getBoundingClientRect();
-
-      const x =
-        e.clientX - rect.left;
-
-      const y =
-        e.clientY - rect.top;
-
-      card.style.background =
-        `
-        radial-gradient(
-          circle at ${x}px ${y}px,
-          rgba(59,130,246,0.22),
-          rgba(255,255,255,0.04)
-        )
-        `;
-    }
-  );
-
-  card.addEventListener(
-    'mouseleave',
-    () => {
-
-      card.style.background =
-        'rgba(255,255,255,0.05)';
-    }
-  );
-});
-
-
-// ============================================
-// 🔍 SEARCH
+// SEARCH
 // ============================================
 
 searchInput.addEventListener(
@@ -853,7 +751,7 @@ searchInput.addEventListener(
 
 
 // ============================================
-// 🔽 FILTERS
+// FILTERS
 // ============================================
 
 filterBtns.forEach(btn => {
@@ -883,7 +781,7 @@ filterBtns.forEach(btn => {
 
 
 // ============================================
-// ↕️ SORT
+// SORT
 // ============================================
 
 sortSelect.addEventListener(
@@ -899,7 +797,7 @@ sortSelect.addEventListener(
 
 
 // ============================================
-// 🗑️ CLEAR ALL
+// CLEAR ALL
 // ============================================
 
 clearAllBtn.addEventListener(
@@ -923,14 +821,14 @@ clearAllBtn.addEventListener(
     updateUI();
 
     showToast(
-      '🗑️ All tasks deleted'
+      'All tasks deleted'
     );
   }
 );
 
 
 // ============================================
-// ⌨️ ENTER KEY
+// ENTER KEY
 // ============================================
 
 taskInput.addEventListener(
@@ -946,7 +844,7 @@ taskInput.addEventListener(
 
 
 // ============================================
-// ➕ ADD BUTTON
+// ADD BUTTON
 // ============================================
 
 addTaskBtn.addEventListener(
@@ -956,7 +854,7 @@ addTaskBtn.addEventListener(
 
 
 // ============================================
-// ✨ AUTO MOTIVATION
+// AUTO MOTIVATION
 // ============================================
 
 setInterval(() => {
@@ -967,21 +865,15 @@ setInterval(() => {
 
 
 // ============================================
-// 🚀 INITIALIZE APP
+// INITIALIZE APP
 // ============================================
 
-window.addEventListener(
-  'load',
-  () => {
+window.addEventListener('load', () => {
 
-    document.body.classList.add(
-      'loaded'
-    );
-  }
-);
+  renderTasks();
 
-renderTasks();
+  updateUI();
 
-updateUI();
+  updateClock();
 
-updateClock();
+});
