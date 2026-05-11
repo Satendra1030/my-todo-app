@@ -21,7 +21,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
 
-  <!-- OPTIONAL FAVICON -->
+  <!-- FAVICON -->
   <link rel="icon" href="favicon.png" />
 
   <!-- CSS -->
@@ -33,7 +33,7 @@
 
 
   <!-- ======================================================
-       PREMIUM APP LAYOUT
+       APP LAYOUT
   ======================================================= -->
 
   <div class="layout">
@@ -52,61 +52,6 @@
           <div class="logo-circle"></div>
 
           <h2>TaskFlow</h2>
-
-        </div>
-
-      </div>
-
-
-      <nav class="sidebar-nav">
-
-        <button class="sidebar-link active">
-
-          <i data-lucide="layout-dashboard"></i>
-
-          <span>Dashboard</span>
-
-        </button>
-
-
-        <button class="sidebar-link">
-
-          <i data-lucide="check-circle-2"></i>
-
-          <span>Tasks</span>
-
-        </button>
-
-
-        <button class="sidebar-link">
-
-          <i data-lucide="bar-chart-3"></i>
-
-          <span>Analytics</span>
-
-        </button>
-
-
-        <button class="sidebar-link">
-
-          <i data-lucide="settings"></i>
-
-          <span>Settings</span>
-
-        </button>
-
-      </nav>
-
-
-      <div class="sidebar-bottom">
-
-        <div class="focus-mini-card">
-
-          <h4>Focus Mode</h4>
-
-          <p>
-            Stay productive and consistent.
-          </p>
 
         </div>
 
@@ -136,7 +81,8 @@
           </h1>
 
           <p>
-            Organize tasks with a modern workflow.
+            Organize your workflow with a
+            minimal modern experience.
           </p>
 
         </div>
@@ -172,16 +118,16 @@
         <div class="hero-left">
 
           <h2>
-            Manage Your Work
+            Manage Tasks
             With Clarity
           </h2>
 
           <p>
-            Track tasks, build consistency,
-            stay organized, and maintain
-            productivity with a modern
-            black dashboard interface.
+            Stay organized, track progress,
+            and maintain productivity with a
+            premium black dashboard interface.
           </p>
+
 
 
           <!-- QUICK STATS -->
@@ -477,25 +423,31 @@
 
         <!-- SORT -->
 
-        <select id="sortSelect" class="sort-select">
+        <div class="sort-wrapper">
 
-          <option value="newest">
-            Newest
-          </option>
+          <i data-lucide="arrow-up-down"></i>
 
-          <option value="oldest">
-            Oldest
-          </option>
+          <select id="sortSelect" class="sort-select">
 
-          <option value="priority">
-            Priority
-          </option>
+            <option value="newest">
+              Newest
+            </option>
 
-          <option value="alphabetical">
-            A-Z
-          </option>
+            <option value="oldest">
+              Oldest
+            </option>
 
-        </select>
+            <option value="priority">
+              Priority
+            </option>
+
+            <option value="alphabetical">
+              A-Z
+            </option>
+
+          </select>
+
+        </div>
 
       </section>
 
@@ -575,8 +527,6 @@
       ======================================================= -->
 
       <ul id="taskList" class="task-list">
-
-        <!-- JS RENDERS -->
 
       </ul>
 

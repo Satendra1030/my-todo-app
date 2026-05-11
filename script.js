@@ -1,5 +1,6 @@
 // ============================================
-// TASKFLOW — PREMIUM BLACK EDITION
+// TASKFLOW — ULTRA BLACK GLOSS EDITION
+// MODERN + MOBILE OPTIMIZED + PROFESSIONAL
 // ============================================
 
 
@@ -84,7 +85,7 @@ const toast =
 let tasks =
   JSON.parse(
     localStorage.getItem(
-      'taskflow_v2_tasks'
+      'taskflow_black_tasks'
     )
   ) || [];
 
@@ -96,26 +97,26 @@ let currentSort = 'newest';
 
 
 // ============================================
-// MOTIVATION
+// MOTIVATION MESSAGES
 // ============================================
 
 const motivationMessages = [
 
   'Stay focused and productive.',
 
-  'Consistency creates results.',
+  'Small progress matters.',
 
-  'Small progress still matters.',
+  'Consistency builds success.',
 
-  'Make today count.',
-
-  'Keep moving forward.',
+  'Discipline creates results.',
 
   'One task at a time.',
 
-  'Discipline builds success.',
+  'Keep moving forward.',
 
-  'Finish what you started.'
+  'You are doing great.',
+
+  'Make today count.'
 ];
 
 
@@ -127,7 +128,7 @@ function saveTasks() {
 
   localStorage.setItem(
 
-    'taskflow_v2_tasks',
+    'taskflow_black_tasks',
 
     JSON.stringify(tasks)
   );
@@ -179,7 +180,7 @@ function showToast(message) {
 
       toast.classList.remove('show');
 
-    }, 2500);
+    }, 2200);
 }
 
 
@@ -262,7 +263,7 @@ function addTask() {
   resetInputs();
 
   showToast(
-    'Task added successfully'
+    'Task added'
   );
 }
 
@@ -332,37 +333,13 @@ function toggleComplete(id) {
 
   updateUI();
 
-  if (task.completed) {
-
-    document.body.animate(
-
-      [
-        {
-          transform: 'scale(1)'
-        },
-
-        {
-          transform: 'scale(1.01)'
-        },
-
-        {
-          transform: 'scale(1)'
-        }
-      ],
-
-      {
-        duration: 250
-      }
-    );
-  }
-
   showToast(
 
     task.completed
 
       ? 'Task completed'
 
-      : 'Task marked as pending'
+      : 'Task pending'
   );
 }
 
@@ -409,7 +386,7 @@ function editTask(id) {
 
 
 // ============================================
-// COUNTERS
+// UPDATE COUNTERS
 // ============================================
 
 function updateCounters() {
@@ -440,7 +417,7 @@ function updateCounters() {
 
 
 // ============================================
-// PROGRESS
+// UPDATE PROGRESS
 // ============================================
 
 function updateProgress() {
@@ -469,13 +446,16 @@ function updateProgress() {
   progressText.textContent =
     `${percent}%`;
 
-  progressPercent.textContent =
-    `${percent}%`;
+  if (progressPercent) {
+
+    progressPercent.textContent =
+      `${percent}%`;
+  }
 }
 
 
 // ============================================
-// STREAK
+// UPDATE STREAK
 // ============================================
 
 function updateStreak() {
@@ -661,9 +641,7 @@ function renderTasks() {
       <li class="empty-state">
 
         <div class="empty-icon">
-
-          <i data-lucide="inbox"></i>
-
+          ✦
         </div>
 
         <h3>
@@ -671,13 +649,11 @@ function renderTasks() {
         </h3>
 
         <p>
-          Add a task and start being productive.
+          Add your first task to begin.
         </p>
 
       </li>
     `;
-
-    lucide.createIcons();
 
     return;
   }
@@ -757,17 +733,13 @@ function renderTasks() {
         <button
           class="icon-btn edit-btn"
         >
-
-          <i data-lucide="pencil"></i>
-
+          ✎
         </button>
 
         <button
           class="icon-btn delete-btn"
         >
-
-          <i data-lucide="trash-2"></i>
-
+          ✕
         </button>
 
       </div>
@@ -802,7 +774,7 @@ function renderTasks() {
         {
           opacity: 0,
           transform:
-            'translateY(10px)'
+            'translateY(12px)'
         },
 
         {
@@ -813,13 +785,11 @@ function renderTasks() {
       ],
 
       {
-        duration: 300,
+        duration: 260,
         easing: 'ease'
       }
     );
   });
-
-  lucide.createIcons();
 }
 
 
@@ -905,48 +875,51 @@ sortSelect.addEventListener(
 // EXPORT TASKS
 // ============================================
 
-exportBtn.addEventListener(
-  'click',
-  () => {
+if (exportBtn) {
 
-    const data =
+  exportBtn.addEventListener(
+    'click',
+    () => {
 
-      JSON.stringify(
-        tasks,
-        null,
-        2
+      const data =
+
+        JSON.stringify(
+          tasks,
+          null,
+          2
+        );
+
+      const blob =
+
+        new Blob(
+          [data],
+          {
+            type:
+              'application/json'
+          }
+        );
+
+      const url =
+        URL.createObjectURL(blob);
+
+      const a =
+        document.createElement('a');
+
+      a.href = url;
+
+      a.download =
+        'taskflow-tasks.json';
+
+      a.click();
+
+      URL.revokeObjectURL(url);
+
+      showToast(
+        'Tasks exported'
       );
-
-    const blob =
-
-      new Blob(
-        [data],
-        {
-          type:
-            'application/json'
-        }
-      );
-
-    const url =
-      URL.createObjectURL(blob);
-
-    const a =
-      document.createElement('a');
-
-    a.href = url;
-
-    a.download =
-      'taskflow-tasks.json';
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-
-    showToast(
-      'Tasks exported'
-    );
-  }
-);
+    }
+  );
+}
 
 
 // ============================================
@@ -1029,5 +1002,4 @@ window.addEventListener('load', () => {
 
   updateClock();
 
-  lucide.createIcons();
 });
