@@ -1,5 +1,5 @@
 // ============================================
-// 🚀 TASKFLOW PRO ULTRA — FINAL DARK VERSION
+// 🚀 TASKFLOW PRO ULTRA — PREMIUM VERSION
 // ============================================
 
 
@@ -61,9 +61,6 @@ const liveClock =
 const clearAllBtn =
   document.getElementById('clearAllBtn');
 
-const exportBtn =
-  document.getElementById('exportBtn');
-
 const sortSelect =
   document.getElementById('sortSelect');
 
@@ -72,13 +69,6 @@ const taskCountLabel =
 
 const toast =
   document.getElementById('toast');
-
-
-// ============================================
-// 🌑 FORCE DARK MODE
-// ============================================
-
-document.body.classList.add('dark');
 
 
 // ============================================
@@ -98,25 +88,10 @@ let currentSort = 'newest';
 
 
 // ============================================
-// 💾 SAVE TASKS
-// ============================================
-
-function saveTasks() {
-
-  localStorage.setItem(
-    'taskflow_tasks',
-    JSON.stringify(tasks)
-  );
-}
-
-
-// ============================================
 // 🔔 TOAST
 // ============================================
 
 function showToast(message) {
-
-  if (!toast) return;
 
   toast.textContent = message;
 
@@ -134,7 +109,7 @@ function showToast(message) {
 
 
 // ============================================
-// 🏷️ CATEGORY EMOJI
+// 🏷️ CATEGORY ICONS
 // ============================================
 
 function getCategoryEmoji(category) {
@@ -180,7 +155,7 @@ function getPriorityClass(priority) {
 
 
 // ============================================
-// 💬 MOTIVATION MESSAGES
+// 💬 MOTIVATION
 // ============================================
 
 const motivationMessages = [
@@ -204,6 +179,19 @@ const motivationMessages = [
 
 
 // ============================================
+// 💾 SAVE TASKS
+// ============================================
+
+function saveTasks() {
+
+  localStorage.setItem(
+    'taskflow_tasks',
+    JSON.stringify(tasks)
+  );
+}
+
+
+// ============================================
 // ➕ ADD TASK
 // ============================================
 
@@ -221,7 +209,6 @@ function addTask() {
   const priority =
     priorityInput.value;
 
-  // ❌ VALIDATION
   if (!text) {
 
     errorMsg.textContent =
@@ -234,7 +221,6 @@ function addTask() {
 
   errorMsg.textContent = '';
 
-  // 🆕 NEW TASK
   const newTask = {
 
     id: Date.now(),
@@ -266,6 +252,11 @@ function addTask() {
   showToast(
     '✅ Task added successfully'
   );
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 }
 
 
@@ -313,7 +304,7 @@ function deleteTask(id) {
 
 
 // ============================================
-// ✅ TOGGLE COMPLETE
+// ✅ COMPLETE TASK
 // ============================================
 
 function toggleComplete(id) {
@@ -327,6 +318,20 @@ function toggleComplete(id) {
 
   task.completed =
     !task.completed;
+
+  if (task.completed) {
+
+    document.body.animate(
+      [
+        { filter: 'brightness(1)' },
+        { filter: 'brightness(1.15)' },
+        { filter: 'brightness(1)' }
+      ],
+      {
+        duration: 500
+      }
+    );
+  }
 
   saveTasks();
 
@@ -382,7 +387,7 @@ function editTask(id) {
 
 
 // ============================================
-// 📊 UPDATE COUNTERS
+// 📊 COUNTERS
 // ============================================
 
 function updateCounters() {
@@ -407,16 +412,13 @@ function updateCounters() {
   pendingCount.textContent =
     pending;
 
-  if (taskCountLabel) {
-
-    taskCountLabel.textContent =
-      `${total} Tasks`;
-  }
+  taskCountLabel.textContent =
+    `${total} Tasks`;
 }
 
 
 // ============================================
-// 📈 PROGRESS BAR
+// 📈 PROGRESS
 // ============================================
 
 function updateProgress() {
@@ -461,7 +463,7 @@ function updateStreak() {
 
 
 // ============================================
-// 💬 MOTIVATION
+// 💬 UPDATE MOTIVATION
 // ============================================
 
 function updateMotivation() {
@@ -513,14 +515,13 @@ setInterval(updateClock, 1000);
 
 
 // ============================================
-// 🔍 FILTER + SEARCH + SORT
+// 🔍 FILTER TASKS
 // ============================================
 
 function getFilteredTasks() {
 
   let filtered = [...tasks];
 
-  // 🔍 SEARCH
   filtered =
     filtered.filter(task =>
 
@@ -531,10 +532,7 @@ function getFilteredTasks() {
         )
     );
 
-  // 🔽 FILTER
-  if (
-    currentFilter === 'completed'
-  ) {
+  if (currentFilter === 'completed') {
 
     filtered =
       filtered.filter(
@@ -551,7 +549,6 @@ function getFilteredTasks() {
       );
   }
 
-  // ↕️ SORT
   switch (currentSort) {
 
     case 'oldest':
@@ -616,17 +613,14 @@ function renderTasks() {
   const filteredTasks =
     getFilteredTasks();
 
-  // 📭 EMPTY STATE
-  if (
-    filteredTasks.length === 0
-  ) {
+  if (filteredTasks.length === 0) {
 
     taskList.innerHTML = `
 
       <li class="empty-state">
 
-        <div class="empty-icon">
-          📝
+        <div class="empty-icon floating">
+          ✨
         </div>
 
         <h3>
@@ -638,13 +632,11 @@ function renderTasks() {
         </p>
 
       </li>
-
     `;
 
     return;
   }
 
-  // 📋 TASK LOOP
   filteredTasks.forEach(task => {
 
     const li =
@@ -655,7 +647,11 @@ function renderTasks() {
       ${task.completed ? 'completed' : ''}
     `;
 
-    // 📅 OVERDUE
+    li.style.opacity = '0';
+
+    li.style.transform =
+      'translateY(20px)';
+
     const isOverdue =
 
       task.dueDate &&
@@ -686,6 +682,7 @@ function renderTasks() {
           <span class="
             priority-badge
             ${getPriorityClass(task.priority)}
+            glow-${task.priority.toLowerCase()}
           ">
             ${task.priority}
           </span>
@@ -719,14 +716,12 @@ function renderTasks() {
 
         <button
           class="icon-btn edit-btn"
-          title="Edit"
         >
           ✏️
         </button>
 
         <button
           class="icon-btn delete-btn"
-          title="Delete"
         >
           🗑️
         </button>
@@ -734,7 +729,6 @@ function renderTasks() {
       </div>
     `;
 
-    // ✅ COMPLETE
     li.querySelector(
       '.task-checkbox'
     ).addEventListener(
@@ -742,7 +736,6 @@ function renderTasks() {
       () => toggleComplete(task.id)
     );
 
-    // ✏️ EDIT
     li.querySelector(
       '.edit-btn'
     ).addEventListener(
@@ -750,7 +743,6 @@ function renderTasks() {
       () => editTask(task.id)
     );
 
-    // 🗑️ DELETE
     li.querySelector(
       '.delete-btn'
     ).addEventListener(
@@ -759,6 +751,15 @@ function renderTasks() {
     );
 
     taskList.appendChild(li);
+
+    setTimeout(() => {
+
+      li.style.opacity = '1';
+
+      li.style.transform =
+        'translateY(0)';
+
+    }, 50);
   });
 }
 
@@ -796,7 +797,7 @@ searchInput.addEventListener(
 
 
 // ============================================
-// 🔽 FILTER BUTTONS
+// 🔽 FILTERS
 // ============================================
 
 filterBtns.forEach(btn => {
@@ -829,19 +830,16 @@ filterBtns.forEach(btn => {
 // ↕️ SORT
 // ============================================
 
-if (sortSelect) {
+sortSelect.addEventListener(
+  'change',
+  e => {
 
-  sortSelect.addEventListener(
-    'change',
-    e => {
+    currentSort =
+      e.target.value;
 
-      currentSort =
-        e.target.value;
-
-      renderTasks();
-    }
-  );
-}
+    renderTasks();
+  }
+);
 
 
 // ============================================
@@ -876,55 +874,6 @@ clearAllBtn.addEventListener(
 
 
 // ============================================
-// 📤 EXPORT TASKS
-// ============================================
-
-if (exportBtn) {
-
-  exportBtn.addEventListener(
-    'click',
-    () => {
-
-      const data =
-        JSON.stringify(
-          tasks,
-          null,
-          2
-        );
-
-      const blob =
-        new Blob(
-          [data],
-          {
-            type:
-              'application/json'
-          }
-        );
-
-      const url =
-        URL.createObjectURL(blob);
-
-      const a =
-        document.createElement('a');
-
-      a.href = url;
-
-      a.download =
-        'taskflow-tasks.json';
-
-      a.click();
-
-      URL.revokeObjectURL(url);
-
-      showToast(
-        '📤 Tasks exported'
-      );
-    }
-  );
-}
-
-
-// ============================================
 // ⌨️ ENTER KEY
 // ============================================
 
@@ -951,8 +900,26 @@ addTaskBtn.addEventListener(
 
 
 // ============================================
-// 🚀 INITIALIZE APP
+// ✨ LIVE MOTIVATION
 // ============================================
+
+setInterval(() => {
+
+  updateMotivation();
+
+}, 8000);
+
+
+// ============================================
+// 🚀 INITIALIZE
+// ============================================
+
+window.addEventListener('load', () => {
+
+  document.body.classList.add(
+    'loaded'
+  );
+});
 
 renderTasks();
 
