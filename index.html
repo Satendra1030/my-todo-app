@@ -3,9 +3,9 @@
 
 <head>
 
-  <!-- =========================================
-       🌍 BASIC SETTINGS
-  ========================================== -->
+  <!-- ============================================ -->
+  <!-- 🚀 BASIC -->
+  <!-- ============================================ -->
 
   <meta charset="UTF-8" />
 
@@ -14,27 +14,15 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <!-- 🌟 SEO -->
-  <meta
-    name="description"
-    content="TaskFlow Pro - Beautiful advanced productivity and task management app."
-  />
+  <title>
+    TaskFlow Pro Ultra
+  </title>
 
-  <meta
-    name="theme-color"
-    content="#4f46e5"
-  />
 
-  <!-- 🌟 WEBSITE TITLE -->
-  <title>TaskFlow Pro | Advanced To-Do App</title>
+  <!-- ============================================ -->
+  <!-- 🌌 GOOGLE FONT -->
+  <!-- ============================================ -->
 
-  <!-- 🎨 CSS -->
-  <link
-    rel="stylesheet"
-    href="style.css"
-  />
-
-  <!-- ✨ GOOGLE FONTS -->
   <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
@@ -51,175 +39,751 @@
     rel="stylesheet"
   />
 
-  <!-- 📱 PWA -->
-  <link
-    rel="manifest"
-    href="manifest.json"
-  />
+
+  <!-- ============================================ -->
+  <!-- 🎨 CSS -->
+  <!-- ============================================ -->
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+
+      font-family: 'Poppins', sans-serif;
+
+      background:
+        radial-gradient(circle at top left,
+          rgba(98, 0, 255, 0.15),
+          transparent 30%),
+
+        radial-gradient(circle at bottom right,
+          rgba(0, 200, 255, 0.12),
+          transparent 30%),
+
+        #050816;
+
+      color: white;
+
+      min-height: 100vh;
+
+      padding: 30px;
+
+      overflow-x: hidden;
+    }
+
+
+    /* ============================================ */
+    /* 🚀 APP CONTAINER */
+    /* ============================================ */
+
+    .app-container {
+
+      max-width: 1200px;
+
+      margin: auto;
+
+      background:
+        rgba(255, 255, 255, 0.05);
+
+      backdrop-filter: blur(18px);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+      border-radius: 28px;
+
+      padding: 35px;
+
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.45);
+    }
+
+
+    /* ============================================ */
+    /* 🌟 HEADER */
+    /* ============================================ */
+
+    .header {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      flex-wrap: wrap;
+
+      gap: 20px;
+
+      margin-bottom: 35px;
+    }
+
+    .logo h1 {
+
+      font-size: 2.5rem;
+
+      font-weight: 700;
+
+      background:
+        linear-gradient(
+          90deg,
+          #7c4dff,
+          #00d4ff
+        );
+
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo p {
+
+      color: #b5b5c3;
+
+      margin-top: 6px;
+    }
+
+    .clock {
+
+      background:
+        rgba(255,255,255,0.06);
+
+      padding:
+        14px 20px;
+
+      border-radius: 16px;
+
+      font-size: 1rem;
+
+      border:
+        1px solid rgba(255,255,255,0.08);
+    }
+
+
+    /* ============================================ */
+    /* 📊 STATS */
+    /* ============================================ */
+
+    .stats-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 20px;
+
+      margin-bottom: 35px;
+    }
+
+    .stat-card {
+
+      background:
+        rgba(255,255,255,0.05);
+
+      border:
+        1px solid rgba(255,255,255,0.08);
+
+      padding: 22px;
+
+      border-radius: 20px;
+
+      transition: 0.3s;
+    }
+
+    .stat-card:hover {
+
+      transform: translateY(-5px);
+
+      background:
+        rgba(255,255,255,0.08);
+    }
+
+    .stat-card h2 {
+
+      font-size: 2rem;
+
+      margin-bottom: 10px;
+    }
+
+    .stat-card p {
+
+      color: #b5b5c3;
+    }
+
+
+    /* ============================================ */
+    /* ➕ ADD TASK */
+    /* ============================================ */
+
+    .task-form {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+      gap: 15px;
+
+      margin-bottom: 30px;
+    }
+
+    .task-form input,
+    .task-form select {
+
+      width: 100%;
+
+      padding: 14px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid rgba(255,255,255,0.08);
+
+      background:
+        rgba(255,255,255,0.05);
+
+      color: white;
+
+      outline: none;
+
+      font-size: 0.95rem;
+    }
+
+    .task-form input::placeholder {
+
+      color: #aaa;
+    }
+
+    .task-form button {
+
+      border: none;
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #7c4dff,
+          #00d4ff
+        );
+
+      color: white;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition: 0.3s;
+    }
+
+    .task-form button:hover {
+
+      transform: scale(1.03);
+    }
+
+
+    /* ============================================ */
+    /* 🔍 SEARCH */
+    /* ============================================ */
+
+    .controls {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 15px;
+
+      margin-bottom: 25px;
+    }
+
+    .controls input,
+    .controls select {
+
+      padding: 12px 14px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid rgba(255,255,255,0.08);
+
+      background:
+        rgba(255,255,255,0.05);
+
+      color: white;
+
+      outline: none;
+    }
+
+
+    /* ============================================ */
+    /* 🔽 FILTERS */
+    /* ============================================ */
+
+    .filters {
+
+      display: flex;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
+
+      margin-bottom: 25px;
+    }
+
+    .filter-btn {
+
+      padding: 10px 18px;
+
+      border: none;
+
+      border-radius: 14px;
+
+      background:
+        rgba(255,255,255,0.05);
+
+      color: white;
+
+      cursor: pointer;
+
+      transition: 0.3s;
+    }
+
+    .filter-btn.active {
+
+      background:
+        linear-gradient(
+          135deg,
+          #7c4dff,
+          #00d4ff
+        );
+    }
+
+
+    /* ============================================ */
+    /* 📈 PROGRESS */
+    /* ============================================ */
+
+    .progress-section {
+
+      margin-bottom: 30px;
+    }
+
+    .progress-bar {
+
+      width: 100%;
+
+      height: 14px;
+
+      background:
+        rgba(255,255,255,0.08);
+
+      border-radius: 999px;
+
+      overflow: hidden;
+
+      margin-top: 10px;
+    }
+
+    .progress-fill {
+
+      width: 0;
+
+      height: 100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          #7c4dff,
+          #00d4ff
+        );
+
+      transition: 0.4s;
+    }
+
+
+    /* ============================================ */
+    /* 📋 TASK LIST */
+    /* ============================================ */
+
+    .task-list {
+
+      list-style: none;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 18px;
+    }
+
+    .task-item {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 18px;
+
+      padding: 18px;
+
+      border-radius: 20px;
+
+      background:
+        rgba(255,255,255,0.05);
+
+      border:
+        1px solid rgba(255,255,255,0.08);
+
+      transition: 0.3s;
+    }
+
+    .task-item:hover {
+
+      transform: translateY(-4px);
+    }
+
+    .task-item.completed {
+
+      opacity: 0.6;
+    }
+
+    .task-content {
+
+      flex: 1;
+    }
+
+    .task-top-row {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 12px;
+
+      margin-bottom: 10px;
+    }
+
+    .task-text {
+
+      font-size: 1rem;
+
+      font-weight: 500;
+    }
+
+    .completed .task-text {
+
+      text-decoration: line-through;
+    }
+
+    .task-meta {
+
+      display: flex;
+
+      gap: 14px;
+
+      flex-wrap: wrap;
+
+      color: #b5b5c3;
+
+      font-size: 0.9rem;
+    }
+
+
+    /* ============================================ */
+    /* 🏷️ PRIORITY */
+    /* ============================================ */
+
+    .priority-badge {
+
+      padding: 6px 12px;
+
+      border-radius: 999px;
+
+      font-size: 0.8rem;
+
+      font-weight: 600;
+    }
+
+    .priority-high {
+
+      background: rgba(255,0,85,0.2);
+
+      color: #ff4d7d;
+    }
+
+    .priority-medium {
+
+      background: rgba(255,170,0,0.2);
+
+      color: #ffb547;
+    }
+
+    .priority-low {
+
+      background: rgba(0,255,150,0.15);
+
+      color: #37ffb1;
+    }
+
+
+    /* ============================================ */
+    /* ⚙️ ACTIONS */
+    /* ============================================ */
+
+    .task-actions {
+
+      display: flex;
+
+      gap: 10px;
+    }
+
+    .task-actions button {
+
+      border: none;
+
+      width: 42px;
+
+      height: 42px;
+
+      border-radius: 12px;
+
+      cursor: pointer;
+
+      font-size: 1rem;
+
+      background:
+        rgba(255,255,255,0.08);
+
+      color: white;
+
+      transition: 0.3s;
+    }
+
+    .task-actions button:hover {
+
+      transform: scale(1.08);
+    }
+
+
+    /* ============================================ */
+    /* 📭 EMPTY */
+    /* ============================================ */
+
+    .empty-state {
+
+      text-align: center;
+
+      padding: 60px 20px;
+
+      color: #b5b5c3;
+    }
+
+    .empty-icon {
+
+      font-size: 4rem;
+
+      margin-bottom: 15px;
+    }
+
+
+    /* ============================================ */
+    /* 💬 MOTIVATION */
+    /* ============================================ */
+
+    .motivation {
+
+      margin-top: 30px;
+
+      padding: 20px;
+
+      border-radius: 18px;
+
+      background:
+        rgba(124,77,255,0.12);
+
+      border:
+        1px solid rgba(124,77,255,0.2);
+
+      text-align: center;
+
+      font-weight: 500;
+    }
+
+
+    /* ============================================ */
+    /* 🔔 TOAST */
+    /* ============================================ */
+
+    .toast {
+
+      position: fixed;
+
+      bottom: 30px;
+
+      right: 30px;
+
+      background:
+        rgba(0,0,0,0.8);
+
+      padding: 14px 20px;
+
+      border-radius: 14px;
+
+      transform: translateY(100px);
+
+      opacity: 0;
+
+      transition: 0.4s;
+    }
+
+    .toast.show {
+
+      transform: translateY(0);
+
+      opacity: 1;
+    }
+
+
+    /* ============================================ */
+    /* 📱 MOBILE */
+    /* ============================================ */
+
+    @media (max-width: 768px) {
+
+      body {
+
+        padding: 15px;
+      }
+
+      .app-container {
+
+        padding: 20px;
+      }
+
+      .task-item {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+      }
+
+      .task-actions {
+
+        width: 100%;
+      }
+
+      .task-actions button {
+
+        flex: 1;
+      }
+    }
+
+  </style>
 
 </head>
 
-<body>
 
-  <!-- =========================================
-       🌌 BACKGROUND EFFECTS
-  ========================================== -->
-
-  <div class="bg-circle bg-circle-1"></div>
-
-  <div class="bg-circle bg-circle-2"></div>
-
-  <div class="grid-overlay"></div>
+<body class="dark">
 
 
-  <!-- =========================================
-       📦 MAIN APP
-  ========================================== -->
+  <!-- ============================================ -->
+  <!-- 🚀 APP -->
+  <!-- ============================================ -->
 
-  <div class="container">
+  <div class="app-container">
 
-    <!-- =========================================
-         🚀 TOP HEADER
-    ========================================== -->
 
-    <header class="top-bar">
+    <!-- ============================================ -->
+    <!-- 🌟 HEADER -->
+    <!-- ============================================ -->
 
-      <!-- 📝 LEFT -->
-      <div class="hero-text">
+    <header class="header">
 
-        <h1 class="app-title">
+      <div class="logo">
 
+        <h1>
           🚀 TaskFlow Pro
-
         </h1>
 
-        <p class="subtitle">
-
-          Organize your life beautifully & stay productive every day
-
+        <p>
+          Organize your productivity beautifully
         </p>
 
       </div>
 
+      <div class="clock">
 
-      <!-- 🌙 RIGHT -->
-      <div class="top-actions">
-
-        <!-- 🔔 NOTIFICATIONS -->
-        <button
-          class="icon-btn"
-          id="notificationBtn"
-          title="Notifications"
-        >
-          🔔
-        </button>
-
-        <!-- 🌙 DARK MODE -->
-        <button
-          class="dark-mode-btn"
-          id="darkModeBtn"
-          title="Toggle Theme"
-        >
-          🌙
-        </button>
+        🕒
+        <span id="liveClock">
+          00:00
+        </span>
 
       </div>
 
     </header>
 
 
-    <!-- =========================================
-         📊 PRODUCTIVITY DASHBOARD
-    ========================================== -->
+    <!-- ============================================ -->
+    <!-- 📊 STATS -->
+    <!-- ============================================ -->
 
-    <section class="dashboard">
+    <section class="stats-grid">
 
-      <!-- 📈 PROGRESS -->
-      <div class="dashboard-card progress-card">
+      <div class="stat-card">
 
-        <div class="progress-header">
+        <h2 id="totalCount">
+          0
+        </h2>
 
-          <span>
-
-            📈 Daily Progress
-
-          </span>
-
-          <span id="progressText">
-
-            0%
-
-          </span>
-
-        </div>
-
-        <div class="progress-bar">
-
-          <div
-            class="progress-fill"
-            id="progressFill"
-          ></div>
-
-        </div>
-
-      </div>
-
-
-      <!-- 🔥 STREAK -->
-      <div class="dashboard-card">
-
-        <div class="card-icon">
-
-          🔥
-
-        </div>
-
-        <h3>Streak</h3>
-
-        <p id="streakCount">
-
-          0 Days
-
+        <p>
+          Total Tasks
         </p>
 
       </div>
 
+      <div class="stat-card">
 
-      <!-- ⏰ LIVE CLOCK -->
-      <div class="dashboard-card">
+        <h2 id="completedCount">
+          0
+        </h2>
 
-        <div class="card-icon">
-
-          ⏰
-
-        </div>
-
-        <h3>Live Time</h3>
-
-        <p id="liveClock">
-
-          00:00
-
+        <p>
+          Completed
         </p>
 
       </div>
 
+      <div class="stat-card">
 
-      <!-- 🎯 TASK GOAL -->
-      <div class="dashboard-card">
+        <h2 id="pendingCount">
+          0
+        </h2>
 
-        <div class="card-icon">
+        <p>
+          Pending
+        </p>
 
-          🎯
+      </div>
 
-        </div>
+      <div class="stat-card">
 
-        <h3>Goal</h3>
+        <h2 id="streakCount">
+          0 Done
+        </h2>
 
-        <p id="goalText">
-
-          Stay Focused
-
+        <p>
+          Productivity Streak
         </p>
 
       </div>
@@ -227,370 +791,216 @@
     </section>
 
 
-    <!-- =========================================
-         🏆 MOTIVATION
-    ========================================== -->
+    <!-- ============================================ -->
+    <!-- ➕ ADD TASK -->
+    <!-- ============================================ -->
 
-    <section
-      class="motivation-box"
+    <section class="task-form">
+
+      <input
+        type="text"
+        id="taskInput"
+        placeholder="Enter a task..."
+      />
+
+      <input
+        type="date"
+        id="dueDateInput"
+      />
+
+      <select id="categoryInput">
+
+        <option>
+          Personal
+        </option>
+
+        <option>
+          Study
+        </option>
+
+        <option>
+          Work
+        </option>
+
+        <option>
+          Health
+        </option>
+
+        <option>
+          Shopping
+        </option>
+
+      </select>
+
+      <select id="priorityInput">
+
+        <option>
+          Low
+        </option>
+
+        <option>
+          Medium
+        </option>
+
+        <option>
+          High
+        </option>
+
+      </select>
+
+      <button id="addTaskBtn">
+
+        ➕ Add Task
+
+      </button>
+
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- ❌ ERROR -->
+    <!-- ============================================ -->
+
+    <p id="errorMsg"></p>
+
+
+    <!-- ============================================ -->
+    <!-- 🔍 CONTROLS -->
+    <!-- ============================================ -->
+
+    <section class="controls">
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search tasks..."
+      />
+
+      <select id="sortSelect">
+
+        <option value="newest">
+          Newest
+        </option>
+
+        <option value="oldest">
+          Oldest
+        </option>
+
+        <option value="priority">
+          Priority
+        </option>
+
+        <option value="alphabetical">
+          A-Z
+        </option>
+
+      </select>
+
+      <button id="clearAllBtn">
+
+        🗑️ Clear All
+
+      </button>
+
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 🔽 FILTERS -->
+    <!-- ============================================ -->
+
+    <div class="filters">
+
+      <button
+        class="filter-btn active"
+        data-filter="all"
+      >
+        All
+      </button>
+
+      <button
+        class="filter-btn"
+        data-filter="completed"
+      >
+        Completed
+      </button>
+
+      <button
+        class="filter-btn"
+        data-filter="pending"
+      >
+        Pending
+      </button>
+
+    </div>
+
+
+    <!-- ============================================ -->
+    <!-- 📈 PROGRESS -->
+    <!-- ============================================ -->
+
+    <section class="progress-section">
+
+      <p>
+
+        Progress:
+        <span id="progressText">
+          0%
+        </span>
+
+      </p>
+
+      <div class="progress-bar">
+
+        <div
+          class="progress-fill"
+          id="progressFill"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 📋 TASK LIST -->
+    <!-- ============================================ -->
+
+    <ul
+      class="task-list"
+      id="taskList"
+    ></ul>
+
+
+    <!-- ============================================ -->
+    <!-- 💬 MOTIVATION -->
+    <!-- ============================================ -->
+
+    <div
+      class="motivation"
       id="motivationBox"
     >
 
-      🚀 Start your productive day!
+      🚀 Stay productive today!
 
-    </section>
-
-
-    <!-- =========================================
-         ✏️ TASK CREATOR
-    ========================================== -->
-
-    <section class="task-creator">
-
-      <div class="input-area">
-
-        <!-- 📝 TASK -->
-        <div class="input-group">
-
-          <label>
-
-            Task
-
-          </label>
-
-          <input
-            type="text"
-            id="taskInput"
-            placeholder="✨ What needs to be done?"
-          />
-
-        </div>
-
-
-        <!-- 📅 DATE -->
-        <div class="input-group">
-
-          <label>
-
-            Due Date
-
-          </label>
-
-          <input
-            type="date"
-            id="dueDateInput"
-          />
-
-        </div>
-
-
-        <!-- 🏷️ CATEGORY -->
-        <div class="input-group">
-
-          <label>
-
-            Category
-
-          </label>
-
-          <select id="categoryInput">
-
-            <option value="Personal">
-
-              🏠 Personal
-
-            </option>
-
-            <option value="Study">
-
-              📚 Study
-
-            </option>
-
-            <option value="Work">
-
-              💼 Work
-
-            </option>
-
-            <option value="Health">
-
-              💪 Health
-
-            </option>
-
-            <option value="Shopping">
-
-              🛒 Shopping
-
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- 🚨 PRIORITY -->
-        <div class="input-group">
-
-          <label>
-
-            Priority
-
-          </label>
-
-          <select id="priorityInput">
-
-            <option value="Low">
-
-              🟢 Low
-
-            </option>
-
-            <option value="Medium">
-
-              🟡 Medium
-
-            </option>
-
-            <option value="High">
-
-              🔴 High
-
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- ➕ BUTTON -->
-        <button id="addTaskBtn">
-
-          ➕ Add Task
-
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- ⚠️ ERROR -->
-    <p
-      class="error-msg"
-      id="errorMsg"
-    ></p>
-
-
-    <!-- =========================================
-         🔍 SEARCH + TOOLBAR
-    ========================================== -->
-
-    <section class="toolbar">
-
-      <!-- 🔍 SEARCH -->
-      <div class="search-area">
-
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="🔍 Search tasks..."
-        />
-
-      </div>
-
-
-      <!-- 🔽 FILTERS -->
-      <div class="filters">
-
-        <button
-          class="filter-btn active"
-          data-filter="all"
-        >
-
-          📋 All
-
-        </button>
-
-        <button
-          class="filter-btn"
-          data-filter="completed"
-        >
-
-          ✅ Done
-
-        </button>
-
-        <button
-          class="filter-btn"
-          data-filter="pending"
-        >
-
-          ⏳ Pending
-
-        </button>
-
-      </div>
-
-
-      <!-- ↕️ SORT -->
-      <div class="sort-area">
-
-        <select id="sortSelect">
-
-          <option value="newest">
-
-            🆕 Newest
-
-          </option>
-
-          <option value="oldest">
-
-            📜 Oldest
-
-          </option>
-
-          <option value="priority">
-
-            🚨 Priority
-
-          </option>
-
-        </select>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================================
-         📊 STATS
-    ========================================== -->
-
-    <section class="counters">
-
-      <div class="counter-box">
-
-        <span id="totalCount">
-
-          0
-
-        </span>
-
-        <p>Total</p>
-
-      </div>
-
-      <div class="counter-box">
-
-        <span id="completedCount">
-
-          0
-
-        </span>
-
-        <p>Completed</p>
-
-      </div>
-
-      <div class="counter-box">
-
-        <span id="pendingCount">
-
-          0
-
-        </span>
-
-        <p>Pending</p>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================================
-         📋 TASK LIST
-    ========================================== -->
-
-    <section class="task-section">
-
-      <!-- 📌 SECTION HEADER -->
-      <div class="section-title">
-
-        <h2>
-
-          📋 Your Tasks
-
-        </h2>
-
-        <span id="taskCountLabel">
-
-          0 Tasks
-
-        </span>
-
-      </div>
-
-      <!-- 📋 LIST -->
-      <ul
-        class="task-list"
-        id="taskList"
-      >
-
-        <!-- JavaScript Tasks -->
-
-      </ul>
-
-    </section>
-
-
-    <!-- =========================================
-         🗑️ FOOTER ACTIONS
-    ========================================== -->
-
-    <footer class="footer-actions">
-
-      <button
-        class="clear-all-btn"
-        id="clearAllBtn"
-      >
-
-        🗑️ Clear All Tasks
-
-      </button>
-
-      <button
-        class="export-btn"
-        id="exportBtn"
-      >
-
-        📤 Export Tasks
-
-      </button>
-
-    </footer>
+    </div>
 
   </div>
 
 
-  <!-- =========================================
-       🔔 TOAST NOTIFICATIONS
-  ========================================== -->
+  <!-- ============================================ -->
+  <!-- 🔔 TOAST -->
+  <!-- ============================================ -->
 
   <div
     class="toast"
     id="toast"
-  >
-
-    Task Added Successfully ✅
-
-  </div>
+  ></div>
 
 
-  <!-- =========================================
-       🧠 JAVASCRIPT
-  ========================================== -->
+  <!-- ============================================ -->
+  <!-- 📜 SCRIPT -->
+  <!-- ============================================ -->
 
   <script src="script.js"></script>
 

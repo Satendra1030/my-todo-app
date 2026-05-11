@@ -1,5 +1,5 @@
 // ============================================
-// 🚀 TASKFLOW PRO ULTRA — FINAL DARK VERSION
+// 🚀 TASKFLOW PRO ULTRA — FINAL MODERN DARK APP
 // ============================================
 
 
@@ -27,9 +27,6 @@ const taskList =
 
 const errorMsg =
   document.getElementById('errorMsg');
-
-const darkModeBtn =
-  document.getElementById('darkModeBtn');
 
 const totalCount =
   document.getElementById('totalCount');
@@ -64,8 +61,6 @@ const liveClock =
 const clearAllBtn =
   document.getElementById('clearAllBtn');
 
-
-
 const sortSelect =
   document.getElementById('sortSelect');
 
@@ -82,13 +77,6 @@ const toast =
 
 document.body.classList.add('dark');
 
-// Hide dark mode button completely
-if (darkModeBtn) {
-
-  darkModeBtn.style.display = 'none';
-
-}
-
 
 // ============================================
 // 💾 STORAGE
@@ -96,7 +84,9 @@ if (darkModeBtn) {
 
 let tasks =
   JSON.parse(
-    localStorage.getItem('taskflow_tasks')
+    localStorage.getItem(
+      'taskflow_tasks'
+    )
   ) || [];
 
 let currentFilter = 'all';
@@ -131,19 +121,23 @@ function showToast(message) {
 
   toast.classList.add('show');
 
-  clearTimeout(window.toastTimeout);
+  clearTimeout(
+    window.toastTimeout
+  );
 
   window.toastTimeout =
     setTimeout(() => {
 
-      toast.classList.remove('show');
+      toast.classList.remove(
+        'show'
+      );
 
-    }, 2600);
+    }, 2500);
 }
 
 
 // ============================================
-// 🏷️ CATEGORY EMOJI
+// 🏷️ CATEGORY EMOJIS
 // ============================================
 
 function getCategoryEmoji(category) {
@@ -196,15 +190,15 @@ const motivationMessages = [
 
   '🚀 Stay focused and productive!',
 
-  '🔥 Great things take consistency!',
+  '🔥 Consistency creates success!',
 
-  '💎 Small progress is still progress!',
+  '⚡ One task at a time!',
 
-  '⚡ Make today count!',
+  '💎 Progress beats perfection!',
 
   '🏆 Productivity looks good on you!',
 
-  '🌟 One task at a time!'
+  '🌟 Keep pushing forward!'
 ];
 
 
@@ -239,7 +233,7 @@ function addTask() {
 
   errorMsg.textContent = '';
 
-  // 🆕 Create Task
+  // 🆕 New Task
   const newTask = {
 
     id: Date.now(),
@@ -340,9 +334,10 @@ function toggleComplete(id) {
   updateUI();
 
   showToast(
+
     task.completed
       ? '🎉 Task completed!'
-      : '↩️ Task marked pending'
+      : '↩️ Task pending'
   );
 }
 
@@ -507,12 +502,17 @@ function updateClock() {
 
   liveClock.textContent =
     now.toLocaleTimeString([], {
+
       hour: '2-digit',
+
       minute: '2-digit'
     });
 }
 
-setInterval(updateClock, 1000);
+setInterval(
+  updateClock,
+  1000
+);
 
 
 // ============================================
@@ -523,7 +523,7 @@ function getFilteredTasks() {
 
   let filtered = [...tasks];
 
-  // 🔍 SEARCH
+  // 🔍 Search
   filtered =
     filtered.filter(task =>
       task.text
@@ -533,9 +533,10 @@ function getFilteredTasks() {
         )
     );
 
-  // 🔽 FILTER
+  // 🔽 Filter
   if (
-    currentFilter === 'completed'
+    currentFilter ===
+    'completed'
   ) {
 
     filtered =
@@ -544,7 +545,8 @@ function getFilteredTasks() {
       );
 
   } else if (
-    currentFilter === 'pending'
+    currentFilter ===
+    'pending'
   ) {
 
     filtered =
@@ -553,7 +555,7 @@ function getFilteredTasks() {
       );
   }
 
-  // ↕️ SORT
+  // ↕️ Sort
   switch (currentSort) {
 
     case 'oldest':
@@ -569,8 +571,11 @@ function getFilteredTasks() {
     case 'priority':
 
       const priorityOrder = {
+
         High: 1,
+
         Medium: 2,
+
         Low: 3
       };
 
@@ -586,7 +591,9 @@ function getFilteredTasks() {
 
       filtered.sort(
         (a, b) =>
-          a.text.localeCompare(b.text)
+          a.text.localeCompare(
+            b.text
+          )
       );
 
       break;
@@ -633,7 +640,7 @@ function renderTasks() {
         </h3>
 
         <p>
-          Add a task and start being productive.
+          Add tasks and stay productive.
         </p>
 
       </li>
@@ -643,7 +650,7 @@ function renderTasks() {
     return;
   }
 
-  // 📋 Loop Tasks
+  // 📋 Render Tasks
   filteredTasks.forEach(task => {
 
     const li =
@@ -656,11 +663,14 @@ function renderTasks() {
 
     // 📅 Overdue
     const isOverdue =
+
       task.dueDate &&
+
       task.dueDate <
       new Date()
         .toISOString()
         .split('T')[0] &&
+
       !task.completed;
 
     li.innerHTML = `
@@ -696,7 +706,6 @@ function renderTasks() {
           </span>
 
         </div>
-
 
         <div class="task-meta">
 
@@ -750,7 +759,8 @@ function renderTasks() {
       '.task-checkbox'
     ).addEventListener(
       'change',
-      () => toggleComplete(task.id)
+      () =>
+        toggleComplete(task.id)
     );
 
     // ✏️ Edit
@@ -758,7 +768,8 @@ function renderTasks() {
       '.edit-btn'
     ).addEventListener(
       'click',
-      () => editTask(task.id)
+      () =>
+        editTask(task.id)
     );
 
     // 🗑️ Delete
@@ -766,7 +777,8 @@ function renderTasks() {
       '.delete-btn'
     ).addEventListener(
       'click',
-      () => deleteTask(task.id)
+      () =>
+        deleteTask(task.id)
     );
 
     taskList.appendChild(li);
@@ -836,7 +848,7 @@ filterBtns.forEach(btn => {
 
 
 // ============================================
-// ↕️ SORT
+// ↕️ SORT SELECT
 // ============================================
 
 if (sortSelect) {
@@ -862,13 +874,12 @@ clearAllBtn.addEventListener(
   'click',
   () => {
 
-    if (
-      !confirm(
+    const confirmed =
+      confirm(
         'Delete all tasks?'
-      )
-    ) {
-      return;
-    }
+      );
+
+    if (!confirmed) return;
 
     tasks = [];
 
@@ -883,8 +894,6 @@ clearAllBtn.addEventListener(
     );
   }
 );
-
-
 
 
 // ============================================
