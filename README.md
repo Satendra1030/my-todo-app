@@ -47,6 +47,3 @@ Minimal productivity dashboard for focused workflow and smart task management.
 https://my-todo-app-flame-gamma.vercel.app/
 
 
-
-- Email: your-email@example.com
-- GitHub: https://github.com/yourusername
