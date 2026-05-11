@@ -1,5 +1,5 @@
 // ============================================
-// 🚀 TASKFLOW PRO ULTRA — MODERN APP LOGIC
+// 🚀 TASKFLOW PRO X — ULTRA MODERN APP LOGIC
 // ============================================
 
 
@@ -27,9 +27,6 @@ const taskList =
 
 const errorMsg =
   document.getElementById('errorMsg');
-
-const darkModeBtn =
-  document.getElementById('darkModeBtn');
 
 const totalCount =
   document.getElementById('totalCount');
@@ -78,12 +75,15 @@ const toast =
 
 
 // ============================================
-// 💾 STORAGE
+// 💾 LOCAL STORAGE
 // ============================================
+
+const STORAGE_KEY =
+  'taskflow_ultra_tasks';
 
 let tasks =
   JSON.parse(
-    localStorage.getItem('taskflow_tasks')
+    localStorage.getItem(STORAGE_KEY)
   ) || [];
 
 let currentFilter = 'all';
@@ -91,58 +91,6 @@ let currentFilter = 'all';
 let currentSearch = '';
 
 let currentSort = 'newest';
-
-let isDarkMode =
-  localStorage.getItem('taskflow_theme') === 'dark';
-
-
-// ============================================
-// 🌙 THEME SYSTEM
-// ============================================
-
-function initializeTheme() {
-
-  if (isDarkMode) {
-
-    document.body.classList.add('dark');
-
-    darkModeBtn.innerHTML = '☀️';
-
-  } else {
-
-    document.body.classList.remove('dark');
-
-    darkModeBtn.innerHTML = '🌙';
-  }
-}
-
-darkModeBtn.addEventListener(
-  'click',
-  () => {
-
-    isDarkMode = !isDarkMode;
-
-    document.body.classList.toggle('dark');
-
-    darkModeBtn.innerHTML =
-      isDarkMode
-        ? '☀️'
-        : '🌙';
-
-    localStorage.setItem(
-      'taskflow_theme',
-      isDarkMode
-        ? 'dark'
-        : 'light'
-    );
-
-    showToast(
-      isDarkMode
-        ? '🌙 Dark mode enabled'
-        : '☀️ Light mode enabled'
-    );
-  }
-);
 
 
 // ============================================
@@ -152,14 +100,14 @@ darkModeBtn.addEventListener(
 function saveTasks() {
 
   localStorage.setItem(
-    'taskflow_tasks',
+    STORAGE_KEY,
     JSON.stringify(tasks)
   );
 }
 
 
 // ============================================
-// 🔔 TOAST NOTIFICATION
+// 🔔 TOAST SYSTEM
 // ============================================
 
 function showToast(message) {
@@ -172,16 +120,17 @@ function showToast(message) {
 
   clearTimeout(window.toastTimeout);
 
-  window.toastTimeout = setTimeout(() => {
+  window.toastTimeout =
+    setTimeout(() => {
 
-    toast.classList.remove('show');
+      toast.classList.remove('show');
 
-  }, 2600);
+    }, 2600);
 }
 
 
 // ============================================
-// 🏷️ CATEGORY EMOJIS
+// 🏷️ CATEGORY EMOJI
 // ============================================
 
 function getCategoryEmoji(category) {
@@ -227,23 +176,48 @@ function getPriorityClass(priority) {
 
 
 // ============================================
-// 🎨 RANDOM MOTIVATION
+// 💬 MOTIVATION MESSAGES
 // ============================================
 
 const motivationMessages = [
 
   '🚀 Stay focused and productive!',
 
-  '🔥 Great things take consistency!',
+  '🔥 Keep building momentum!',
 
-  '💎 Small progress is still progress!',
+  '⚡ Small progress is still progress!',
 
-  '⚡ Make today count!',
+  '🏆 You are doing amazing today!',
 
-  '🏆 Productivity looks good on you!',
+  '💎 Discipline creates success!',
 
-  '🌟 One task at a time!'
+  '🌟 Finish strong today!'
 ];
+
+
+// ============================================
+// 📅 FORMAT DATE
+// ============================================
+
+function formatDate(date) {
+
+  if (!date) return '';
+
+  const options = {
+
+    month: 'short',
+
+    day: 'numeric',
+
+    year: 'numeric'
+  };
+
+  return new Date(date)
+    .toLocaleDateString(
+      'en-US',
+      options
+    );
+}
 
 
 // ============================================
@@ -264,7 +238,8 @@ function addTask() {
   const priority =
     priorityInput.value;
 
-  // ❌ Validation
+  // ❌ VALIDATION
+
   if (!text) {
 
     errorMsg.textContent =
@@ -277,7 +252,8 @@ function addTask() {
 
   errorMsg.textContent = '';
 
-  // 🆕 Create Task
+  // 🆕 TASK OBJECT
+
   const newTask = {
 
     id: Date.now(),
@@ -292,8 +268,11 @@ function addTask() {
 
     completed: false,
 
-    createdAt: new Date().toISOString()
+    createdAt:
+      new Date().toISOString()
   };
+
+  // ➕ ADD NEW TASK
 
   tasks.unshift(newTask);
 
@@ -306,7 +285,7 @@ function addTask() {
   resetInputs();
 
   showToast(
-    '✅ Task added successfully'
+    '✅ Task added'
   );
 }
 
@@ -321,9 +300,11 @@ function resetInputs() {
 
   dueDateInput.value = '';
 
-  categoryInput.value = 'Personal';
+  categoryInput.value =
+    'Personal';
 
-  priorityInput.value = 'Low';
+  priorityInput.value =
+    'Low';
 
   taskInput.focus();
 }
@@ -353,7 +334,7 @@ function deleteTask(id) {
 
 
 // ============================================
-// ✅ COMPLETE TASK
+// ✅ TOGGLE COMPLETE
 // ============================================
 
 function toggleComplete(id) {
@@ -383,7 +364,7 @@ function toggleComplete(id) {
 
 
 // ============================================
-// ✏️ INLINE EDIT TASK
+// ✏️ EDIT TASK
 // ============================================
 
 function editTask(id) {
@@ -397,7 +378,7 @@ function editTask(id) {
 
   const newText =
     prompt(
-      '✏️ Edit Task',
+      '✏️ Edit task',
       task.text
     );
 
@@ -473,7 +454,9 @@ function updateProgress() {
     total === 0
       ? 0
       : Math.round(
-          (completed / total) * 100
+          (
+            completed / total
+          ) * 100
         );
 
   progressFill.style.width =
@@ -485,7 +468,7 @@ function updateProgress() {
 
 
 // ============================================
-// 🏆 STREAK
+// 🔥 STREAK
 // ============================================
 
 function updateStreak() {
@@ -533,21 +516,28 @@ function updateMotivation() {
 
 
 // ============================================
-// 🕒 LIVE CLOCK
+// ⏰ LIVE CLOCK
 // ============================================
 
 function updateClock() {
 
-  const now = new Date();
+  const now =
+    new Date();
 
   liveClock.textContent =
-    now.toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    now.toLocaleTimeString(
+      [],
+      {
+        hour: '2-digit',
+        minute: '2-digit'
+      }
+    );
 }
 
-setInterval(updateClock, 1000);
+setInterval(
+  updateClock,
+  1000
+);
 
 
 // ============================================
@@ -556,20 +546,27 @@ setInterval(updateClock, 1000);
 
 function getFilteredTasks() {
 
-  let filtered = [...tasks];
+  let filtered =
+    [...tasks];
 
   // 🔍 SEARCH
+
   filtered =
     filtered.filter(task =>
       task.text
         .toLowerCase()
         .includes(
-          currentSearch.toLowerCase()
+          currentSearch
+            .toLowerCase()
         )
     );
 
   // 🔽 FILTER
-  if (currentFilter === 'completed') {
+
+  if (
+    currentFilter ===
+    'completed'
+  ) {
 
     filtered =
       filtered.filter(
@@ -577,7 +574,8 @@ function getFilteredTasks() {
       );
 
   } else if (
-    currentFilter === 'pending'
+    currentFilter ===
+    'pending'
   ) {
 
     filtered =
@@ -587,6 +585,7 @@ function getFilteredTasks() {
   }
 
   // ↕️ SORT
+
   switch (currentSort) {
 
     case 'oldest':
@@ -602,15 +601,22 @@ function getFilteredTasks() {
     case 'priority':
 
       const priorityOrder = {
+
         High: 1,
+
         Medium: 2,
+
         Low: 3
       };
 
       filtered.sort(
         (a, b) =>
-          priorityOrder[a.priority] -
-          priorityOrder[b.priority]
+          priorityOrder[
+            a.priority
+          ] -
+          priorityOrder[
+            b.priority
+          ]
       );
 
       break;
@@ -619,7 +625,9 @@ function getFilteredTasks() {
 
       filtered.sort(
         (a, b) =>
-          a.text.localeCompare(b.text)
+          a.text.localeCompare(
+            b.text
+          )
       );
 
       break;
@@ -648,8 +656,11 @@ function renderTasks() {
   const filteredTasks =
     getFilteredTasks();
 
-  // 📭 Empty State
-  if (filteredTasks.length === 0) {
+  // 📭 EMPTY STATE
+
+  if (
+    filteredTasks.length === 0
+  ) {
 
     taskList.innerHTML = `
 
@@ -664,7 +675,7 @@ function renderTasks() {
         </h3>
 
         <p>
-          Add a task and start being productive.
+          Add tasks and start being productive.
         </p>
 
       </li>
@@ -674,7 +685,8 @@ function renderTasks() {
     return;
   }
 
-  // 📋 Loop Tasks
+  // 📋 LOOP TASKS
+
   filteredTasks.forEach(task => {
 
     const li =
@@ -682,27 +694,41 @@ function renderTasks() {
 
     li.className = `
       task-item
-      ${task.completed ? 'completed' : ''}
+      ${
+        task.completed
+          ? 'completed'
+          : ''
+      }
     `;
 
-    // 📅 Overdue
+    // 📅 OVERDUE CHECK
+
     const isOverdue =
+
       task.dueDate &&
+
       task.dueDate <
+
       new Date()
         .toISOString()
         .split('T')[0] &&
+
       !task.completed;
 
     li.innerHTML = `
 
       <!-- ✅ CHECKBOX -->
+
       <label class="checkbox-wrapper">
 
         <input
           type="checkbox"
           class="task-checkbox"
-          ${task.completed ? 'checked' : ''}
+          ${
+            task.completed
+              ? 'checked'
+              : ''
+          }
         >
 
         <span class="custom-checkbox"></span>
@@ -710,7 +736,8 @@ function renderTasks() {
       </label>
 
 
-      <!-- 📝 TASK CONTENT -->
+      <!-- 📝 CONTENT -->
+
       <div class="task-content">
 
         <div class="task-top-row">
@@ -744,15 +771,21 @@ function renderTasks() {
 
           ${
             task.dueDate
-            ? `
-              <span class="
-                task-due-date
-                ${isOverdue ? 'overdue' : ''}
-              ">
-                📅 ${task.dueDate}
-              </span>
-            `
-            : ''
+              ? `
+                <span class="
+                  task-due-date
+                  ${
+                    isOverdue
+                      ? 'overdue'
+                      : ''
+                  }
+                ">
+
+                  📅 ${formatDate(task.dueDate)}
+
+                </span>
+              `
+              : ''
           }
 
         </div>
@@ -761,18 +794,19 @@ function renderTasks() {
 
 
       <!-- ⚙️ ACTIONS -->
+
       <div class="task-actions">
 
         <button
           class="edit-btn"
-          title="Edit Task"
+          title="Edit"
         >
           ✏️
         </button>
 
         <button
           class="delete-btn"
-          title="Delete Task"
+          title="Delete"
         >
           🗑️
         </button>
@@ -780,28 +814,40 @@ function renderTasks() {
       </div>
     `;
 
-    // ✅ Toggle Complete
+    // ✅ COMPLETE
+
     li.querySelector(
       '.task-checkbox'
     ).addEventListener(
       'change',
-      () => toggleComplete(task.id)
+      () =>
+        toggleComplete(
+          task.id
+        )
     );
 
-    // ✏️ Edit
+    // ✏️ EDIT
+
     li.querySelector(
       '.edit-btn'
     ).addEventListener(
       'click',
-      () => editTask(task.id)
+      () =>
+        editTask(
+          task.id
+        )
     );
 
-    // 🗑️ Delete
+    // 🗑️ DELETE
+
     li.querySelector(
       '.delete-btn'
     ).addEventListener(
       'click',
-      () => deleteTask(task.id)
+      () =>
+        deleteTask(
+          task.id
+        )
     );
 
     taskList.appendChild(li);
@@ -810,7 +856,7 @@ function renderTasks() {
 
 
 // ============================================
-// 🔄 UPDATE ALL UI
+// 🔄 UPDATE UI
 // ============================================
 
 function updateUI() {
@@ -852,6 +898,7 @@ filterBtns.forEach(btn => {
     () => {
 
       filterBtns.forEach(button =>
+
         button.classList.remove(
           'active'
         )
@@ -890,20 +937,19 @@ if (sortSelect) {
 
 
 // ============================================
-// 🗑️ CLEAR ALL TASKS
+// 🗑️ CLEAR ALL
 // ============================================
 
 clearAllBtn.addEventListener(
   'click',
   () => {
 
-    if (
-      !confirm(
+    const confirmed =
+      confirm(
         'Delete all tasks?'
-      )
-    ) {
-      return;
-    }
+      );
+
+    if (!confirmed) return;
 
     tasks = [];
 
@@ -914,7 +960,7 @@ clearAllBtn.addEventListener(
     updateUI();
 
     showToast(
-      '🗑️ All tasks deleted'
+      '🗑️ All tasks cleared'
     );
   }
 );
@@ -947,7 +993,9 @@ if (exportBtn) {
         );
 
       const url =
-        URL.createObjectURL(blob);
+        URL.createObjectURL(
+          blob
+        );
 
       const a =
         document.createElement('a');
@@ -959,7 +1007,9 @@ if (exportBtn) {
 
       a.click();
 
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(
+        url
+      );
 
       showToast(
         '📤 Tasks exported'
@@ -998,8 +1048,6 @@ addTaskBtn.addEventListener(
 // ============================================
 // 🚀 INITIALIZE APP
 // ============================================
-
-initializeTheme();
 
 renderTasks();
 
