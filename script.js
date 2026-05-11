@@ -1,5 +1,5 @@
 // ============================================
-// TASKFLOW — MODERN BLACK EDITION
+// TASKFLOW — PREMIUM BLACK EDITION
 // ============================================
 
 
@@ -49,6 +49,9 @@ const progressFill =
 const progressText =
   document.getElementById('progressText');
 
+const progressPercent =
+  document.getElementById('progressPercent');
+
 const streakCount =
   document.getElementById('streakCount');
 
@@ -60,6 +63,9 @@ const liveClock =
 
 const clearAllBtn =
   document.getElementById('clearAllBtn');
+
+const exportBtn =
+  document.getElementById('exportBtn');
 
 const sortSelect =
   document.getElementById('sortSelect');
@@ -77,7 +83,9 @@ const toast =
 
 let tasks =
   JSON.parse(
-    localStorage.getItem('taskflow_tasks')
+    localStorage.getItem(
+      'taskflow_v2_tasks'
+    )
   ) || [];
 
 let currentFilter = 'all';
@@ -118,8 +126,37 @@ const motivationMessages = [
 function saveTasks() {
 
   localStorage.setItem(
-    'taskflow_tasks',
+
+    'taskflow_v2_tasks',
+
     JSON.stringify(tasks)
+  );
+}
+
+
+// ============================================
+// ESCAPE HTML
+// ============================================
+
+function escapeHTML(str) {
+
+  return str.replace(
+
+    /[&<>"']/g,
+
+    tag => ({
+
+      '&': '&amp;',
+
+      '<': '&lt;',
+
+      '>': '&gt;',
+
+      '"': '&quot;',
+
+      "'": '&#039;'
+
+    }[tag])
   );
 }
 
@@ -137,6 +174,7 @@ function showToast(message) {
   clearTimeout(window.toastTimeout);
 
   window.toastTimeout =
+
     setTimeout(() => {
 
       toast.classList.remove('show');
@@ -199,7 +237,7 @@ function addTask() {
 
     id: Date.now(),
 
-    text,
+    text: escapeHTML(text),
 
     dueDate,
 
@@ -297,11 +335,21 @@ function toggleComplete(id) {
   if (task.completed) {
 
     document.body.animate(
+
       [
-        { transform: 'scale(1)' },
-        { transform: 'scale(1.01)' },
-        { transform: 'scale(1)' }
+        {
+          transform: 'scale(1)'
+        },
+
+        {
+          transform: 'scale(1.01)'
+        },
+
+        {
+          transform: 'scale(1)'
+        }
       ],
+
       {
         duration: 250
       }
@@ -311,7 +359,9 @@ function toggleComplete(id) {
   showToast(
 
     task.completed
+
       ? 'Task completed'
+
       : 'Task marked as pending'
   );
 }
@@ -344,7 +394,9 @@ function editTask(id) {
   }
 
   task.text =
-    newText.trim();
+    escapeHTML(
+      newText.trim()
+    );
 
   saveTasks();
 
@@ -402,8 +454,11 @@ function updateProgress() {
     ).length;
 
   const percent =
+
     total === 0
+
       ? 0
+
       : Math.round(
         (completed / total) * 100
       );
@@ -412,6 +467,9 @@ function updateProgress() {
     `${percent}%`;
 
   progressText.textContent =
+    `${percent}%`;
+
+  progressPercent.textContent =
     `${percent}%`;
 }
 
@@ -452,6 +510,7 @@ function updateMotivation() {
   }
 
   const randomMessage =
+
     motivationMessages[
     Math.floor(
       Math.random() *
@@ -473,6 +532,7 @@ function updateClock() {
   const now = new Date();
 
   liveClock.textContent =
+
     now.toLocaleTimeString([], {
 
       hour: '2-digit',
@@ -493,6 +553,7 @@ function getFilteredTasks() {
   let filtered = [...tasks];
 
   filtered =
+
     filtered.filter(task =>
 
       task.text
@@ -505,6 +566,7 @@ function getFilteredTasks() {
   if (currentFilter === 'completed') {
 
     filtered =
+
       filtered.filter(
         task => task.completed
       );
@@ -514,6 +576,7 @@ function getFilteredTasks() {
   ) {
 
     filtered =
+
       filtered.filter(
         task => !task.completed
       );
@@ -524,7 +587,9 @@ function getFilteredTasks() {
     case 'oldest':
 
       filtered.sort(
+
         (a, b) =>
+
           new Date(a.createdAt) -
           new Date(b.createdAt)
       );
@@ -543,7 +608,9 @@ function getFilteredTasks() {
       };
 
       filtered.sort(
+
         (a, b) =>
+
           priorityOrder[a.priority] -
           priorityOrder[b.priority]
       );
@@ -553,7 +620,9 @@ function getFilteredTasks() {
     case 'alphabetical':
 
       filtered.sort(
+
         (a, b) =>
+
           a.text.localeCompare(b.text)
       );
 
@@ -562,7 +631,9 @@ function getFilteredTasks() {
     default:
 
       filtered.sort(
+
         (a, b) =>
+
           new Date(b.createdAt) -
           new Date(a.createdAt)
       );
@@ -590,7 +661,9 @@ function renderTasks() {
       <li class="empty-state">
 
         <div class="empty-icon">
-          •
+
+          <i data-lucide="inbox"></i>
+
         </div>
 
         <h3>
@@ -603,6 +676,8 @@ function renderTasks() {
 
       </li>
     `;
+
+    lucide.createIcons();
 
     return;
   }
@@ -660,14 +735,16 @@ function renderTasks() {
           </span>
 
           ${task.dueDate
+
         ? `
-                <span class="
-                  task-date
-                  ${isOverdue ? 'overdue' : ''}
-                ">
-                  ${task.dueDate}
-                </span>
-              `
+            <span class="
+              task-date
+              ${isOverdue ? 'overdue' : ''}
+            ">
+              ${task.dueDate}
+            </span>
+          `
+
         : ''
       }
 
@@ -680,13 +757,17 @@ function renderTasks() {
         <button
           class="icon-btn edit-btn"
         >
-          Edit
+
+          <i data-lucide="pencil"></i>
+
         </button>
 
         <button
           class="icon-btn delete-btn"
         >
-          Delete
+
+          <i data-lucide="trash-2"></i>
+
         </button>
 
       </div>
@@ -714,7 +795,31 @@ function renderTasks() {
     );
 
     taskList.appendChild(li);
+
+    li.animate(
+
+      [
+        {
+          opacity: 0,
+          transform:
+            'translateY(10px)'
+        },
+
+        {
+          opacity: 1,
+          transform:
+            'translateY(0)'
+        }
+      ],
+
+      {
+        duration: 300,
+        easing: 'ease'
+      }
+    );
   });
+
+  lucide.createIcons();
 }
 
 
@@ -792,6 +897,54 @@ sortSelect.addEventListener(
       e.target.value;
 
     renderTasks();
+  }
+);
+
+
+// ============================================
+// EXPORT TASKS
+// ============================================
+
+exportBtn.addEventListener(
+  'click',
+  () => {
+
+    const data =
+
+      JSON.stringify(
+        tasks,
+        null,
+        2
+      );
+
+    const blob =
+
+      new Blob(
+        [data],
+        {
+          type:
+            'application/json'
+        }
+      );
+
+    const url =
+      URL.createObjectURL(blob);
+
+    const a =
+      document.createElement('a');
+
+    a.href = url;
+
+    a.download =
+      'taskflow-tasks.json';
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+    showToast(
+      'Tasks exported'
+    );
   }
 );
 
@@ -876,4 +1029,5 @@ window.addEventListener('load', () => {
 
   updateClock();
 
+  lucide.createIcons();
 });

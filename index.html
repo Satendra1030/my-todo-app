@@ -7,6 +7,10 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <meta name="theme-color" content="#050505" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
   <title>TaskFlow</title>
 
   <!-- FONT -->
@@ -17,6 +21,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
 
+  <!-- OPTIONAL FAVICON -->
+  <link rel="icon" href="favicon.png" />
+
   <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
 
@@ -24,83 +31,122 @@
 
 <body>
 
-  <!-- MAIN APP -->
-  <div class="app-container">
+
+  <!-- ======================================================
+       PREMIUM APP LAYOUT
+  ======================================================= -->
+
+  <div class="layout">
 
 
-    <!-- TOPBAR -->
-    <header class="topbar">
+    <!-- ======================================================
+         SIDEBAR
+    ======================================================= -->
 
-      <div class="logo-section">
+    <aside class="sidebar">
 
-        <h1>TaskFlow</h1>
+      <div class="sidebar-top">
 
-        <p>
-          Modern productivity dashboard
-        </p>
+        <div class="sidebar-logo">
 
-      </div>
+          <div class="logo-circle"></div>
 
+          <h2>TaskFlow</h2>
 
-      <div class="focus-card">
-
-        <h3>Focus Mode</h3>
-
-        <p>
-          Stay organized and productive throughout your day.
-        </p>
+        </div>
 
       </div>
 
-    </header>
+
+      <nav class="sidebar-nav">
+
+        <button class="sidebar-link active">
+
+          <i data-lucide="layout-dashboard"></i>
+
+          <span>Dashboard</span>
+
+        </button>
+
+
+        <button class="sidebar-link">
+
+          <i data-lucide="check-circle-2"></i>
+
+          <span>Tasks</span>
+
+        </button>
+
+
+        <button class="sidebar-link">
+
+          <i data-lucide="bar-chart-3"></i>
+
+          <span>Analytics</span>
+
+        </button>
+
+
+        <button class="sidebar-link">
+
+          <i data-lucide="settings"></i>
+
+          <span>Settings</span>
+
+        </button>
+
+      </nav>
+
+
+      <div class="sidebar-bottom">
+
+        <div class="focus-mini-card">
+
+          <h4>Focus Mode</h4>
+
+          <p>
+            Stay productive and consistent.
+          </p>
+
+        </div>
+
+      </div>
+
+    </aside>
 
 
 
-    <!-- HERO -->
-    <section class="hero-section">
+    <!-- ======================================================
+         MAIN APP
+    ======================================================= -->
+
+    <main class="app-container">
 
 
-      <!-- LEFT -->
-      <div class="hero-left">
+      <!-- ======================================================
+           TOPBAR
+      ======================================================= -->
 
-        <h2>
-          Organize Your Workflow
-        </h2>
+      <header class="topbar">
 
-        <p>
-          Manage tasks, track progress, and stay focused with a clean productivity workspace.
-        </p>
+        <div class="logo-section">
 
+          <h1>
+            Productivity Dashboard
+          </h1>
 
-        <!-- QUICK STATS -->
-        <div class="quick-stats">
+          <p>
+            Organize tasks with a modern workflow.
+          </p>
 
-
-          <div class="quick-card">
-
-            <h4>Progress</h4>
-
-            <span id="progressText">
-              0%
-            </span>
-
-          </div>
+        </div>
 
 
-          <div class="quick-card">
+        <div class="topbar-right">
 
-            <h4>Completed</h4>
+          <div class="topbar-pill">
 
-            <span id="streakCount">
-              0 Done
-            </span>
-
-          </div>
-
-
-          <div class="quick-card">
-
-            <h4>Live Time</h4>
+            <i data-lucide="clock-3"></i>
 
             <span id="liveClock">
               00:00
@@ -108,266 +154,497 @@
 
           </div>
 
+        </div>
 
-          <div class="quick-card">
+      </header>
 
-            <h4>Total Tasks</h4>
 
-            <span id="totalCount">
-              0
-            </span>
 
+      <!-- ======================================================
+           HERO SECTION
+      ======================================================= -->
+
+      <section class="hero-section">
+
+
+        <!-- LEFT -->
+
+        <div class="hero-left">
+
+          <h2>
+            Manage Your Work
+            With Clarity
+          </h2>
+
+          <p>
+            Track tasks, build consistency,
+            stay organized, and maintain
+            productivity with a modern
+            black dashboard interface.
+          </p>
+
+
+          <!-- QUICK STATS -->
+
+          <div class="quick-stats">
+
+
+            <div class="quick-card">
+
+              <div class="quick-icon">
+
+                <i data-lucide="activity"></i>
+
+              </div>
+
+              <div>
+
+                <h4>Progress</h4>
+
+                <span id="progressText">
+                  0%
+                </span>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="quick-card">
+
+              <div class="quick-icon">
+
+                <i data-lucide="check-check"></i>
+
+              </div>
+
+              <div>
+
+                <h4>Completed</h4>
+
+                <span id="streakCount">
+                  0 Done
+                </span>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="quick-card">
+
+              <div class="quick-icon">
+
+                <i data-lucide="layers-3"></i>
+
+              </div>
+
+              <div>
+
+                <h4>Total Tasks</h4>
+
+                <span id="totalCount">
+                  0
+                </span>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="quick-card">
+
+              <div class="quick-icon">
+
+                <i data-lucide="sparkles"></i>
+
+              </div>
+
+              <div>
+
+                <h4>Status</h4>
+
+                <span>
+                  Active
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- PROGRESS -->
+
+          <div class="progress-wrapper">
+
+            <div class="progress-top">
+
+              <h4>
+                Productivity Progress
+              </h4>
+
+              <span id="progressPercent">
+                0%
+              </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+              <div id="progressFill" class="progress-fill"></div>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- MOTIVATION -->
+
+          <div id="motivationBox" class="motivation-box">
+            Start your productive day.
           </div>
 
         </div>
 
 
-        <!-- PROGRESS -->
-        <div class="progress-wrapper">
 
-          <h4>
-            Productivity Progress
-          </h4>
+        <!-- RIGHT -->
 
-          <div class="progress-bar">
+        <div class="hero-right">
 
-            <div id="progressFill" class="progress-fill"></div>
+          <h2 class="form-title">
+            Add New Task
+          </h2>
 
-          </div>
+
+          <section class="task-form">
+
+
+            <!-- TASK -->
+
+            <div class="input-group">
+
+              <i data-lucide="pen-square"></i>
+
+              <input type="text" id="taskInput" placeholder="Enter task..." />
+
+            </div>
+
+
+
+            <!-- DATE -->
+
+            <div class="input-group">
+
+              <i data-lucide="calendar-days"></i>
+
+              <input type="date" id="dueDateInput" />
+
+            </div>
+
+
+
+            <!-- CATEGORY -->
+
+            <div class="input-group">
+
+              <i data-lucide="folder"></i>
+
+              <select id="categoryInput">
+
+                <option value="Personal">
+                  Personal
+                </option>
+
+                <option value="Study">
+                  Study
+                </option>
+
+                <option value="Work">
+                  Work
+                </option>
+
+                <option value="Health">
+                  Health
+                </option>
+
+                <option value="Shopping">
+                  Shopping
+                </option>
+
+              </select>
+
+            </div>
+
+
+
+            <!-- PRIORITY -->
+
+            <div class="input-group">
+
+              <i data-lucide="flag"></i>
+
+              <select id="priorityInput">
+
+                <option value="Low">
+                  Low
+                </option>
+
+                <option value="Medium">
+                  Medium
+                </option>
+
+                <option value="High">
+                  High
+                </option>
+
+              </select>
+
+            </div>
+
+
+
+            <!-- BUTTON -->
+
+            <button id="addTaskBtn" class="add-btn">
+
+              <i data-lucide="plus"></i>
+
+              <span>
+                Add Task
+              </span>
+
+            </button>
+
+          </section>
+
+
+          <!-- ERROR -->
+
+          <p id="errorMsg"></p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ======================================================
+           CONTROLS
+      ======================================================= -->
+
+      <section class="controls-section">
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+          <i data-lucide="search"></i>
+
+          <input type="text" id="searchInput" placeholder="Search tasks..." />
 
         </div>
 
 
-        <!-- MOTIVATION -->
-        <div id="motivationBox" class="motivation-box">
-          Start your productive day.
-        </div>
 
-      </div>
+        <!-- FILTERS -->
 
+        <div class="filter-group">
 
-
-      <!-- RIGHT -->
-      <div class="hero-right">
-
-        <h2 class="form-title">
-          Add New Task
-        </h2>
-
-
-        <!-- FORM -->
-        <section class="task-form">
-
-
-          <!-- TASK -->
-          <input type="text" id="taskInput" placeholder="Enter your task..." />
-
-
-          <!-- DATE -->
-          <input type="date" id="dueDateInput" />
-
-
-          <!-- CATEGORY -->
-          <select id="categoryInput">
-
-            <option value="Personal">
-              Personal
-            </option>
-
-            <option value="Study">
-              Study
-            </option>
-
-            <option value="Work">
-              Work
-            </option>
-
-            <option value="Health">
-              Health
-            </option>
-
-            <option value="Shopping">
-              Shopping
-            </option>
-
-          </select>
-
-
-          <!-- PRIORITY -->
-          <select id="priorityInput">
-
-            <option value="Low">
-              Low
-            </option>
-
-            <option value="Medium">
-              Medium
-            </option>
-
-            <option value="High">
-              High
-            </option>
-
-          </select>
-
-
-          <!-- BUTTON -->
-          <button id="addTaskBtn" class="add-btn">
-            Add Task
+          <button class="filter-btn active" data-filter="all">
+            All
           </button>
 
-        </section>
+          <button class="filter-btn" data-filter="completed">
+            Completed
+          </button>
 
+          <button class="filter-btn" data-filter="pending">
+            Pending
+          </button>
 
-        <!-- ERROR -->
-        <p id="errorMsg"></p>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- CONTROLS -->
-    <section class="controls-section">
-
-
-      <!-- SEARCH -->
-      <div class="search-box">
-
-        <input type="text" id="searchInput" placeholder="Search tasks..." />
-
-      </div>
+        </div>
 
 
 
-      <!-- FILTERS -->
-      <div class="filter-group">
+        <!-- SORT -->
 
-        <button class="filter-btn active" data-filter="all">
-          All
+        <select id="sortSelect" class="sort-select">
+
+          <option value="newest">
+            Newest
+          </option>
+
+          <option value="oldest">
+            Oldest
+          </option>
+
+          <option value="priority">
+            Priority
+          </option>
+
+          <option value="alphabetical">
+            A-Z
+          </option>
+
+        </select>
+
+      </section>
+
+
+
+      <!-- ======================================================
+           STATS GRID
+      ======================================================= -->
+
+      <section class="stats-grid">
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+
+            <i data-lucide="check-circle-2"></i>
+
+          </div>
+
+          <h2 id="completedCount">
+            0
+          </h2>
+
+          <p>
+            Completed
+          </p>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+
+            <i data-lucide="clock-3"></i>
+
+          </div>
+
+          <h2 id="pendingCount">
+            0
+          </h2>
+
+          <p>
+            Pending
+          </p>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+
+            <i data-lucide="list-todo"></i>
+
+          </div>
+
+          <h2 id="taskCountLabel">
+            0 Tasks
+          </h2>
+
+          <p>
+            Current Tasks
+          </p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ======================================================
+           TASK LIST
+      ======================================================= -->
+
+      <ul id="taskList" class="task-list">
+
+        <!-- JS RENDERS -->
+
+      </ul>
+
+
+
+      <!-- ======================================================
+           BOTTOM ACTIONS
+      ======================================================= -->
+
+      <section class="bottom-actions">
+
+
+        <button id="exportBtn" class="add-btn">
+
+          <i data-lucide="download"></i>
+
+          <span>
+            Export Tasks
+          </span>
+
         </button>
 
-        <button class="filter-btn" data-filter="completed">
-          Completed
+
+
+        <button id="clearAllBtn" class="clear-btn">
+
+          <i data-lucide="trash-2"></i>
+
+          <span>
+            Clear All
+          </span>
+
         </button>
 
-        <button class="filter-btn" data-filter="pending">
-          Pending
-        </button>
+      </section>
 
-      </div>
-
-
-
-      <!-- SORT -->
-      <select id="sortSelect" class="sort-select">
-
-        <option value="newest">
-          Newest
-        </option>
-
-        <option value="oldest">
-          Oldest
-        </option>
-
-        <option value="priority">
-          Priority
-        </option>
-
-        <option value="alphabetical">
-          A-Z
-        </option>
-
-      </select>
-
-    </section>
-
-
-
-    <!-- STATS -->
-    <section class="stats-grid">
-
-
-      <div class="stat-card">
-
-        <h2 id="completedCount">
-          0
-        </h2>
-
-        <p>
-          Completed
-        </p>
-
-      </div>
-
-
-
-      <div class="stat-card">
-
-        <h2 id="pendingCount">
-          0
-        </h2>
-
-        <p>
-          Pending
-        </p>
-
-      </div>
-
-
-
-      <div class="stat-card">
-
-        <h2 id="taskCountLabel">
-          0 Tasks
-        </h2>
-
-        <p>
-          Current Tasks
-        </p>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- TASK LIST -->
-    <ul id="taskList" class="task-list">
-
-      <!-- JS RENDERS TASKS -->
-
-    </ul>
-
-
-
-    <!-- BOTTOM ACTIONS -->
-    <section class="bottom-actions">
-
-
-      <button id="exportBtn" class="add-btn">
-        Export Tasks
-      </button>
-
-
-
-      <button id="clearAllBtn" class="clear-btn">
-        Clear All
-      </button>
-
-    </section>
+    </main>
 
   </div>
 
 
 
-  <!-- TOAST -->
+  <!-- ======================================================
+       TOAST
+  ======================================================= -->
+
   <div id="toast" class="toast"></div>
 
 
 
-  <!-- JAVASCRIPT -->
+  <!-- ======================================================
+       LUCIDE ICONS
+  ======================================================= -->
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+
+    lucide.createIcons();
+
+  </script>
+
+
+
+  <!-- ======================================================
+       JAVASCRIPT
+  ======================================================= -->
+
   <script src="script.js"></script>
 
 </body>
